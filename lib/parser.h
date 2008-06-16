@@ -21,16 +21,17 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  ***************************************************************************/
 
-#if !defined(XMLPP)
-#include "../common.h"
+#if !defined(XMLPP_COMMON)
+#include "common.h"
+
+#define XMLPP_COMMON TRUE
 #endif
 
 #if !defined(XMLPP_XML)
-#include "../xml/xml.h"
+#include "xml.h"
 #endif
 
 namespace xmlpp {
-
 
 /// @brief  The DOMParser class parses a xml file or string and prepares the DOM
 ///         object.
@@ -38,10 +39,10 @@ class DOMParser
 {
   private:
     /// @brief  Plain text of the string to parse.
-    std::string plain;
+    std::string plainText;
 
     /// @brief  The XML object.
-    XML* xml;
+    XML* xmlDocument;
 
     /// @brief  Gets the DOMParser file.
     ///
@@ -51,26 +52,55 @@ class DOMParser
     ///                    DOMParser_STRING to parse from string.
     ///
     /// @return  The plain text.
-    std::string getPlain(std::string xmlString);
+    std::string fetch (std::string xmlString);
+
+    /// @brief  Parses the text passed.
+    ///
+    /// @param  The text to parse.
+    ///
+    /// @return  The XML object.
+    XML* parse (std::string xmlText);
 
   public:
     /// @brief  Creates the DOMParser object.
-    DOMParser();
+    DOMParser (void);
 
     /// @brief  Creates the DOMParser object and parse the given file.
     /// 
     /// @param  xmlFile  The filename.
-    DOMParser(const char* xmlFile);
+    DOMParser (std::string xmlFile);
 
     /// @brief  Creates the DOMParser object and parse the given file.
     /// 
     /// @param  xmlFile  The filename.
-    DOMParser(std::string xmlFile);
+    DOMParser (const char* xmlFile);
 
-    /// @brief  Gets the plain text DOMParser file.
+    XML* parseFromFile (std::string xmlText);
+    XML* parseFromFile (const char* xmlText);
+
+    /// @brief  Parses the text passed.
     ///
-    /// @return  The xml file.
-    std::string document();
+    /// @param  The text to parse.
+    ///
+    /// @return  The XML object.
+    XML* parseFromString (std::string xmlText);
+
+    /// @brief  Parses the text passed.
+    ///
+    /// @param  The text to parse.
+    ///
+    /// @return  The XML object.
+    XML* parseFromString (const char* xmlText);
+
+    /// @brief Gets the last parsed plain text.
+    ///
+    /// @return The last plain text document.
+    std::string plain (void);
+
+    /// @brief  Gets the last parsed XML document.
+    ///
+    /// @return  The last XML object.
+    XML* document (void);
 };
 
 };

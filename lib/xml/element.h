@@ -1,4 +1,4 @@
-/// @file element.h
+/// @file xml/element.h
 /// @brief This file includes the XML element definitions.
 
 /****************************************************************************
@@ -21,10 +21,12 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  ***************************************************************************/
 
-#include "common.h"
+#if defined(XMLPP_XML)
 
 namespace xmlpp {
 
 
 
 };
+
+#endif
