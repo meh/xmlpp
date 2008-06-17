@@ -41,6 +41,9 @@ class XMLAttribute
     /// @brief  The attribute value.
     std::string value;
 
+    /// @brief  Plain text of the attribute.
+    std::string plain;
+
   public:
     /// @brief  Create the attribute without initalizing it.
     XMLAttribute ();
@@ -95,6 +98,11 @@ class XMLAttribute
     ///
     /// @return  True if the attribute is initialized.
     bool isInitialized (void);
+
+    // Misc.
+    
+    /// @brief  Updates the plain text version of the attribute.
+    void updatePlain (void);
 
     // Operators.
     std::string operator [] (const char* mode) const throw();

@@ -7,13 +7,11 @@ using namespace xmlpp;
 int main (int argc, char *argv[])
 {
     XMLElement *element = new XMLElement("pokemon");
+    element->setAttribute("gay", "\"i'm gay\"");
 
-    if (element->setAttribute("lol", "win")) {
-        cout << element->getAttribute("lol")["value"] << endl;
-    }
-    else {
-        cout << "Error while adding the attribute." << endl;
-    }
+    cout << "Name:  " << element->getAttribute("gay")["name"]  << endl;
+    cout << "Value: " << element->getAttribute("gay")["value"] << endl;
+    cout << "Plain: " << element->getAttribute("gay")["plain"] << endl;
 
     return 0;
 }

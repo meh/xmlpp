@@ -1,5 +1,5 @@
-/// @file common.h
-/// @brief This file includes the common constants and includes.
+/// @file utils.h
+/// @brief This file includes the utils definitions.
 
 /****************************************************************************
 * XML++ is a library to work with XML files.                                *
@@ -21,20 +21,16 @@
 * along with this program.  If not, see <http://www.gnu.org/licenses/>.     *
 ****************************************************************************/
 
+#include "common.h"
 
-#if !defined(XMLPP_COMMON)
-#define XMLPP_COMMON TRUE
-
-#include <string.h>
-#include <fstream>
-#include <string>
-#include <vector>
-#include <map>
-#include "exception.h"
-#include "utils.h"
-
-// Default defines
-#define XML_FILE 1
-#define XML_STRING 2
-#endif
+namespace xmlpp {
+    namespace utils {
+        /// @brief  PHP-like addslashes()
+        ///
+        /// @param  text  The text to escape.
+        ///
+        /// @return  The slashed string.
+        std::string addSlashes (std::string text);
+    };
+};
 

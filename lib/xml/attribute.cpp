@@ -35,6 +35,7 @@ XMLAttribute::XMLAttribute (std::string attributeName, std::string attributeValu
     this->initialized = true;
     this->setName(attributeName);
     this->setValue(attributeValue);
+    this->updatePlain();
 }
 
 XMLAttribute::XMLAttribute (const char* attributeName, const char* attributeValue)
@@ -42,6 +43,7 @@ XMLAttribute::XMLAttribute (const char* attributeName, const char* attributeValu
     this->initialized = true;
     this->setName((std::string) attributeName);
     this->setValue((std::string) attributeValue);
+    this->updatePlain();
 }
 
 // Setters.
@@ -81,6 +83,14 @@ bool XMLAttribute::isInitialized (void)
     return this->initialized;
 }
 
+// Misc.
+void XMLAttribute::updatePlain (void)
+{
+    if (!this->name.empty() && !this->value.empty()) {
+        this->plain = this->name + "=\"" + utils::addSlashes(this->value) + "\"";
+    }
+}
+
 // Operators.
 std::string XMLAttribute::operator [] (const char* mode) const throw()
 {
@@ -89,6 +99,9 @@ std::string XMLAttribute::operator [] (const char* mode) const throw()
     }
     else if (strcmp("value", mode) == 0) {
         return this->value;
+    }
+    else if (strcmp("plain", mode) == 0) {
+        return this->plain;
     }
     else {
         throw XMLException(ATTRIBUTE_MODE_NOT_EXISTENT);
