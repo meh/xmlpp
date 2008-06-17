@@ -24,21 +24,38 @@
 #include "utils.h"
 
 namespace xmlpp {
-    namespace utils {
-        std::string addSlashes (std::string text)
-        {
-            std::string slashed = "";
-    
-            for (size_t i = 0; i < text.length(); i++) {
-                if (text[i] == '"' || text[i] == '\'') {
-                    slashed.append(1, '\\');
-                }
-            
-                slashed.append(1, text.at(i));
+
+namespace utils {
+    std::string escapeSlashes (std::string text)
+    {
+        std::string escaped = "";
+
+        for (size_t i = 0; i < text.length(); i++) {
+            if (text[i] == '\\') {
+                escaped.append(1, '\\');
             }
-    
-            return slashed;
+
+            escaped.append(1, text[i]);
         }
-    };
+
+        return escaped;
+    }
+
+    std::string addSlashes (std::string text)
+    {
+        std::string slashed = "";
+
+        for (size_t i = 0; i < text.length(); i++) {
+            if (text[i] == '"' || text[i] == '\'' || text[i] == '\\') {
+                slashed.append(1, '\\');
+            }
+        
+            slashed.append(1, text[i]);
+        }
+
+        return slashed;
+    }
+};
+
 };
 

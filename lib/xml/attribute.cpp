@@ -87,7 +87,7 @@ bool XMLAttribute::isInitialized (void)
 void XMLAttribute::updatePlain (void)
 {
     if (!this->name.empty() && !this->value.empty()) {
-        this->plain = this->name + "=\"" + utils::addSlashes(this->value) + "\"";
+        this->plain = this->name + "=\"" + this->value + "\"";
     }
 }
 

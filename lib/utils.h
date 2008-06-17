@@ -25,6 +25,8 @@
 
 namespace xmlpp {
     namespace utils {
+        std::string escapeSlashes (std::string text);
+
         /// @brief  PHP-like addslashes()
         ///
         /// @param  text  The text to escape.
