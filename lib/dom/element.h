@@ -25,51 +25,43 @@
 #define XMLPP_XML_ELEMENT TRUE
 
 #include "../common.h"
+#include "child.h"
 #include "attribute.h"
 
 namespace xmlpp {
 
-/// @brief  The XMLElement class contains the element name, attributes and childs.
-class XMLElement
+/// @brief  The DOMElement class contains the element name, attributes and childs.
+class DOMElement : public DOMChildNode
 {
   private:
-    /// @brief  True if the element is initialized (eg. created with the full constructor)
-    bool initialized;
-
-    /// @brief  The element name.
-    std::string name;
-
-    /// @brief  Plain text view of the element.
-    std::string plainText;
-
     /// @brief  Map with the attributes.
-    XMLAttributes attributes;
+    DOMAttributes attributes;
+    
+    /// @brief  Child nodes vector (aka childNodes)
+    DOMChildNodes children;
 
   public:
-    /// @brief  Create the element without initalizing it.
-    XMLElement (void);
+    /// @brief  Create the element with initialization.
+    ///
+    /// @param  elementName  The element's name (aka tag name)
+    DOMElement (std::string elementName);
 
     /// @brief  Create the element with initialization.
     ///
     /// @param  elementName  The element's name (aka tag name)
-    XMLElement (std::string elementName);
+    DOMElement (const char* elementName);
 
-    /// @brief  Create the element with initialization.
+    /// @brief  Get the node's name.
     ///
-    /// @param  elementName  The element's name (aka tag name)
-    XMLElement (const char* elementName);
+    /// @return  The node's name
+    std::string nodeName (void);
+
+    /// @brief  Get the node's value.
+    ///
+    /// @return  The node's value.
+    std::string nodeValue (void);
 
     // Setters.
-
-    /// @brief  Set the element's name.
-    ///
-    /// @param  elementName  The element's name.
-    void setName (std::string elementName);
-
-    /// @brief  Set the element's name.
-    ///
-    /// @param  elementName  The element's name.
-    void setName (const char* elementName);
 
     /// @brief  Set an attribute to the element.
     ///
@@ -88,25 +80,20 @@ class XMLElement
     bool setAttribute (const char* attributeName, const char* attributeValue);
 
     // Getters.
-
-    /// @brief  Get the element's name.
+    
+    /// @brief  Get an attribute.
     ///
-    /// @return  The element's name
-    std::string getName (void);
+    /// @param  attributeName  The attribute's name.
+    ///
+    /// @return  The attribute object.
+    DOMAttribute getAttribute (std::string attributeName);
 
     /// @brief  Get an attribute.
     ///
     /// @param  attributeName  The attribute's name.
     ///
     /// @return  The attribute object.
-    XMLAttribute getAttribute (std::string attributeName);
-
-    /// @brief  Get an attribute.
-    ///
-    /// @param  attributeName  The attribute's name.
-    ///
-    /// @return  The attribute object.
-    XMLAttribute getAttribute (const char* attributeName);
+    DOMAttribute getAttribute (const char* attributeName);
 
     /// @brief  Get if the element is initialized or not.
     ///

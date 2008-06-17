@@ -1,5 +1,5 @@
-/// @file   xml/document.h
-/// @brief  This file includes the XML object definitions.
+/// @file xml/child.h
+/// @brief This file includes the DOM child definitions.
 
 /****************************************************************************
 * XML++ is a library to work with XML files.                                *
@@ -21,20 +21,51 @@
 * along with this program.  If not, see <http://www.gnu.org/licenses/>.     *
 ****************************************************************************/
 
-#if !defined(XMLPP_XML)
-#define XMLPP_XML TRUE
+#if !defined(XMLPP_DOM_CHILD)
+#define XMLPP_DOM_CHILD TRUE
 
 #include "../common.h"
-#include "element.h"
+
+#define DOM_ELEMENT_NODE  1
+#define DOM_TEXT_NODE     2
 
 namespace xmlpp {
 
-class XML
+class DOMChildNode
 {
+  protected:
+    /// @brief The node's type: DOM_ELEMENT_NODE or DOM_TEXT_NODE
+    DOMNodeType type;
+
+    /// @brief  Node's name.
+    std::string name;
+
+    /// @brief  Node's value.
+    std::string value;
+
+    /// @brief  Plain text view of the node.
+    std::string plainText;
+
   public:
-    XML();
+    /// @brief  Create the node.
+    ///
+    /// @param  type  The node's type.
+    DOMChildNode (DOMNodeType type);
+
+    // Getters.
+
+    /// @brief  Get the node's type.
+    ///
+    /// @return  The type. DOM_ELEMENT_NODE or DOM_TEXT_NODE
+    DOMNodeType nodeType (void);
+
+    virtual std::string nodeName (void) = 0;
+    virtual std::string nodeValue (void) = 0;
 };
+
+typedef std::vector<DOMChildNode*> DOMChildNodes;
 
 };
 
 #endif
+

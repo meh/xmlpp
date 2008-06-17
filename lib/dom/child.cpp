@@ -1,5 +1,5 @@
-/// @file common.h
-/// @brief This file includes the common constants and includes.
+/// @file xml/child.h
+/// @brief This file includes the DOM child definitions.
 
 /****************************************************************************
 * XML++ is a library to work with XML files.                                *
@@ -21,21 +21,19 @@
 * along with this program.  If not, see <http://www.gnu.org/licenses/>.     *
 ****************************************************************************/
 
+#include "child.h"
 
-#if !defined(XMLPP_COMMON)
-#define XMLPP_COMMON TRUE
+namespace xmlpp {
 
-#include <string.h>
-#include <fstream>
-#include <string>
-#include <vector>
-#include <map>
+DOMChildNode::DOMChildNode (DOMNodeType type)
+{
+    this->type = type;
+}
 
-// Default typedefs
-typedef int DOMNodeType;
+DOMNodeType DOMChildNode::nodeType (void)
+{
+    return this->type;
+}
 
-#include "exception.h"
-#include "utils.h"
-
-#endif
+};
 

@@ -25,86 +25,95 @@
 
 namespace xmlpp {
 
-XMLAttribute::XMLAttribute (void)
+DOMAttribute::DOMAttribute (void)
 {
     this->initialized = false;
 }
 
-XMLAttribute::XMLAttribute (std::string attributeName, std::string attributeValue)
+DOMAttribute::DOMAttribute (std::string attributeName, std::string attributeValue)
 {
-    this->initialized = true;
-    this->setName(attributeName);
-    this->setValue(attributeValue);
+    this->initialized    = true;
+    this->attributeName  = attributeName;
+    this->attributeValue = attributeValue;
     this->updatePlain();
 }
 
-XMLAttribute::XMLAttribute (const char* attributeName, const char* attributeValue)
+DOMAttribute::DOMAttribute (const char* attributeName, const char* attributeValue)
 {
-    this->initialized = true;
-    this->setName((std::string) attributeName);
-    this->setValue((std::string) attributeValue);
+    this->initialized    = true;
+    this->attributeName  = attributeName;
+    this->attributeValue = attributeValue;
     this->updatePlain();
 }
 
 // Setters.
-void XMLAttribute::setName (std::string attributeName)
+void DOMAttribute::setName (std::string attributeName)
 {
-    this->name = attributeName;
+    this->attributeName = attributeName;
+    this->updatePlain();
 }
 
-void XMLAttribute::setName (const char* attributeName)
+void DOMAttribute::setName (const char* attributeName)
 {
-    this->name = attributeName;
+    this->attributeName = attributeName;
+    this->updatePlain();
 }
 
-void XMLAttribute::setValue (std::string attributeValue)
+void DOMAttribute::setValue (std::string attributeValue)
 {
-    this->value = attributeValue;
+    this->attributeValue = attributeValue;
+    this->updatePlain();
 }
 
-void XMLAttribute::setValue (const char* attributeValue)
+void DOMAttribute::setValue (const char* attributeValue)
 {
-    this->value = attributeValue;
+    this->attributeValue = attributeValue;
+    this->updatePlain();
 }
 
 // Getters.
-std::string XMLAttribute::getName (void)
+std::string DOMAttribute::name (void)
 {
-    return this->name;
+    return this->attributeName;
 }
 
-std::string XMLAttribute::getValue (void)
+std::string DOMAttribute::value (void)
 {
-    return this->value;
+    return this->attributeValue;
 }
 
-bool XMLAttribute::isInitialized (void)
+std::string DOMAttribute::plain (void)
+{
+    return this->plainText;
+}
+
+bool DOMAttribute::isInitialized (void)
 {
     return this->initialized;
 }
 
 // Misc.
-void XMLAttribute::updatePlain (void)
+void DOMAttribute::updatePlain (void)
 {
-    if (!this->name.empty() && !this->value.empty()) {
-        this->plain = this->name + "=\"" + this->value + "\"";
+    if (!this->attributeName.empty() && !this->attributeValue.empty()) {
+        this->plainText = this->attributeName + "=\"" + this->attributeValue + "\"";
     }
 }
 
 // Operators.
-std::string XMLAttribute::operator [] (const char* mode) const throw()
+std::string DOMAttribute::operator [] (const char* mode) const throw()
 {
     if (strcmp("name", mode) == 0) {
-        return this->name;
+        return this->attributeName;
     }
     else if (strcmp("value", mode) == 0) {
-        return this->value;
+        return this->attributeValue;
     }
     else if (strcmp("plain", mode) == 0) {
-        return this->plain;
+        return this->plainText;
     }
     else {
-        throw XMLException(ATTRIBUTE_MODE_NOT_EXISTENT);
+        throw DOMException(EX_ATTRIBUTE_MODE_NOT_EXISTENT);
     }
 }
 

@@ -25,38 +25,32 @@
 
 namespace xmlpp {
 
-XMLElement::XMLElement (void)
-{
-    this->initialized = false;
-}
-
-XMLElement::XMLElement (std::string elementName)
-{
-    this->initialized = true;
-    this->setName(elementName);
-}
-
-XMLElement::XMLElement (const char* elementName)
-{
-    this->initialized = true;
-    this->setName((std::string) elementName);
-}
-
-// Setters.
-void XMLElement::setName (std::string elementName)
+DOMElement::DOMElement (std::string elementName) : DOMChildNode(DOM_ELEMENT_NODE)
 {
     this->name = elementName;
 }
 
-void XMLElement::setName (const char* elementName)
+DOMElement::DOMElement (const char* elementName) : DOMChildNode(DOM_ELEMENT_NODE)
 {
-    this->name = (std::string) elementName;
+    this->name = elementName;
 }
 
-bool XMLElement::setAttribute (std::string attributeName, std::string attributeValue)
+// Getters.
+std::string DOMElement::nodeName (void)
+{
+    return this->name;
+}
+
+std::string DOMElement::nodeValue (void)
+{
+    throw DOMException(EX_NODE_IS_ELEMENT);
+}
+
+// Setters.
+bool DOMElement::setAttribute (std::string attributeName, std::string attributeValue)
 {
     if (!this->hasAttribute(attributeName)) {
-        this->attributes[attributeName] = new XMLAttribute(attributeName, attributeValue);
+        this->attributes[attributeName] = new DOMAttribute(attributeName, attributeValue);
         return true;
     }
     else {
@@ -64,36 +58,31 @@ bool XMLElement::setAttribute (std::string attributeName, std::string attributeV
     }
 }
 
-bool XMLElement::setAttribute (const char* attributeName, const char* attributeValue)
+bool DOMElement::setAttribute (const char* attributeName, const char* attributeValue)
 {
     return this->setAttribute((std::string) attributeName, (std::string) attributeValue);
 }
 
 // Getters.
-std::string XMLElement::getName (void)
-{
-    return this->name;
-}
-
-XMLAttribute XMLElement::getAttribute (std::string attributeName)
+DOMAttribute DOMElement::getAttribute (std::string attributeName)
 {
     if (this->hasAttribute(attributeName)) {
         return *this->attributes[attributeName];
     }
     else {
-        return XMLAttribute();
+        return DOMAttribute();
     }
 }
 
-XMLAttribute XMLElement::getAttribute (const char* attributeName)
+DOMAttribute DOMElement::getAttribute (const char* attributeName)
 {
     return this->getAttribute((std::string) attributeName);
 }
 
 // Misc.
-bool XMLElement::hasAttribute (std::string attributeName)
+bool DOMElement::hasAttribute (std::string attributeName)
 {
-    XMLAttributes::iterator attribute = this->attributes.find(attributeName);
+    DOMAttributes::iterator attribute = this->attributes.find(attributeName);
 
     if (attribute == this->attributes.end()) {
         return false;
@@ -103,7 +92,7 @@ bool XMLElement::hasAttribute (std::string attributeName)
     }
 }
 
-bool XMLElement::hasAttribute (const char* attributeName)
+bool DOMElement::hasAttribute (const char* attributeName)
 {
     return this->hasAttribute((std::string) attributeName);
 }

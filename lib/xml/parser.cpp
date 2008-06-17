@@ -25,21 +25,21 @@
 
 namespace xmlpp {
 
-DOMParser::DOMParser()
+XMLParser::XMLParser()
 {
 }
 
-DOMParser::DOMParser (std::string xmlFile)
+XMLParser::XMLParser (std::string xmlFile)
 {
-    this->xmlDocument = this->parseFromFile(xmlFile);
+    this->domObject = this->parseFromFile(xmlFile);
 }
 
-DOMParser::DOMParser (const char* xmlFile)
+XMLParser::XMLParser (const char* xmlFile)
 {
-    this->xmlDocument = this->parseFromFile(xmlFile);
+    this->domObject = this->parseFromFile(xmlFile);
 }
 
-std::string DOMParser::fetch (std::string xmlString)
+std::string XMLParser::fetch (std::string xmlString)
 {
     std::string plainText;
     std::string line;
@@ -54,51 +54,51 @@ std::string DOMParser::fetch (std::string xmlString)
         plainText.resize(plainText.length()-2);
     }
     else {
-        throw XMLException(PARSER_FILE_READ_ERROR);
+        throw XMLException(EX_PARSER_FILE_READ_ERROR);
     }
 
     return plainText;
 }
 
-XML* DOMParser::parseFromFile (std::string xmlFile)
+DOM* XMLParser::parseFromFile (std::string xmlFile)
 {
     this->plainText = this->fetch(xmlFile);
-    this->xmlDocument   = this->parseFromString(this->plain());
+    this->domObject = this->parseFromString(this->plain());
 
-    return this->xmlDocument;
+    return this->domObject;
 }
 
-XML* DOMParser::parseFromFile (const char* xmlFile)
+DOM* XMLParser::parseFromFile (const char* xmlFile)
 {
-    this->plainText   = this->fetch((std::string) xmlFile);
-    this->xmlDocument = this->parseFromString(this->plain());
+    this->plainText = this->fetch((std::string) xmlFile);
+    this->domObject = this->parseFromString(this->plain());
 
-    return this->xmlDocument;
+    return this->domObject;
 }
 
-XML* DOMParser::parseFromString (std::string xmlText)
+DOM* XMLParser::parseFromString (std::string xmlText)
 {
     return this->parse(xmlText);
 }
 
-XML* DOMParser::parseFromString (const char* xmlText)
+DOM* XMLParser::parseFromString (const char* xmlText)
 {
     return this->parse((std::string) xmlText);
 }
 
-XML* DOMParser::parse (std::string xmlText)
+DOM* XMLParser::parse (std::string xmlText)
 {
-    XML *xmlDocument = new XML();
+    DOM *domObject = new DOM();
 
-    return xmlDocument;
+    return domObject;
 }
 
-XML* DOMParser::document (void)
+DOM* XMLParser::document (void)
 {
-    return this->xmlDocument;
+    return this->domObject;
 }
 
-std::string DOMParser::plain (void)
+std::string XMLParser::plain (void)
 {
     return this->plainText;
 }

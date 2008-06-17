@@ -1,5 +1,5 @@
-/// @file   xml/document.cpp
-/// @brief  This file includes the XML object implementation.
+/// @file   xml/document.h
+/// @brief  This file includes the XML object definitions.
 
 /****************************************************************************
 * XML++ is a library to work with XML files.                                *
@@ -21,13 +21,20 @@
 * along with this program.  If not, see <http://www.gnu.org/licenses/>.     *
 ****************************************************************************/
 
-#include "document.h"
+#if !defined(XMLPP_DOM)
+#define XMLPP_DOM TRUE
+
+#include "../common.h"
+#include "element.h"
 
 namespace xmlpp {
 
-XML::XML() {
-    
-}
+class DOM
+{
+  public:
+    DOM();
+};
 
 };
 
+#endif

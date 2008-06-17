@@ -1,4 +1,4 @@
-/// @file   xml/parser.h
+/// @file   dom/parser.h
 /// @brief  This file includes the XML parser definitions.
 
 /****************************************************************************

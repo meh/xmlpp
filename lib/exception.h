@@ -22,39 +22,63 @@
 ****************************************************************************/
 
 
-// Exception codes
-#define PARSER_FILE_READ_ERROR       1
-#define ATTRIBUTE_MODE_NOT_EXISTENT  10
-
 namespace xmlpp {
 
-class XMLException {
-  private:
+class Exception {
+  protected:
     std::string description;
 
   public:
-    XMLException(int code) {
-        switch (code) {
-            case PARSER_FILE_READ_ERROR:
-            this->description = "Error while reading the text file, maybe it doesn't exist.";
-            break;
+    Exception (void) { };
 
-            case ATTRIBUTE_MODE_NOT_EXISTENT:
-            this->description = "The modes are only 'name' or 'value'.";
+    Exception(std::string description) {
+        this->description = description;
+    }
+
+    Exception(const char* description) {
+        this->description = description;
+    }
+
+    std::string getMessage() {
+        return this->description + "\n";
+    }
+
+};
+
+// XMLException codes.
+#define EX_PARSER_FILE_READ_ERROR 1
+
+class XMLException : public Exception
+{
+  public:
+    XMLException (int code) : Exception()
+    {
+        switch (code) {
+            case EX_PARSER_FILE_READ_ERROR:
+            this->description = "Error while reading the text file, maybe it doesn't exist.";
             break;
         }
     }
+};
 
-    XMLException(const char* description) {
-        this->description = description;
-    }
+// DOMException codes.
+#define EX_ATTRIBUTE_MODE_NOT_EXISTENT  1
+#define EX_NODE_IS_ELEMENT              2
 
-    XMLException(std::string description) {
-        this->description = description;
-    }
+class DOMException : public Exception
+{
+  public:
+    DOMException (int code) : Exception()
+    {
+        switch (code) {
+            case EX_ATTRIBUTE_MODE_NOT_EXISTENT:
+            this->description = "The modes are only 'name' or 'value'.";
+            break;
 
-    std::string getMessage() const throw() {
-        return this->description + "\n";
+            case EX_NODE_IS_ELEMENT:
+            this->description = "The node is an element, that method isn't supported.";
+            break;
+        }
     }
 };
 

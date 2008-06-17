@@ -24,7 +24,7 @@
 #include "common.h"
 
 #if !defined(XMLPP)
-#include "dom/parser.h"
+#include "xml/parser.h"
 #define XMLPP TRUE
 #endif
 

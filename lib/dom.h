@@ -1,5 +1,5 @@
-/// @file common.h
-/// @brief This file includes the common constants and includes.
+/// @file   dom.h
+/// @brief  This file includes all the DOM files needed.
 
 /****************************************************************************
 * XML++ is a library to work with XML files.                                *
@@ -21,21 +21,11 @@
 * along with this program.  If not, see <http://www.gnu.org/licenses/>.     *
 ****************************************************************************/
 
+#include "common.h"
 
-#if !defined(XMLPP_COMMON)
-#define XMLPP_COMMON TRUE
+#if !defined(XMLPP_DOM)
+#define XMLPP_DOM TRUE
 
-#include <string.h>
-#include <fstream>
-#include <string>
-#include <vector>
-#include <map>
-
-// Default typedefs
-typedef int DOMNodeType;
-
-#include "exception.h"
-#include "utils.h"
-
+#include "dom/document.h"
 #endif
 

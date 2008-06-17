@@ -21,44 +21,44 @@
 * along with this program.  If not, see <http://www.gnu.org/licenses/>.     *
 ****************************************************************************/
 
-#if !defined(XMLPP_XML_ATTRIBUTE)
-#define XMLPP_XML_ATTRIBUTE TRUE
+#if !defined(XMLPP_DOM_ATTRIBUTE)
+#define XMLPP_DOM_ATTRIBUTE TRUE
 
 #include "../common.h"
 
 namespace xmlpp {
 
 /// @brief  Class for the attributes of an element.
-class XMLAttribute
+class DOMAttribute
 {
   private:
     /// @brief  True if the attribute is initialized (eg. created with the full constructor)
     bool initialized;
 
     /// @brief  The attribute name.
-    std::string name;
+    std::string attributeName;
 
     /// @brief  The attribute value.
-    std::string value;
+    std::string attributeValue;
 
     /// @brief  Plain text of the attribute.
-    std::string plain;
+    std::string plainText;
 
   public:
     /// @brief  Create the attribute without initalizing it.
-    XMLAttribute ();
+    DOMAttribute ();
 
     /// @brief  Create the attribute with initialization.
     ///
     /// @param  attributeName   The attribute's name.
     /// @param  attributeValue  The attribute's value. 
-    XMLAttribute (std::string attributeName, std::string attributeValue);
+    DOMAttribute (std::string attributeName, std::string attributeValue);
 
     /// @brief  Create the attribute with initialization.
     ///
     /// @param  attributeName  The attribute's name (aka tag name)
     /// @param  attributeValue  The attribute's value.
-    XMLAttribute (const char* attributeName, const char* attributeValue);
+    DOMAttribute (const char* attributeName, const char* attributeValue);
 
     // Setters.
 
@@ -87,12 +87,17 @@ class XMLAttribute
     /// @brief  Get the attribute's name.
     ///
     /// @return  The attribute's name.
-    std::string getName (void);
+    std::string name (void);
 
     /// @brief  Get the attribute's value.
     ///
     /// @return  The attribute's value.
-    std::string getValue (void);
+    std::string value (void);
+
+    /// @brief  Get the plain text version of the attribute.
+    ///
+    /// @return  The plain text of the attribute.
+    std::string plain (void);
 
     /// @brief  Get if the attribute is initialized or not.
     ///
@@ -108,7 +113,7 @@ class XMLAttribute
     std::string operator [] (const char* mode) const throw();
 };
 
-typedef std::map<std::string, XMLAttribute*> XMLAttributes;
+typedef std::map<std::string, DOMAttribute*> DOMAttributes;
 
 };
 
