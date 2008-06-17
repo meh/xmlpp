@@ -21,7 +21,6 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  ***************************************************************************/
 
-#define XMLPP_XML TRUE
 #include "document.h"
 
 namespace xmlpp {

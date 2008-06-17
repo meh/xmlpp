@@ -21,7 +21,10 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  ***************************************************************************/
 
-#if defined(XMLPP_XML)
+#if !defined(XMLPP_XML)
+#define XMLPP_XML TRUE
+
+#include "../common.h"
 #include "element.h"
 
 namespace xmlpp {

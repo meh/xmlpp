@@ -21,15 +21,10 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  ***************************************************************************/
 
-#if !defined(XMLPP_COMMON)
 #include "common.h"
-
-#define XMLPP_COMMON TRUE
-#endif
 
 #if !defined(XMLPP)
 #include "parser.h"
-
 #define XMLPP TRUE
 #endif
 
