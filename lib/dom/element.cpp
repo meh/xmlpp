@@ -1,5 +1,5 @@
-/// @file xml/element.cpp
-/// @brief This file includes the XML element implementations.
+/// @file dom/element.cpp
+/// @brief This file includes the DOM element implementations.
 
 /****************************************************************************
 * XML++ is a library to work with XML files.                                *
@@ -95,6 +95,14 @@ bool DOMElement::hasAttribute (std::string attributeName)
 bool DOMElement::hasAttribute (const char* attributeName)
 {
     return this->hasAttribute((std::string) attributeName);
+}
+
+void DOMElement::appendChild (DOMChildNode* childNode)
+{
+    this->children.push_back(childNode);
+    childNode->__setParent(this);
+    childNode->__setPreviousSibling(this->children.end()-2);
+    childNode->__setNextSibling(this->children.end());
 }
 
 // Operators.

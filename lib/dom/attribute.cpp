@@ -1,4 +1,4 @@
-/// @file xml/attribute.cpp
+/// @file dom/attribute.cpp
 /// @brief This file includes the XML attribute implementations.
 
 /****************************************************************************

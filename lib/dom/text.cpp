@@ -1,5 +1,5 @@
-/// @file dom/child.h
-/// @brief This file includes the DOM child definitions.
+/// @file dom/text.cpp
+/// @brief This file includes the DOM text implementations.
 
 /****************************************************************************
 * XML++ is a library to work with XML files.                                *
@@ -21,33 +21,29 @@
 * along with this program.  If not, see <http://www.gnu.org/licenses/>.     *
 ****************************************************************************/
 
-#include "child.h"
+#include "text.h"
 
 namespace xmlpp {
 
-DOMChildNode::DOMChildNode (DOMNodeType type)
+DOMText::DOMText (std::string text) : DOMChildNode (DOM_TEXT_NODE)
 {
-    this->type = type;
+    this->value = text;
 }
 
-DOMNodeType DOMChildNode::nodeType (void)
+DOMText::DOMText (const char* text) : DOMChildNode (DOM_TEXT_NODE)
 {
-    return this->type;
+    this->value = text;
 }
 
-void DOMChildNode::__setParent (DOMChildNode* parent)
+// Getters.
+std::string DOMText::nodeName (void)
 {
-    this->parent = parent;
+    throw DOMException(EX_NODE_IS_TEXT);
 }
 
-void DOMChildNode::__setPreviousSibling (DOMSibling sibling)
+std::string DOMText::nodeValue (void)
 {
-    this->pSibling = sibling;
-}
-
-void DOMChildNode::__setNextSibling (DOMSibling sibling)
-{
-    this->nSibling = sibling;
+    return this->value;
 }
 
 };

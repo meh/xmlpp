@@ -1,4 +1,4 @@
-/// @file xml/attribute.h
+/// @file dom/attribute.h
 /// @brief This file includes the XML attribute definitions.
 
 /****************************************************************************

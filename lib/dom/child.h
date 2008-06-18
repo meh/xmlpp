@@ -1,4 +1,4 @@
-/// @file xml/child.h
+/// @file dom/child.h
 /// @brief This file includes the DOM child definitions.
 
 /****************************************************************************
@@ -34,6 +34,8 @@ namespace xmlpp {
 class DOMChildNode
 {
   protected:
+    typedef std::vector<DOMChildNode*>::iterator DOMSibling;
+
     /// @brief The node's type: DOM_ELEMENT_NODE or DOM_TEXT_NODE
     DOMNodeType type;
 
@@ -45,6 +47,10 @@ class DOMChildNode
 
     /// @brief  Plain text view of the node.
     std::string plainText;
+
+    DOMSibling pSibling;
+    DOMSibling nSibling;
+    DOMChildNode* parent;
 
   public:
     /// @brief  Create the node.
@@ -61,9 +67,17 @@ class DOMChildNode
 
     virtual std::string nodeName (void) = 0;
     virtual std::string nodeValue (void) = 0;
+
+    /// @ignore
+    void __setParent (DOMChildNode* parent);
+    /// @ignore
+    void __setNextSibling (DOMSibling sibling);
+    /// @ignore
+    void __setPreviousSibling (DOMSibling sibling);
 };
 
 typedef std::vector<DOMChildNode*> DOMChildNodes;
+typedef std::vector<DOMChildNode*>::iterator DOMSibling;
 
 };
 

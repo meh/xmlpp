@@ -1,4 +1,4 @@
-/// @file   xml/document.cpp
+/// @file   dom/document.cpp
 /// @brief  This file includes the XML object implementation.
 
 /****************************************************************************

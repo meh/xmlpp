@@ -1,4 +1,4 @@
-/// @file   xml/document.h
+/// @file   dom/document.h
 /// @brief  This file includes the XML object definitions.
 
 /****************************************************************************

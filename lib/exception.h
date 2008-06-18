@@ -64,6 +64,7 @@ class XMLException : public Exception
 // DOMException codes.
 #define EX_ATTRIBUTE_MODE_NOT_EXISTENT  1
 #define EX_NODE_IS_ELEMENT              2
+#define EX_NODE_IS_TEXT                 3
 
 class DOMException : public Exception
 {
@@ -76,6 +77,10 @@ class DOMException : public Exception
             break;
 
             case EX_NODE_IS_ELEMENT:
+            this->description = "The node is an element, that method isn't supported.";
+            break;
+
+            case EX_NODE_IS_TEXT:
             this->description = "The node is an element, that method isn't supported.";
             break;
         }

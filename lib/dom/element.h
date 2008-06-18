@@ -1,4 +1,4 @@
-/// @file xml/element.h
+/// @file dom/element.h
 /// @brief This file includes the XML element definitions.
 
 /****************************************************************************
@@ -13,7 +13,7 @@
 * License, or (at your option) any later version.                           *
 *                                                                           *
 * This program is distributed in the hope that it will be useful,           *
-* but WITHOUT ANY WARRANTY; without even the implied warranty of            *
+* WITHOUT ANY WARRANTY; without even the implied warranty of                *
 * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the             *
 * GNU Affero General Public License for more details.                       *
 *                                                                           *
@@ -103,6 +103,9 @@ class DOMElement : public DOMChildNode
     // Misc.
     bool hasAttribute (std::string attributeName);
     bool hasAttribute (const char* attributeName);
+
+    
+    void appendChild (DOMChildNode* childNode);
 };
 
 };

@@ -1,4 +1,4 @@
-/// @file   dom/parser.cpp
+/// @file   xml/parser.cpp
 /// @brief  This file includes the DOM parser implementations.
 
 /****************************************************************************
