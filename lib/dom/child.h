@@ -48,8 +48,8 @@ class DOMChildNode
     /// @brief  Plain text view of the node.
     std::string plainText;
 
-    DOMSibling pSibling;
-    DOMSibling nSibling;
+    DOMChildNode* pSibling;
+    DOMChildNode* nSibling;
     DOMChildNode* parent;
 
   public:
@@ -68,12 +68,22 @@ class DOMChildNode
     virtual std::string nodeName (void) = 0;
     virtual std::string nodeValue (void) = 0;
 
+    virtual void appendChild (DOMChildNode* childNode) = 0;
+    virtual DOMChildNode* childNodes (int childNode) = 0;
+
+    virtual DOMChildNode* firstChild (void) = 0;
+    virtual DOMChildNode* lastChild (void) = 0;
+
+    DOMChildNode* nodeParent (void);
+    DOMChildNode* nextSibling (void);
+    DOMChildNode* previousSibling (void);
+
     /// @ignore
     void __setParent (DOMChildNode* parent);
     /// @ignore
-    void __setNextSibling (DOMSibling sibling);
+    void __setNextSibling (DOMChildNode* sibling);
     /// @ignore
-    void __setPreviousSibling (DOMSibling sibling);
+    void __setPreviousSibling (DOMChildNode* sibling);
 };
 
 typedef std::vector<DOMChildNode*> DOMChildNodes;

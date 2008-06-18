@@ -35,17 +35,32 @@ DOMNodeType DOMChildNode::nodeType (void)
     return this->type;
 }
 
+DOMChildNode* DOMChildNode::nodeParent (void)
+{
+    return this->parent;
+}
+
+DOMChildNode* DOMChildNode::previousSibling (void)
+{
+    return this->pSibling;
+}
+
+DOMChildNode* DOMChildNode::nextSibling (void)
+{
+    return this->nSibling;
+}
+
 void DOMChildNode::__setParent (DOMChildNode* parent)
 {
     this->parent = parent;
 }
 
-void DOMChildNode::__setPreviousSibling (DOMSibling sibling)
+void DOMChildNode::__setPreviousSibling (DOMChildNode* sibling)
 {
     this->pSibling = sibling;
 }
 
-void DOMChildNode::__setNextSibling (DOMSibling sibling)
+void DOMChildNode::__setNextSibling (DOMChildNode* sibling)
 {
     this->nSibling = sibling;
 }

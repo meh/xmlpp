@@ -46,6 +46,12 @@ class DOMText : public DOMChildNode
     ///
     /// @return  The node's value.
     std::string nodeValue (void);
+
+    void appendChild (DOMChildNode* childNode);
+    DOMChildNode* childNodes (int childNode);
+
+    DOMChildNode* firstChild (void);
+    DOMChildNode* lastChild (void);
 };
 
 };

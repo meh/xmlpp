@@ -100,9 +100,30 @@ bool DOMElement::hasAttribute (const char* attributeName)
 void DOMElement::appendChild (DOMChildNode* childNode)
 {
     this->children.push_back(childNode);
+
+    size_t position = this->children.size()-1;
+
     childNode->__setParent(this);
-    childNode->__setPreviousSibling(this->children.end()-2);
-    childNode->__setNextSibling(this->children.end());
+
+    if (position > 0) {
+        childNode->__setPreviousSibling(this->children.at(position-1));
+        this->children.at(position-1)->__setNextSibling(childNode);
+    }
+}
+
+DOMChildNode* DOMElement::childNodes (int childNode)
+{
+    return this->children.at(childNode);
+}
+
+DOMChildNode* DOMElement::firstChild (void)
+{
+    return this->children.front();
+}
+
+DOMChildNode* DOMElement::lastChild (void)
+{
+    return this->children.back();
 }
 
 // Operators.

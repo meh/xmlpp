@@ -104,8 +104,11 @@ class DOMElement : public DOMChildNode
     bool hasAttribute (std::string attributeName);
     bool hasAttribute (const char* attributeName);
 
-    
     void appendChild (DOMChildNode* childNode);
+    DOMChildNode* childNodes (int childNode);
+
+    DOMChildNode* firstChild (void);
+    DOMChildNode* lastChild (void);
 };
 
 };

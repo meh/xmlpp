@@ -7,22 +7,29 @@ using namespace xmlpp;
 
 int main (int argc, char *argv[])
 {
-    DOMElement *element = new DOMElement("pokemon");
-    element->setAttribute("style", "width: 234px; height: 23px;");
+    DOMElement *pokemon = new DOMElement("pokemon");
+    pokemon->setAttribute("id", "1");
 
-    DOMText *text = new DOMText("lolwin");
+    DOMElement *general = new DOMElement("general");
 
-    if (element->nodeType() == DOM_ELEMENT_NODE) {
-        cout << "nodeName:  " << element->nodeName() << endl;
+    DOMElement *number = new DOMElement("number");
+    number->appendChild(new DOMText("001"));
+
+    DOMElement *name = new DOMElement("name");
+    name->appendChild(new DOMText("Bulbasaur"));
+
+    general->appendChild(number);
+    general->appendChild(name);
+
+    pokemon->appendChild(general);
+
+    // Bulbasaur
+    try {
+        cout << pokemon->firstChild()->firstChild()->nextSibling()->firstChild()->nodeValue() << endl;
     }
-    else {
-        cout << "nodeValue: " << text->nodeValue() << endl;
+    catch (DOMException e) {
+        cerr << e.getMessage();
     }
-
-    cout << endl << "Attributes-." << endl;
-    cout << "Name:  " << element->getAttribute("style").name()  << endl;
-    cout << "Value: " << element->getAttribute("style").value() << endl;
-    cout << "Plain: " << element->getAttribute("style").plain() << endl << endl;
 
     return 0;
 }
