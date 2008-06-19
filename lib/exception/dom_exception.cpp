@@ -1,5 +1,5 @@
-/// @file   dom/document.cpp
-/// @brief  This file includes the XML object implementation.
+/// @file dom_exception.cpp
+/// @brief This file includes the dom exception implementations.
 
 /****************************************************************************
 * XML++ is a library to work with XML files.                                *
@@ -21,12 +21,25 @@
 * along with this program.  If not, see <http://www.gnu.org/licenses/>.     *
 ****************************************************************************/
 
-#include "document.h"
+#include "dom_exception.h"
 
 namespace xmlpp {
 
-DOM::DOM (void)
+DOMException::DOMException (int code) : Exception ()
 {
+    switch (code) {
+        case EX_ATTRIBUTE_MODE_NOT_EXISTENT:
+        this->description = "The modes are only 'name' or 'value'.";
+        break;
+
+        case EX_NODE_IS_ELEMENT:
+        this->description = "The node is an element, that method isn't supported.";
+        break;
+
+        case EX_NODE_IS_TEXT:
+        this->description = "The node is an element, that method isn't supported.";
+        break;
+    }
 }
 
 };

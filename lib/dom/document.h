@@ -33,7 +33,7 @@ namespace xmlpp {
 class DOM
 {
   public:
-    DOM();
+    DOM (void);
 };
 
 };

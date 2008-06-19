@@ -1,5 +1,5 @@
-/// @file utils.h
-/// @brief This file includes the utils definitions.
+/// @file dom_exception.h
+/// @brief This file includes the dom exception definitions.
 
 /****************************************************************************
 * XML++ is a library to work with XML files.                                *
@@ -21,18 +21,21 @@
 * along with this program.  If not, see <http://www.gnu.org/licenses/>.     *
 ****************************************************************************/
 
-#include "common.h"
+#if !defined (XMLPP_DOM_EXCEPTION)
+#define XMLPP_XML_EXCEPTION TRUE
 
 namespace xmlpp {
-    namespace utils {
-        std::string escapeSlashes (std::string text);
 
-        /// @brief  PHP-like addslashes()
-        ///
-        /// @param  text  The text to escape.
-        ///
-        /// @return  The slashed string.
-        std::string addSlashes (std::string text);
-    };
+#define EX_ATTRIBUTE_MODE_NOT_EXISTENT  1
+#define EX_NODE_IS_ELEMENT              2
+#define EX_NODE_IS_TEXT                 3
+
+class DOMException : public Exception
+{
+  public:
+    DOMException (int code);
 };
 
+};
+
+#endif

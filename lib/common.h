@@ -34,8 +34,8 @@
 // Default typedefs
 typedef int DOMNodeType;
 
-#include "exception.h"
-#include "utils.h"
+#include "exception/exception.h"
+#include "utils/utils.h"
 
 #endif
 

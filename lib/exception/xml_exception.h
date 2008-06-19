@@ -1,5 +1,5 @@
-/// @file   dom/document.cpp
-/// @brief  This file includes the XML object implementation.
+/// @file xml_exception.h
+/// @brief This file includes the xml exception definitions.
 
 /****************************************************************************
 * XML++ is a library to work with XML files.                                *
@@ -21,13 +21,21 @@
 * along with this program.  If not, see <http://www.gnu.org/licenses/>.     *
 ****************************************************************************/
 
-#include "document.h"
+#if !defined(XMLPP_XML_EXCEPTION)
+#define XMLPP_XML_EXCEPTION TRUE
 
 namespace xmlpp {
 
-DOM::DOM (void)
+#define EX_PARSER_FILE_READ_ERROR 1
+
+class XMLException : public Exception
 {
-}
+  public:
+    XMLException (int code);
+};
 
 };
+
+#endif
+
 

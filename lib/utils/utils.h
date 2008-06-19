@@ -1,5 +1,5 @@
-/// @file   dom/document.cpp
-/// @brief  This file includes the XML object implementation.
+/// @file utils.h
+/// @brief This file includes the utils definitions.
 
 /****************************************************************************
 * XML++ is a library to work with XML files.                                *
@@ -21,13 +21,18 @@
 * along with this program.  If not, see <http://www.gnu.org/licenses/>.     *
 ****************************************************************************/
 
-#include "document.h"
+#include "../common.h"
 
 namespace xmlpp {
+    namespace utils {
+        std::string escapeSlashes (std::string text);
 
-DOM::DOM (void)
-{
-}
-
+        /// @brief  PHP-like addslashes()
+        ///
+        /// @param  text  The text to escape.
+        ///
+        /// @return  The slashed string.
+        std::string addSlashes (std::string text);
+    };
 };
 

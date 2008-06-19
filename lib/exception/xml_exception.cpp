@@ -1,5 +1,5 @@
-/// @file exception.h
-/// @brief This file includes the XML attribute implementations.
+/// @file xml_exception.cpp
+/// @brief This file includes the xml exception implementations.
 
 /****************************************************************************
 * XML++ is a library to work with XML files.                                *
@@ -21,71 +21,18 @@
 * along with this program.  If not, see <http://www.gnu.org/licenses/>.     *
 ****************************************************************************/
 
+#include "xml_exception.h"
 
 namespace xmlpp {
 
-class Exception {
-  protected:
-    std::string description;
-
-  public:
-    Exception (void) { };
-
-    Exception(std::string description) {
-        this->description = description;
-    }
-
-    Exception(const char* description) {
-        this->description = description;
-    }
-
-    std::string getMessage() {
-        return this->description;
-    }
-
-};
-
-// XMLException codes.
-#define EX_PARSER_FILE_READ_ERROR 1
-
-class XMLException : public Exception
+XMLException::XMLException (int code) : Exception ()
 {
-  public:
-    XMLException (int code) : Exception()
-    {
-        switch (code) {
-            case EX_PARSER_FILE_READ_ERROR:
-            this->description = "Error while reading the text file, maybe it doesn't exist.";
-            break;
-        }
+    switch (code) {
+        case EX_PARSER_FILE_READ_ERROR:
+        this->description = "Error while reading the text file, maybe it doesn't exist.";
+        break;
     }
-};
-
-// DOMException codes.
-#define EX_ATTRIBUTE_MODE_NOT_EXISTENT  1
-#define EX_NODE_IS_ELEMENT              2
-#define EX_NODE_IS_TEXT                 3
-
-class DOMException : public Exception
-{
-  public:
-    DOMException (int code) : Exception()
-    {
-        switch (code) {
-            case EX_ATTRIBUTE_MODE_NOT_EXISTENT:
-            this->description = "The modes are only 'name' or 'value'.";
-            break;
-
-            case EX_NODE_IS_ELEMENT:
-            this->description = "The node is an element, that method isn't supported.";
-            break;
-
-            case EX_NODE_IS_TEXT:
-            this->description = "The node is an element, that method isn't supported.";
-            break;
-        }
-    }
-};
+}
 
 };
 
