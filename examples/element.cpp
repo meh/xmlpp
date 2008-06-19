@@ -1,6 +1,6 @@
 #include <iostream>
-#include "../lib/dom/element.h"
-#include "../lib/dom/text.h"
+#include <xml++/dom/element.h>
+#include <xml++/dom/text.h>
 
 using namespace std;
 using namespace xmlpp;

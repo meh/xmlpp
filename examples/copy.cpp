@@ -1,5 +1,5 @@
 #include <iostream>
-#include "../lib/xml++.h"
+#include <xml++/xml++.h>
 
 using namespace std;
 using namespace xmlpp;

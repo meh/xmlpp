@@ -6,5 +6,5 @@ includedir=/usr/include
 Name: xml++
 Description: XML library.
 Version: @VERSION@
-Libs: -L${libdir} -lxmlpp
-Cflags: -I${includedir}/xml++ -I${libdir}/xml++/include
+Libs: -L/usr/lib -lxmlpp
+Cflags: -I/usr/include/xml++ -I/usr/lib/xml++/include
