@@ -22,7 +22,9 @@
 ****************************************************************************/
 
 #if !defined (XMLPP_DOM_EXCEPTION)
-#define XMLPP_XML_EXCEPTION TRUE
+#define XMLPP_DOM_EXCEPTION TRUE
+
+#include "exception.h"
 
 namespace xmlpp {
 

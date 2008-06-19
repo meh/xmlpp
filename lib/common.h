@@ -35,7 +35,7 @@
 typedef int DOMNodeType;
 
 #include "exception/exception.h"
-#include "utils/utils.h"
+#include "utils.h"
 
 #endif
 

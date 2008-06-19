@@ -24,6 +24,8 @@
 #if !defined(XMLPP_XML_EXCEPTION)
 #define XMLPP_XML_EXCEPTION TRUE
 
+#include "exception.h"
+
 namespace xmlpp {
 
 #define EX_PARSER_FILE_READ_ERROR 1

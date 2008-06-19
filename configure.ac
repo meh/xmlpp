@@ -7,6 +7,8 @@ GENERIC_MAJOR_VERSION=0
 GENERIC_MINOR_VERSION=1
 GENERIC_MICRO_VERSION=0
 
+GENERIC_API_VERSION=0.1
+
 PACKAGE=$GENERIC_LIBRARY_NAME
 AC_SUBST(lib)
 
@@ -30,4 +32,4 @@ AC_HEADER_STDC
 AC_PROG_CXX
 AC_LANG_CPLUSPLUS
 
-AC_OUTPUT(Makefile lib/Makefile lib/dom/Makefile lib/xml/Makefile lib/exception/Makefile lib/utils/Makefile)
+AC_OUTPUT(Makefile lib/Makefile lib/dom/Makefile lib/xml/Makefile lib/exception/Makefile xml++-0.1.pc)
