@@ -55,6 +55,7 @@ class DOMText : public DOMChildNode
     void appendChild (DOMChildNode* childNode);
     DOMChildNodes childNodes (void);
     DOMChildNode* childNode (int childNode);
+    DOMChildNode* cloneNode (void);
 
     DOMChildNode* firstChild (void);
     DOMChildNode* lastChild (void);

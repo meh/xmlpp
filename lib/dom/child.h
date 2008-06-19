@@ -72,6 +72,7 @@ class DOMChildNode
     virtual void appendChild (DOMChildNode* childNode) = 0;
     virtual std::vector<DOMChildNode*> childNodes (void) = 0;
     virtual DOMChildNode* childNode (int childNode) = 0;
+    virtual DOMChildNode* cloneNode (void) = 0;
 
     virtual DOMChildNode* firstChild (void) = 0;
     virtual DOMChildNode* lastChild (void) = 0;

@@ -66,6 +66,12 @@ DOMChildNode* DOMText::childNode (int childNode)
     throw DOMException (EX_NODE_IS_TEXT);
 }
 
+DOMChildNode* DOMText::cloneNode (void)
+{
+    DOMText *copy = new DOMText(this->nodeValue());
+    return copy;
+}
+
 DOMChildNode* DOMText::firstChild (void)
 {
     throw DOMException (EX_NODE_IS_TEXT);

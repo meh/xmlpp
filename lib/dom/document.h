@@ -21,11 +21,12 @@
 * along with this program.  If not, see <http://www.gnu.org/licenses/>.     *
 ****************************************************************************/
 
-#if !defined(XMLPP_DOM)
-#define XMLPP_DOM TRUE
+#if !defined(XMLPP_DOM_DOCUMENT)
+#define XMLPP_DOM_DOCUMENT TRUE
 
 #include "../common.h"
 #include "element.h"
+#include "text.h"
 
 namespace xmlpp {
 

@@ -129,6 +129,17 @@ DOMChildNode* DOMElement::childNode (int childNode)
     return this->children.at(childNode);
 }
 
+DOMChildNode* DOMElement::cloneNode (void)
+{
+    DOMElement *copy = new DOMElement(this->nodeName());
+
+    for (size_t i = 0; i < this->children.size(); i++) {
+        copy->appendChild(this->children[i]->cloneNode());
+    }
+
+    return copy;
+}
+
 DOMChildNode* DOMElement::firstChild (void)
 {
     return this->children.front();
