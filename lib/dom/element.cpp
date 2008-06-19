@@ -46,6 +46,11 @@ std::string DOMElement::nodeValue (void)
     throw DOMException(EX_NODE_IS_ELEMENT);
 }
 
+std::string DOMElement::text (void)
+{
+    throw DOMException(EX_NODE_IS_ELEMENT);
+}
+
 // Setters.
 bool DOMElement::setAttribute (std::string attributeName, std::string attributeValue)
 {
@@ -99,16 +104,19 @@ bool DOMElement::hasAttribute (const char* attributeName)
 
 void DOMElement::appendChild (DOMChildNode* childNode)
 {
-    this->children.push_back(childNode);
-
-    size_t position = this->children.size()-1;
-
     childNode->__setParent(this);
 
-    if (position > 0) {
-        childNode->__setPreviousSibling(this->children.at(position-1));
-        this->children.at(position-1)->__setNextSibling(childNode);
+    if (this->children.size() > 0) {
+        childNode->__setPreviousSibling(this->children.back());
+        this->children.back()->__setNextSibling(childNode);
     }
+    else {
+        childNode->__setPreviousSibling(NULL);
+    }
+
+    childNode->__setNextSibling(NULL);
+
+    this->children.push_back(childNode);
 }
 
 DOMChildNode* DOMElement::childNodes (int childNode)
@@ -124,6 +132,16 @@ DOMChildNode* DOMElement::firstChild (void)
 DOMChildNode* DOMElement::lastChild (void)
 {
     return this->children.back();
+}
+
+bool DOMElement::hasChildNodes (void)
+{
+    if (this->children.size() > 0) {
+        return true;
+    }
+    else {
+        return false;
+    }
 }
 
 // Operators.

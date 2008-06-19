@@ -47,11 +47,20 @@ class DOMText : public DOMChildNode
     /// @return  The node's value.
     std::string nodeValue (void);
 
+    /// @brief  Get the text from the node.
+    ///
+    /// @return  The text from the node.
+    std::string text (void);
+
     void appendChild (DOMChildNode* childNode);
     DOMChildNode* childNodes (int childNode);
 
     DOMChildNode* firstChild (void);
     DOMChildNode* lastChild (void);
+
+    bool hasChildNodes (void);
+
+    DOMText* cloneNode (void);
 };
 
 };

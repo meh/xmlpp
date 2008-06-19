@@ -25,7 +25,22 @@ int main (int argc, char *argv[])
 
     // Bulbasaur
     try {
-        cout << pokemon->firstChild()->firstChild()->nextSibling()->firstChild()->nodeValue() << endl;
+        DOMChildNode *gen = pokemon->firstChild()->firstChild()->nextSibling();
+
+        if (gen != NULL) {
+            switch (gen->nodeType()) {
+                case DOM_ELEMENT_NODE:
+                cout << gen->firstChild()->text() << endl;
+                break;
+
+                case DOM_TEXT_NODE:
+                cout << gen->nodeValue() << endl;
+                break;
+            }
+        }
+        else {
+            cout << "LOL NO SIBLING" << endl;
+        }
     }
     catch (DOMException e) {
         cerr << e.getMessage();

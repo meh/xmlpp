@@ -60,6 +60,7 @@ class DOMElement : public DOMChildNode
     ///
     /// @return  The node's value.
     std::string nodeValue (void);
+    std::string text (void);
 
     // Setters.
 
@@ -109,6 +110,8 @@ class DOMElement : public DOMChildNode
 
     DOMChildNode* firstChild (void);
     DOMChildNode* lastChild (void);
+
+    bool hasChildNodes (void);
 };
 
 };

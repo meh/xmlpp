@@ -67,12 +67,15 @@ class DOMChildNode
 
     virtual std::string nodeName (void) = 0;
     virtual std::string nodeValue (void) = 0;
+    virtual std::string text (void) = 0;
 
     virtual void appendChild (DOMChildNode* childNode) = 0;
     virtual DOMChildNode* childNodes (int childNode) = 0;
 
     virtual DOMChildNode* firstChild (void) = 0;
     virtual DOMChildNode* lastChild (void) = 0;
+
+    virtual bool hasChildNodes (void) = 0;
 
     DOMChildNode* nodeParent (void);
     DOMChildNode* nextSibling (void);

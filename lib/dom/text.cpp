@@ -46,6 +46,11 @@ std::string DOMText::nodeValue (void)
     return this->value;
 }
 
+std::string DOMText::text (void)
+{
+    return this->value;
+}
+
 void DOMText::appendChild (DOMChildNode* childNode)
 {
     throw DOMException (EX_NODE_IS_TEXT);
@@ -65,6 +70,12 @@ DOMChildNode* DOMText::lastChild (void)
 {
     throw DOMException (EX_NODE_IS_TEXT);
 }
+
+bool DOMText::hasChildNodes (void)
+{
+    return false;
+}
+
 
 
 };
