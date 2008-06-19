@@ -69,6 +69,12 @@ class DOMChildNode
     virtual std::string nodeValue (void) = 0;
     virtual std::string text (void) = 0;
 
+    virtual bool setAttribute (std::string attributeName, std::string attributeValue) = 0;
+    virtual bool setAttribute (const char* attributeName, const char* attributeValue) = 0;
+
+    virtual std::string getAttribute (std::string attributeName) = 0;
+    virtual std::string getAttribute (const char* attributeName) = 0;
+
     virtual void appendChild (DOMChildNode* childNode) = 0;
     virtual std::vector<DOMChildNode*> childNodes (void) = 0;
     virtual DOMChildNode* childNode (int childNode) = 0;

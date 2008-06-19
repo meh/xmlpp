@@ -51,6 +51,26 @@ std::string DOMText::text (void)
     return this->value;
 }
 
+bool DOMText::setAttribute (std::string attributeName, std::string attributeValue)
+{
+    throw DOMException (EX_NODE_IS_TEXT);
+}
+
+bool DOMText::setAttribute (const char* attributeName, const char* attributeValue)
+{
+    throw DOMException (EX_NODE_IS_TEXT);
+}
+
+std::string DOMText::getAttribute (std::string attributeName)
+{
+    throw DOMException (EX_NODE_IS_TEXT);
+}
+
+std::string DOMText::getAttribute (const char* attributeName)
+{
+    throw DOMException (EX_NODE_IS_TEXT);
+}
+
 void DOMText::appendChild (DOMChildNode* childNode)
 {
     throw DOMException (EX_NODE_IS_TEXT);

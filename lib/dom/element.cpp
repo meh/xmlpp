@@ -69,19 +69,19 @@ bool DOMElement::setAttribute (const char* attributeName, const char* attributeV
 }
 
 // Getters.
-DOMAttribute DOMElement::getAttribute (std::string attributeName)
+std::string DOMElement::getAttribute (std::string attributeName)
 {
     if (this->hasAttribute(attributeName)) {
-        return *this->attributes[attributeName];
+        return this->attributes[attributeName]->value();
     }
     else {
-        return DOMAttribute();
+        return "null";
     }
 }
 
-DOMAttribute DOMElement::getAttribute (const char* attributeName)
+std::string DOMElement::getAttribute (const char* attributeName)
 {
-    return this->getAttribute((std::string) attributeName);
+    return this->getAttribute(attributeName);
 }
 
 // Misc.

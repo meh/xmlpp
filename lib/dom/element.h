@@ -51,6 +51,7 @@ class DOMElement : public DOMChildNode
     /// @param  elementName  The element's name (aka tag name)
     DOMElement (const char* elementName);
 
+
     /// @brief  Get the node's name.
     ///
     /// @return  The node's name
@@ -87,14 +88,14 @@ class DOMElement : public DOMChildNode
     /// @param  attributeName  The attribute's name.
     ///
     /// @return  The attribute object.
-    DOMAttribute getAttribute (std::string attributeName);
+    std::string getAttribute (std::string attributeName);
 
     /// @brief  Get an attribute.
     ///
     /// @param  attributeName  The attribute's name.
     ///
     /// @return  The attribute object.
-    DOMAttribute getAttribute (const char* attributeName);
+    std::string getAttribute (const char* attributeName);
 
     /// @brief  Get if the element is initialized or not.
     ///

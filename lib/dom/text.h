@@ -52,6 +52,12 @@ class DOMText : public DOMChildNode
     /// @return  The text from the node.
     std::string text (void);
 
+    bool setAttribute (std::string attributeName, std::string attributeValue);
+    bool setAttribute (const char* attributeName, const char* attributeValue);
+
+    std::string getAttribute (std::string attributeName);
+    std::string getAttribute (const char* attributeName);
+
     void appendChild (DOMChildNode* childNode);
     DOMChildNodes childNodes (void);
     DOMChildNode* childNode (int childNode);
