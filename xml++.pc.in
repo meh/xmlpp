@@ -1,0 +1,10 @@
+prefix=/usr
+exec_prefix=/usr
+libdir=/usr/lib
+includedir=/usr/include
+
+Name: xml++
+Description: XML library.
+Version: @VERSION@
+Libs: -L${libdir} -lxmlpp
+Cflags: -I${includedir}/xml++ -I${libdir}/xml++/include
