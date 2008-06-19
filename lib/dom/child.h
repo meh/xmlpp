@@ -3,7 +3,7 @@
 
 /****************************************************************************
 * XML++ is a library to work with XML files.                                *
-* Copyright (C) 2008  Paolo D. Galli                                        *
+* Copyright (C) 2008  cHoBi                                                 *
 *                                                                           *
 * This file is part of XML++                                                *
 *                                                                           *
@@ -70,7 +70,8 @@ class DOMChildNode
     virtual std::string text (void) = 0;
 
     virtual void appendChild (DOMChildNode* childNode) = 0;
-    virtual DOMChildNode* childNodes (int childNode) = 0;
+    virtual std::vector<DOMChildNode*> childNodes (void) = 0;
+    virtual DOMChildNode* childNode (int childNode) = 0;
 
     virtual DOMChildNode* firstChild (void) = 0;
     virtual DOMChildNode* lastChild (void) = 0;

@@ -25,7 +25,7 @@ int main (int argc, char *argv[])
 
     // Bulbasaur
     try {
-        DOMChildNode *gen = pokemon->firstChild()->firstChild()->nextSibling();
+        DOMChildNode *gen = pokemon->childNode(0)->firstChild()->nextSibling();
 
         if (gen != NULL) {
             switch (gen->nodeType()) {

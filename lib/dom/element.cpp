@@ -3,7 +3,7 @@
 
 /****************************************************************************
 * XML++ is a library to work with XML files.                                *
-* Copyright (C) 2008  Paolo D. Galli                                        *
+* Copyright (C) 2008  cHoBi                                                 *
 *                                                                           *
 * This file is part of XML++                                                *
 *                                                                           *
@@ -119,7 +119,12 @@ void DOMElement::appendChild (DOMChildNode* childNode)
     this->children.push_back(childNode);
 }
 
-DOMChildNode* DOMElement::childNodes (int childNode)
+DOMChildNodes DOMElement::childNodes (void)
+{
+    return this->children;
+}
+
+DOMChildNode* DOMElement::childNode (int childNode)
 {
     return this->children.at(childNode);
 }

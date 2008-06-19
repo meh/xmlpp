@@ -3,7 +3,7 @@
 
 /****************************************************************************
 * XML++ is a library to work with XML files.                                *
-* Copyright (C) 2008  Paolo D. Galli                                        *
+* Copyright (C) 2008  cHoBi                                                 *
 *                                                                           *
 * This file is part of XML++                                                *
 *                                                                           *
@@ -53,14 +53,15 @@ class DOMText : public DOMChildNode
     std::string text (void);
 
     void appendChild (DOMChildNode* childNode);
-    DOMChildNode* childNodes (int childNode);
+    DOMChildNodes childNodes (void);
+    DOMChildNode* childNode (int childNode);
 
     DOMChildNode* firstChild (void);
     DOMChildNode* lastChild (void);
 
     bool hasChildNodes (void);
 
-    DOMText* cloneNode (void);
+//    DOMText* cloneNode (void);
 };
 
 };
