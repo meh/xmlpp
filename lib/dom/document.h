@@ -32,8 +32,16 @@ namespace xmlpp {
 
 class DOM
 {
+  private:
+    DOMChildNodes children;
+
   public:
     DOM (void);
+
+    DOMChildNode* getElementById (std::string id);
+    DOMChildNode* getElementById (const char* id);
+
+    DOMChildNode* childNode (int childNode);
 };
 
 };

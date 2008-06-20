@@ -27,7 +27,7 @@
 #include "../common.h"
 
 #define DOM_ELEMENT_NODE  1
-#define DOM_TEXT_NODE     2
+#define DOM_TEXT_NODE     3
 
 namespace xmlpp {
 
@@ -69,8 +69,10 @@ class DOMChildNode
     DOMNodeType nodeType (void);
 
     virtual std::string nodeName (void) = 0;
-    virtual std::string nodeValue (void) = 0;
-    virtual std::string text (void) = 0;
+
+    virtual std::string nodeValue (const char* value = NULL) = 0;
+
+    virtual std::string data (void) = 0;
 
     virtual bool setAttribute (std::string attributeName, std::string attributeValue) = 0;
     virtual bool setAttribute (const char* attributeName, const char* attributeValue) = 0;
@@ -83,7 +85,7 @@ class DOMChildNode
     virtual std::vector<DOMChildNode*> childNodes (void) = 0;
     virtual DOMChildNode* childNode (int childNode) = 0;
 
-    virtual DOMChildNode* cloneNode (void) = 0;
+    virtual DOMChildNode* cloneNode (bool cloneChildren = true) = 0;
 
     virtual void removeChild (int childNode) = 0;
     virtual void removeChild (DOMChildNode* childNode) = 0;
@@ -91,8 +93,8 @@ class DOMChildNode
     virtual DOMChildNode* firstChild (void) = 0;
     virtual DOMChildNode* lastChild (void) = 0;
 
-    virtual DOMChildNode* getElementById (std::string id) = 0;
-    virtual DOMChildNode* getElementById (const char* id) = 0;
+    virtual DOMChildNode* __getElementById (std::string id) = 0;
+    virtual DOMChildNode* __getElementById (const char* id) = 0;
 
     virtual std::vector<DOMChildNode*> getElementsByTagName (std::string tagName) = 0;
     virtual std::vector<DOMChildNode*> getElementsByTagName (const char* tagName) = 0;

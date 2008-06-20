@@ -38,15 +38,20 @@ DOMText::DOMText (const char* text) : DOMChildNode (DOM_TEXT_NODE)
 // Getters.
 std::string DOMText::nodeName (void)
 {
-    return NULL;
+    return "#text";
 }
 
-std::string DOMText::nodeValue (void)
+std::string DOMText::nodeValue (const char* value)
 {
-    return this->value;
+    if (value == NULL) {
+        return this->value;
+    }
+    else {
+        this->value = value;
+    }
 }
 
-std::string DOMText::text (void)
+std::string DOMText::data (void)
 {
     return this->value;
 }
@@ -86,7 +91,7 @@ DOMChildNode* DOMText::childNode (int childNode)
     throw DOMException (EX_NODE_IS_TEXT);
 }
 
-DOMChildNode* DOMText::cloneNode (void)
+DOMChildNode* DOMText::cloneNode (bool cloneChildren)
 {
     DOMText *copy = new DOMText(this->nodeValue());
     return copy;
@@ -102,12 +107,12 @@ DOMChildNode* DOMText::lastChild (void)
     throw DOMException (EX_NODE_IS_TEXT);
 }
 
-DOMChildNode* DOMText::getElementById (std::string id)
+DOMChildNode* DOMText::__getElementById (std::string id)
 {
     return NULL;
 }
 
-DOMChildNode* DOMText::getElementById (const char* id)
+DOMChildNode* DOMText::__getElementById (const char* id)
 {
     return NULL;
 }

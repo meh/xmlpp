@@ -45,12 +45,12 @@ class DOMText : public DOMChildNode
     /// @brief  Get the node's value.
     ///
     /// @return  The node's value.
-    std::string nodeValue (void);
+    std::string nodeValue (const char* value = NULL);
 
     /// @brief  Get the text from the node.
     ///
     /// @return  The text from the node.
-    std::string text (void);
+    std::string data (void);
 
     bool setAttribute (std::string attributeName, std::string attributeValue);
     bool setAttribute (const char* attributeName, const char* attributeValue);
@@ -63,7 +63,7 @@ class DOMText : public DOMChildNode
     DOMChildNodes childNodes (void);
     DOMChildNode* childNode (int childNode);
 
-    DOMChildNode* cloneNode (void);
+    DOMChildNode* cloneNode (bool cloneChildren = true);
 
     void removeChild (int childNode) {};
     void removeChild (DOMChildNode* childNode) {};
@@ -71,8 +71,8 @@ class DOMText : public DOMChildNode
     DOMChildNode* firstChild (void);
     DOMChildNode* lastChild (void);
 
-    DOMChildNode* getElementById (std::string id);
-    DOMChildNode* getElementById (const char* id);
+    DOMChildNode* __getElementById (std::string id);
+    DOMChildNode* __getElementById (const char* id);
 
     std::vector<DOMChildNode*> getElementsByTagName (std::string tagName);
     std::vector<DOMChildNode*> getElementsByTagName (const char* tagName);

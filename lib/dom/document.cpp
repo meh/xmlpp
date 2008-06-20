@@ -29,5 +29,41 @@ DOM::DOM (void)
 {
 }
 
+DOMChildNode* DOM::childNode (int childNode)
+{
+    if (this->children.size() <= childNode) {
+        throw DOMException (EX_OUT_OF_RANGE);
+    }
+    else {
+        return this->children.at(childNode);
+    }
+}
+
+DOMChildNode* DOM::getElementById (std::string id)
+{
+    DOMChildNode *found = NULL;
+
+    for (size_t i = 0; i < this->children.size(); i++) {
+        if (this->childNode(i)->getAttribute("id") == id) {
+            found = this->childNode(i);
+            break;
+        }
+        else {
+            found = this->childNode(i)->__getElementById(id);
+
+            if (found != NULL) {
+                break;
+            }
+        }
+    }
+
+    return found;
+}
+
+DOMChildNode* DOM::getElementById (const char* id)
+{
+    return this->getElementById((std::string) id);
+}
+
 };
 
