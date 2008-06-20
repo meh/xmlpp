@@ -38,7 +38,7 @@ DOMText::DOMText (const char* text) : DOMChildNode (DOM_TEXT_NODE)
 // Getters.
 std::string DOMText::nodeName (void)
 {
-    throw DOMException(EX_NODE_IS_TEXT);
+    return NULL;
 }
 
 std::string DOMText::nodeValue (void)
@@ -53,22 +53,22 @@ std::string DOMText::text (void)
 
 bool DOMText::setAttribute (std::string attributeName, std::string attributeValue)
 {
-    throw DOMException (EX_NODE_IS_TEXT);
+    return false;
 }
 
 bool DOMText::setAttribute (const char* attributeName, const char* attributeValue)
 {
-    throw DOMException (EX_NODE_IS_TEXT);
+    return false;
 }
 
 std::string DOMText::getAttribute (std::string attributeName)
 {
-    throw DOMException (EX_NODE_IS_TEXT);
+    return NULL;
 }
 
 std::string DOMText::getAttribute (const char* attributeName)
 {
-    throw DOMException (EX_NODE_IS_TEXT);
+    return NULL;
 }
 
 void DOMText::appendChild (DOMChildNode* childNode)
@@ -100,6 +100,28 @@ DOMChildNode* DOMText::firstChild (void)
 DOMChildNode* DOMText::lastChild (void)
 {
     throw DOMException (EX_NODE_IS_TEXT);
+}
+
+DOMChildNode* DOMText::getElementById (std::string id)
+{
+    return NULL;
+}
+
+DOMChildNode* DOMText::getElementById (const char* id)
+{
+    return NULL;
+}
+
+std::vector<DOMChildNode*> DOMText::getElementsByTagName (std::string tagName)
+{
+    std::vector<DOMChildNode*> elements;
+
+    return elements;
+}
+
+std::vector<DOMChildNode*> DOMText::getElementsByTagName (const char* tagName)
+{
+    return this->getElementsByTagName((std::string) tagName);
 }
 
 bool DOMText::hasChildNodes (void)

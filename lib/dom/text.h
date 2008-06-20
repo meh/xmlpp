@@ -59,12 +59,23 @@ class DOMText : public DOMChildNode
     std::string getAttribute (const char* attributeName);
 
     void appendChild (DOMChildNode* childNode);
+
     DOMChildNodes childNodes (void);
     DOMChildNode* childNode (int childNode);
+
     DOMChildNode* cloneNode (void);
+
+    void removeChild (int childNode) {};
+    void removeChild (DOMChildNode* childNode) {};
 
     DOMChildNode* firstChild (void);
     DOMChildNode* lastChild (void);
+
+    DOMChildNode* getElementById (std::string id);
+    DOMChildNode* getElementById (const char* id);
+
+    std::vector<DOMChildNode*> getElementsByTagName (std::string tagName);
+    std::vector<DOMChildNode*> getElementsByTagName (const char* tagName);
 
     bool hasChildNodes (void);
 

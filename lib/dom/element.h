@@ -26,6 +26,7 @@
 
 #include "../common.h"
 #include "child.h"
+#include "text.h"
 #include "attribute.h"
 
 namespace xmlpp {
@@ -51,6 +52,7 @@ class DOMElement : public DOMChildNode
     /// @param  elementName  The element's name (aka tag name)
     DOMElement (const char* elementName);
 
+    ~DOMElement (void);
 
     /// @brief  Get the node's name.
     ///
@@ -107,12 +109,23 @@ class DOMElement : public DOMChildNode
     bool hasAttribute (const char* attributeName);
 
     void appendChild (DOMChildNode* childNode);
+
     DOMChildNodes childNodes (void);
     DOMChildNode* childNode (int childNode);
+
     DOMChildNode* cloneNode (void);
+
+    void removeChild (int childNode);
+    void removeChild (DOMChildNode* childNode);
 
     DOMChildNode* firstChild (void);
     DOMChildNode* lastChild (void);
+
+    DOMChildNode* getElementById (std::string id);
+    DOMChildNode* getElementById (const char* id);
+
+    std::vector<DOMChildNode*> getElementsByTagName (std::string tagName);
+    std::vector<DOMChildNode*> getElementsByTagName (const char* tagName);
 
     bool hasChildNodes (void);
 };

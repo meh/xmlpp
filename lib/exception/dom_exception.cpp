@@ -39,6 +39,10 @@ DOMException::DOMException (int code) : Exception ()
         case EX_NODE_IS_TEXT:
         this->description = "The node is an element, that method isn't supported.";
         break;
+
+        case EX_OUT_OF_RANGE:
+        this->description = "The node hasn't that many child nodes.";
+        break;
     }
 }
 

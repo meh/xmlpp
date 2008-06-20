@@ -28,6 +28,9 @@ namespace xmlpp {
 DOMChildNode::DOMChildNode (DOMNodeType type)
 {
     this->type = type;
+
+    // Create a random id.
+    this->id = (rand() / (rand() * 0.23)) * (clock() / 10000);
 }
 
 DOMNodeType DOMChildNode::nodeType (void)
@@ -63,6 +66,22 @@ void DOMChildNode::__setPreviousSibling (DOMChildNode* sibling)
 void DOMChildNode::__setNextSibling (DOMChildNode* sibling)
 {
     this->nSibling = sibling;
+}
+
+double DOMChildNode::__getID (void)
+{
+    return this->id;
+}
+
+// Operators.
+bool DOMChildNode::operator == (DOMChildNode* childNode)
+{
+    if (this->id == childNode->__getID()) {
+        return true;
+    }
+    else {
+        return false;
+    }
 }
 
 };

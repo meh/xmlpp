@@ -35,6 +35,20 @@ DOMElement::DOMElement (const char* elementName) : DOMChildNode(DOM_ELEMENT_NODE
     this->name = elementName;
 }
 
+DOMElement::~DOMElement (void)
+{
+    for (size_t i = 0; i < this->children.size(); i++) {
+        if (this->children[i]->nodeType()) {
+            delete (DOMElement*) this->children[i];
+        }
+        else {
+            delete (DOMText*) this->children[i];
+        }
+    }
+
+    delete &this->children;
+}
+
 // Getters.
 std::string DOMElement::nodeName (void)
 {
@@ -75,13 +89,13 @@ std::string DOMElement::getAttribute (std::string attributeName)
         return this->attributes[attributeName]->value();
     }
     else {
-        return "null";
+        return NULL;
     }
 }
 
 std::string DOMElement::getAttribute (const char* attributeName)
 {
-    return this->getAttribute(attributeName);
+    return this->getAttribute((std::string) attributeName);
 }
 
 // Misc.
@@ -126,7 +140,12 @@ DOMChildNodes DOMElement::childNodes (void)
 
 DOMChildNode* DOMElement::childNode (int childNode)
 {
-    return this->children.at(childNode);
+    if (this->children.size() <= childNode) {
+        throw DOMException (EX_OUT_OF_RANGE);
+    }
+    else {
+        return this->children.at(childNode);
+    }
 }
 
 DOMChildNode* DOMElement::cloneNode (void)
@@ -134,10 +153,33 @@ DOMChildNode* DOMElement::cloneNode (void)
     DOMElement *copy = new DOMElement(this->nodeName());
 
     for (size_t i = 0; i < this->children.size(); i++) {
-        copy->appendChild(this->children[i]->cloneNode());
+        copy->appendChild(this->childNode(i)->cloneNode());
     }
 
     return copy;
+}
+
+void DOMElement::removeChild (int childNode)
+{
+    if (this->children.size() > childNode) {
+        DOMChildNodes::iterator element = this->children.begin()+(childNode-1);
+        delete *element;
+
+        this->children.erase(element);
+    }
+}
+
+void DOMElement::removeChild (DOMChildNode* childNode)
+{
+    for (size_t i = 0; i < this->children.size(); i++) {
+        if (this->childNode(i) == childNode) {
+            DOMChildNodes::iterator element = this->children.begin()+i-1;
+            delete *element;
+
+            this->children.erase(element);
+            break;
+        }
+    }
 }
 
 DOMChildNode* DOMElement::firstChild (void)
@@ -149,6 +191,56 @@ DOMChildNode* DOMElement::lastChild (void)
 {
     return this->children.back();
 }
+
+DOMChildNode* DOMElement::getElementById (std::string id)
+{
+    DOMChildNode *found = NULL;
+
+    for (size_t i = 0; i < this->children.size(); i++) {
+        if (this->childNode(i)->getAttribute("id") == id) {
+            found = this->childNode(i);
+            break;
+        }
+        else {
+            found = this->childNode(i)->getElementById(id);
+
+            if (found != NULL) {
+                break;
+            }
+        }
+    }
+
+    return found;
+}
+
+DOMChildNode* DOMElement::getElementById (const char* id)
+{
+    return this->getElementById((std::string) id);
+}
+
+std::vector<DOMChildNode*> DOMElement::getElementsByTagName (std::string tagName)
+{
+    DOMChildNodes elements;
+
+    for (size_t i = 0; i < this->children.size(); i++) {
+        if (this->childNode(i)->nodeName() == tagName) {
+            elements.push_back(this->childNode(i));
+        }
+
+        DOMChildNodes subElements = this->childNode(i)->getElementsByTagName(tagName);
+        for (size_t i = 0; i < subElements.size(); i++) {
+            elements.push_back(subElements[i]);
+        }
+    }
+
+    return elements;
+}
+
+std::vector<DOMChildNode*> DOMElement::getElementsByTagName (const char* tagName)
+{
+    return this->getElementsByTagName((std::string) tagName);
+}
+
 
 bool DOMElement::hasChildNodes (void)
 {

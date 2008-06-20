@@ -33,6 +33,9 @@ namespace xmlpp {
 
 class DOMChildNode
 {
+  private:
+    double id;
+
   protected:
     typedef std::vector<DOMChildNode*>::iterator DOMSibling;
 
@@ -76,12 +79,23 @@ class DOMChildNode
     virtual std::string getAttribute (const char* attributeName) = 0;
 
     virtual void appendChild (DOMChildNode* childNode) = 0;
+
     virtual std::vector<DOMChildNode*> childNodes (void) = 0;
     virtual DOMChildNode* childNode (int childNode) = 0;
+
     virtual DOMChildNode* cloneNode (void) = 0;
+
+    virtual void removeChild (int childNode) = 0;
+    virtual void removeChild (DOMChildNode* childNode) = 0;
 
     virtual DOMChildNode* firstChild (void) = 0;
     virtual DOMChildNode* lastChild (void) = 0;
+
+    virtual DOMChildNode* getElementById (std::string id) = 0;
+    virtual DOMChildNode* getElementById (const char* id) = 0;
+
+    virtual std::vector<DOMChildNode*> getElementsByTagName (std::string tagName) = 0;
+    virtual std::vector<DOMChildNode*> getElementsByTagName (const char* tagName) = 0;
 
     virtual bool hasChildNodes (void) = 0;
 
@@ -95,6 +109,11 @@ class DOMChildNode
     void __setNextSibling (DOMChildNode* sibling);
     /// @ignore
     void __setPreviousSibling (DOMChildNode* sibling);
+    /// @ignore
+    double __getID (void);
+
+    // Operators.
+    bool operator == (DOMChildNode* childNode);
 };
 
 typedef std::vector<DOMChildNode*> DOMChildNodes;

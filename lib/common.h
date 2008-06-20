@@ -30,6 +30,8 @@
 #include <string>
 #include <vector>
 #include <map>
+#include <ctime>
+#include <cstdlib>
 
 // Default typedefs
 typedef int DOMNodeType;

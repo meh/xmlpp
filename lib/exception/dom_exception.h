@@ -31,6 +31,7 @@ namespace xmlpp {
 #define EX_ATTRIBUTE_MODE_NOT_EXISTENT  1
 #define EX_NODE_IS_ELEMENT              2
 #define EX_NODE_IS_TEXT                 3
+#define EX_OUT_OF_RANGE                 4
 
 class DOMException : public Exception
 {
