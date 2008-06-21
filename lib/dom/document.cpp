@@ -25,11 +25,22 @@
 
 namespace xmlpp {
 
-DOM::DOM (void)
+bool DOM::empty (void)
 {
+    if (this->children.empty()) {
+        return true;
+    }
+    else {
+        return false;
+    }
 }
 
-DOMChildNode* DOM::childNode (int childNode)
+std::string DOM::documentElement (void)
+{
+    return this->document;
+}
+
+DOMChildNode* DOM::childNodes (int childNode)
 {
     if (this->children.size() <= childNode) {
         throw DOMException (EX_OUT_OF_RANGE);
@@ -44,12 +55,12 @@ DOMChildNode* DOM::getElementById (std::string id)
     DOMChildNode *found = NULL;
 
     for (size_t i = 0; i < this->children.size(); i++) {
-        if (this->childNode(i)->getAttribute("id") == id) {
-            found = this->childNode(i);
+        if (this->childNodes(i)->getAttribute("id") == id) {
+            found = this->childNodes(i);
             break;
         }
         else {
-            found = this->childNode(i)->__getElementById(id);
+            found = this->childNodes(i)->__getElementById(id);
 
             if (found != NULL) {
                 break;
@@ -63,6 +74,29 @@ DOMChildNode* DOM::getElementById (std::string id)
 DOMChildNode* DOM::getElementById (const char* id)
 {
     return this->getElementById((std::string) id);
+}
+
+DOMChildNodes DOM::getElementsByTagName (std::string tagName)
+{
+    DOMChildNodes elements;
+
+    for (size_t i = 0; i < this->children.size(); i++) {
+        if (this->childNodes(i)->nodeName() == tagName) {
+            elements.push_back(this->childNodes(i));
+        }
+
+        DOMChildNodes subElements = this->childNodes(i)->getElementsByTagName(tagName);
+        for (size_t i = 0; i < subElements.size(); i++) {
+            elements.push_back(subElements[i]);
+        }
+    }
+
+    return elements;
+}
+
+DOMChildNodes DOM::getElementsByTagName (const char* tagName)
+{
+    return this->getElementsByTagName((std::string) tagName);
 }
 
 };

@@ -31,6 +31,7 @@
 
 namespace xmlpp {
 
+/// @brief DOMChildNode class, the base abstract class for DOMText and DOMElement.
 class DOMChildNode
 {
   private:
@@ -60,6 +61,8 @@ class DOMChildNode
     DOMChildNode* parent;
 
   public:
+    typedef std::vector<DOMChildNode*> DOMChildNodes;
+
     /// @brief  Create the node.
     ///
     /// @param  type  The node's type. DOM_ELEMENT_NODE and DOM_TEXT_NODE
@@ -166,17 +169,12 @@ class DOMChildNode
     ///         False if not.
     virtual bool hasChildNodes (void) = 0;
 
-    /// @brief  Get a vector with all the children of a DOMElement.
-    ///
-    /// @return  The vector with the children.
-    virtual std::vector<DOMChildNode*> childNodes (void) = 0;
-    
     /// @brief  Get a child node.
     ///
     /// @param  childNode  The child number in the vector.
     /// 
     /// @return  The pointer to the child.
-    virtual DOMChildNode* childNode (int childNode) = 0;
+    virtual DOMChildNode* childNodes (int childNode) = 0;
 
     /// @brief  Get the first child of the node.
     ///
@@ -199,14 +197,14 @@ class DOMChildNode
     /// @param  tagName  The tag name to use for searching.
     ///
     /// @return  A vector with the pointers to the matched nodes.
-    virtual std::vector<DOMChildNode*> getElementsByTagName (std::string tagName) = 0;
+    virtual DOMChildNodes getElementsByTagName (std::string tagName) = 0;
 
     /// @brief Get every element with the tag name passed starting from the node.
     ///
     /// @param  tagName  The tag name to use for searching.
     ///
     /// @return  A vector with the pointers to the matched nodes.
-    virtual std::vector<DOMChildNode*> getElementsByTagName (const char* tagName) = 0;
+    virtual DOMChildNodes getElementsByTagName (const char* tagName) = 0;
 
     /// @brief  Get the node's parent.
     ///
@@ -224,20 +222,15 @@ class DOMChildNode
     DOMChildNode* previousSibling (void);
 
     // Don't use these methods.
-    /// @ignore
+    #ifndef DOXYGEN_SHOULD_SKIP_THIS
     virtual DOMChildNode* __getElementById (std::string id) = 0;
-    /// @ignore
     virtual DOMChildNode* __getElementById (const char* id) = 0;
-    /// @ignore
     void __setParent (DOMChildNode* parent);
-    /// @ignore
     void __setNextSibling (DOMChildNode* sibling);
-    /// @ignore
     void __setPreviousSibling (DOMChildNode* sibling);
-    /// @ignore
     double __getID (void);
+    #endif
 
-    // Operators.
     /// @brief  Get if a node is exactly the same as another (checks the unique id of the node).
     ///
     /// @return  True if it's the same.

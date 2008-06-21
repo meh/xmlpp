@@ -31,7 +31,7 @@
 
 namespace xmlpp {
 
-/// @brief  The DOMElement class contains the element name, attributes and childs.
+/// @brief  The DOMElement class, childnodes, attributes etc.
 class DOMElement : public DOMChildNode
 {
   private:
@@ -60,14 +60,13 @@ class DOMElement : public DOMChildNode
     /// @return  The node's name.
     std::string nodeName (void);
 
-    /// @ignore
+    // Don't use these methods.
+    #ifndef DOXYGEN_SHOULD_SKIP_THIS
     std::string nodeValue (void) {};
-    /// @ignore
     void nodeValue (const char* value) {};
-    /// @ignore
     void nodeValue (std::string value) {};
-    /// @ignore
     std::string data (void) {};
+    #endif
 
     /// @brief  Set an attribute to the element.
     ///
@@ -138,17 +137,12 @@ class DOMElement : public DOMChildNode
     ///         False if not.
     bool hasChildNodes (void);
 
-    /// @brief  Get a vector with all the children of a DOMElement.
-    ///
-    /// @return  The vector with the children.
-    DOMChildNodes childNodes (void);
-
     /// @brief  Get a child node.
     ///
     /// @param  childNode  The child number in the vector.
     /// 
     /// @return  The pointer to the child.
-    DOMChildNode* childNode (int childNode);
+    DOMChildNode* childNodes (int childNode);
 
     /// @brief  Get the first child of the node.
     ///
@@ -171,20 +165,20 @@ class DOMElement : public DOMChildNode
     /// @param  tagName  The tag name to use for searching.
     ///
     /// @return  A vector with the pointers to the matched nodes.
-    std::vector<DOMChildNode*> getElementsByTagName (std::string tagName);
+    DOMChildNodes getElementsByTagName (std::string tagName);
 
     /// @brief Get every element with the tag name passed starting from the node.
     ///
     /// @param  tagName  The tag name to use for searching.
     ///
     /// @return  A vector with the pointers to the matched nodes.
-    std::vector<DOMChildNode*> getElementsByTagName (const char* tagName);
+    DOMChildNodes getElementsByTagName (const char* tagName);
 
     // Don't use these methods.
-    /// @ignore
+    #ifndef DOXYGEN_SHOULD_SKIP_THIS
     DOMChildNode* __getElementById (std::string id);
-    /// @ignore
     DOMChildNode* __getElementById (const char* id);
+    #endif
 };
 
 };

@@ -29,6 +29,7 @@
 
 namespace xmlpp {
 
+/// @brief DOMText child node.
 class DOMText : public DOMChildNode
 {
   public:
@@ -67,53 +68,38 @@ class DOMText : public DOMChildNode
     /// @return  The text from the node.
     std::string data (void);
 
-    /// @ignore
+    // Don't use these methods.
+    #ifndef DOXYGEN_SHOULD_SKIP_THIS
     void setAttribute (std::string attributeName, std::string attributeValue) {};
-    /// @ignore
     void setAttribute (const char* attributeName, const char* attributeValue) {};
-    /// @ignore
     std::string getAttribute (std::string attributeName) {};
-    /// @ignore
     std::string getAttribute (const char* attributeName) {};
-    /// @ignore
     void removeAttribute (std::string attributeName) {};
-    /// @ignore
     void removeAttribute (const char* attrbuteName) {};
 
-    /// @ignore
     void appendChild (DOMChildNode* childNode) {};
-    /// @ignore
     void insertBefore (DOMChildNode* childNode, DOMChildNode* nodeAfter) {};
-    /// @ignore
     void replaceChild (DOMChildNode* newChild, DOMChildNode* oldChild) {};
-    /// @ignore
     void removeChild (int childNode) {};
-    /// @ignore
     void removeChild (DOMChildNode* childNode) {};
-    /// @ignore
-    DOMChildNodes childNodes (void) {};
-    /// @ignore
-    DOMChildNode* childNode (int childNode) {};
-    /// @ignore
+    DOMChildNode* childNodes (int childNode) {};
     DOMChildNode* firstChild (void) {};
-    /// @ignore
     DOMChildNode* lastChild (void) {};
+    #endif
 
     /// @brief Clonde the text node.
     ///
     /// @return  The pointer to the cloned DOMText.
     DOMChildNode* cloneNode (bool cloneChildren = true);
 
-    /// @ignore
+    // Don't use these methods.
+    #ifndef DOXYGEN_SHOULD_SKIP_THIS
     DOMChildNode* __getElementById (std::string id);
-    /// @ignore
     DOMChildNode* __getElementById (const char* id);
-    /// @ignore
-    std::vector<DOMChildNode*> getElementsByTagName (std::string tagName);
-    /// @ignore
-    std::vector<DOMChildNode*> getElementsByTagName (const char* tagName);
-    /// @ignore
+    DOMChildNodes getElementsByTagName (std::string tagName);
+    DOMChildNodes getElementsByTagName (const char* tagName);
     bool hasChildNodes (void) {};
+    #endif
 };
 
 };

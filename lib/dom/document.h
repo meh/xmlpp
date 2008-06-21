@@ -25,23 +25,68 @@
 #define XMLPP_DOM_DOCUMENT TRUE
 
 #include "../common.h"
+#include "child.h"
 #include "element.h"
 #include "text.h"
 
 namespace xmlpp {
 
+/// @brief DOM document class.
 class DOM
 {
   private:
+    /// @brief  The plain text version of the document.
+    std::string document;
+
+    /// @brief Vector with the child nodes.
     DOMChildNodes children;
 
   public:
-    DOM (void);
+    /// @brief  Says if the document is empty or not.
+    ///
+    /// @return  True if it's empty.
+    ///          False if it isn't.
+    bool empty (void);
 
+    /// @brief  Get the plain text version of the document.
+    /// 
+    /// @return  The plain text document.
+    std::string documentElement (void);
+
+    /// @brief  Get a child node.
+    ///
+    /// @param  childNode  The child number in the vector.
+    /// 
+    /// @return  The pointer to the child.
+    DOMChildNode* childNodes (int childNode);
+
+    /// @brief  Get the element with that id.
+    ///
+    /// @param  id  The id to look for.
+    ///
+    /// @return  The DOMElement object with that nick.
     DOMChildNode* getElementById (std::string id);
+
+    /// @brief  Get the element with that id.
+    ///
+    /// @param  id  The id to look for.
+    ///
+    /// @return  The DOMElement object with that nick.
     DOMChildNode* getElementById (const char* id);
 
-    DOMChildNode* childNode (int childNode);
+    /// @brief Get every element with the tag name passed starting from the node.
+    ///
+    /// @param  tagName  The tag name to use for searching.
+    ///
+    /// @return  A vector with the pointers to the matched nodes.
+    DOMChildNodes getElementsByTagName (std::string tagName);
+
+    /// @brief Get every element with the tag name passed starting from the node.
+    ///
+    /// @param  tagName  The tag name to use for searching.
+    ///
+    /// @return  A vector with the pointers to the matched nodes.
+    DOMChildNodes getElementsByTagName (const char* tagName);
 };
 
 };

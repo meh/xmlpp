@@ -49,7 +49,7 @@ class XMLParser
 
     /// @brief  Parses the text passed.
     ///
-    /// @param  The text to parse.
+    /// @param  xmlText  The text to parse.
     ///
     /// @return  The XML object.
     DOM* parse (std::string xmlText);
@@ -68,19 +68,30 @@ class XMLParser
     /// @param  xmlFile  The filename.
     XMLParser (const char* xmlFile);
 
-    DOM* parseFromFile (std::string xmlText);
-    DOM* parseFromFile (const char* xmlText);
+    /// @brief  Parse an xml file.
+    /// 
+    /// @param  xmlFile  The xml file.
+    ///
+    /// @return  The DOM document.
+    DOM* parseFromFile (std::string xmlFile);
+
+    /// @brief  Parse an xml file.
+    /// 
+    /// @param  xmlFile  The xml file.
+    ///
+    /// @return  The DOM document.
+    DOM* parseFromFile (const char* xmlFile);
 
     /// @brief  Parses the text passed.
     ///
-    /// @param  The text to parse.
+    /// @param  xmlText  The text to parse.
     ///
     /// @return  The DOM object.
     DOM* parseFromString (std::string xmlText);
 
     /// @brief  Parses the text passed.
     ///
-    /// @param  The text to parse.
+    /// @param  xmlText  The text to parse.
     ///
     /// @return  The DOM object.
     DOM* parseFromString (const char* xmlText);
