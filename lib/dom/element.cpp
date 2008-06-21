@@ -63,7 +63,17 @@ std::string DOMElement::nodeName (void)
     return this->name;
 }
 
-std::string DOMElement::nodeValue (const char* value)
+std::string DOMElement::nodeValue (void)
+{
+    throw DOMException(EX_NODE_IS_ELEMENT);
+}
+
+void DOMElement::nodeValue (const char* value)
+{
+    throw DOMException(EX_NODE_IS_ELEMENT);
+}
+
+void DOMElement::nodeValue (std::string value)
 {
     throw DOMException(EX_NODE_IS_ELEMENT);
 }
@@ -141,6 +151,11 @@ void DOMElement::appendChild (DOMChildNode* childNode)
     this->children.push_back(childNode);
 }
 
+void DOMElement::insertBefore (DOMChildNode* childNode, DOMChildNode* nodeAfter)
+{
+    
+}
+
 DOMChildNodes DOMElement::childNodes (void)
 {
     return this->children;
@@ -174,11 +189,53 @@ DOMChildNode* DOMElement::cloneNode (bool cloneChildren)
     return copy;
 }
 
+void DOMElement::replaceChild (DOMChildNode* newChild, DOMChildNode* oldChild)
+{
+    DOMChildNode *parent = oldChild->parentNode();
+
+    if (parent == this) {
+        for (size_t i = 0; i < this->children.size(); i++) {
+            if (this->children[i] == oldChild) {
+                delete this->children[i];
+                this->children[i] = newChild;
+
+                if (i == 0) {
+                    this->children[i]->__setPreviousSibling(NULL);
+                }
+                else {
+                    this->children[i]->__setPreviousSibling(this->children[i-1]);
+                    this->children[i-1]->__setNextSibling(this->children[i]);
+                }
+
+                if (i < this->children.size()-2) {
+                    this->children[i]->__setNextSibling(this->children[i+1]);
+                    this->children[i+1]->__setPreviousSibling(this->children[i]);
+                }
+                else {
+                    this->children[i]->__setNextSibling(NULL);
+                }
+                break;
+            }
+        }
+    }
+}
+
 void DOMElement::removeChild (int childNode)
 {
-    if (this->children.size() > childNode) {
-        DOMChildNodes::iterator element = this->children.begin()+(childNode-1);
+    if (childNode < this->children.size()) {
+        DOMChildNodes::iterator element = this->children.begin()+childNode;
         delete *element;
+
+        if (childNode == 0 && this->children.size() > 1)  {
+           (*(element+1))->__setPreviousSibling(NULL);
+        }
+        else if (childNode != 0 && childNode == this->children.size()-1) {
+            (*(element-1))->__setNextSibling(NULL);
+        }
+        else if (childNode > 0 && this->children.size() > 1){
+            (*(element+1))->__setPreviousSibling(*(element-1));
+            (*(element-1))->__setNextSibling(*(element+1));
+        }
 
         this->children.erase(element);
     }
@@ -188,8 +245,19 @@ void DOMElement::removeChild (DOMChildNode* childNode)
 {
     for (size_t i = 0; i < this->children.size(); i++) {
         if (this->childNode(i) == childNode) {
-            DOMChildNodes::iterator element = this->children.begin()+i-1;
+            DOMChildNodes::iterator element = this->children.begin()+i;
             delete *element;
+
+            if (i == 0 && this->children.size() > 1) {
+               (*(element+1))->__setPreviousSibling(NULL);
+            }
+            else if (i == this->children.size()-1) {
+                (*(element-1))->__setNextSibling(NULL);
+            }
+            else {
+                (*(element+1))->__setPreviousSibling(*(element-1));
+                (*(element-1))->__setNextSibling(*(element+1));
+            }
 
             this->children.erase(element);
             break;

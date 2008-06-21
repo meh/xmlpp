@@ -45,31 +45,36 @@ class DOMText : public DOMChildNode
     /// @brief  Get the node's value.
     ///
     /// @return  The node's value.
-    std::string nodeValue (const char* value = NULL);
+    std::string nodeValue (void);
+    void nodeValue (std::string value);
+    void nodeValue (const char* value);
 
     /// @brief  Get the text from the node.
     ///
     /// @return  The text from the node.
     std::string data (void);
 
-    bool setAttribute (std::string attributeName, std::string attributeValue);
-    bool setAttribute (const char* attributeName, const char* attributeValue);
+    bool setAttribute (std::string attributeName, std::string attributeValue) {};
+    bool setAttribute (const char* attributeName, const char* attributeValue) {};
 
-    std::string getAttribute (std::string attributeName);
-    std::string getAttribute (const char* attributeName);
+    std::string getAttribute (std::string attributeName) {};
+    std::string getAttribute (const char* attributeName) {};
 
-    void appendChild (DOMChildNode* childNode);
+    void appendChild (DOMChildNode* childNode) {};
+    void insertBefore (DOMChildNode* childNode, DOMChildNode* nodeAfter) {};
 
-    DOMChildNodes childNodes (void);
-    DOMChildNode* childNode (int childNode);
+    DOMChildNodes childNodes (void) {};
+    DOMChildNode* childNode (int childNode) {};
 
     DOMChildNode* cloneNode (bool cloneChildren = true);
+
+    void replaceChild (DOMChildNode* newChild, DOMChildNode* oldChild) {};
 
     void removeChild (int childNode) {};
     void removeChild (DOMChildNode* childNode) {};
 
-    DOMChildNode* firstChild (void);
-    DOMChildNode* lastChild (void);
+    DOMChildNode* firstChild (void) {};
+    DOMChildNode* lastChild (void) {};
 
     DOMChildNode* __getElementById (std::string id);
     DOMChildNode* __getElementById (const char* id);
@@ -78,8 +83,6 @@ class DOMText : public DOMChildNode
     std::vector<DOMChildNode*> getElementsByTagName (const char* tagName);
 
     bool hasChildNodes (void);
-
-//    DOMText* cloneNode (void);
 };
 
 };

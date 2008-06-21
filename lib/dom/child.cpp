@@ -38,10 +38,12 @@ DOMNodeType DOMChildNode::nodeType (void)
     return this->type;
 }
 
-DOMChildNode* DOMChildNode::nodeParent (void)
+DOMChildNode* DOMChildNode::parentNode (void)
 {
     return this->parent;
 }
+
+
 
 DOMChildNode* DOMChildNode::previousSibling (void)
 {

@@ -70,7 +70,9 @@ class DOMChildNode
 
     virtual std::string nodeName (void) = 0;
 
-    virtual std::string nodeValue (const char* value = NULL) = 0;
+    virtual std::string nodeValue (void) = 0;
+    virtual void nodeValue (std::string value) = 0;
+    virtual void nodeValue (const char* value) = 0;
 
     virtual std::string data (void) = 0;
 
@@ -81,6 +83,7 @@ class DOMChildNode
     virtual std::string getAttribute (const char* attributeName) = 0;
 
     virtual void appendChild (DOMChildNode* childNode) = 0;
+    virtual void insertBefore (DOMChildNode* childNode, DOMChildNode* nodeAfter) = 0;
 
     virtual std::vector<DOMChildNode*> childNodes (void) = 0;
     virtual DOMChildNode* childNode (int childNode) = 0;
@@ -89,6 +92,8 @@ class DOMChildNode
 
     virtual void removeChild (int childNode) = 0;
     virtual void removeChild (DOMChildNode* childNode) = 0;
+
+    virtual void replaceChild (DOMChildNode* newChild, DOMChildNode* oldChild) = 0;
 
     virtual DOMChildNode* firstChild (void) = 0;
     virtual DOMChildNode* lastChild (void) = 0;
@@ -101,7 +106,7 @@ class DOMChildNode
 
     virtual bool hasChildNodes (void) = 0;
 
-    DOMChildNode* nodeParent (void);
+    DOMChildNode* parentNode (void);
     DOMChildNode* nextSibling (void);
     DOMChildNode* previousSibling (void);
 

@@ -62,7 +62,9 @@ class DOMElement : public DOMChildNode
     /// @brief  Get the node's value.
     ///
     /// @return  The node's value.
-    std::string nodeValue (const char* value = NULL);
+    std::string nodeValue (void);
+    void nodeValue (const char* value);
+    void nodeValue (std::string value);
     
     std::string data (void);
 
@@ -110,11 +112,14 @@ class DOMElement : public DOMChildNode
     bool hasAttribute (const char* attributeName);
 
     void appendChild (DOMChildNode* childNode);
+    void insertBefore (DOMChildNode* childNode, DOMChildNode* nodeAfter);
 
     DOMChildNodes childNodes (void);
     DOMChildNode* childNode (int childNode);
 
     DOMChildNode* cloneNode (bool cloneChildren = true);
+
+    void replaceChild (DOMChildNode* newChild, DOMChildNode* oldChild);
 
     void removeChild (int childNode);
     void removeChild (DOMChildNode* childNode);

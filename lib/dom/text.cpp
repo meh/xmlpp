@@ -41,14 +41,19 @@ std::string DOMText::nodeName (void)
     return "#text";
 }
 
-std::string DOMText::nodeValue (const char* value)
+std::string DOMText::nodeValue (void)
 {
-    if (value == NULL) {
-        return this->value;
-    }
-    else {
-        this->value = value;
-    }
+    return this->value;
+}
+
+void DOMText::nodeValue (const char* value)
+{
+    this->value = value;
+}
+
+void DOMText::nodeValue (std::string value)
+{
+    this->value = value;
 }
 
 std::string DOMText::data (void)
@@ -56,55 +61,10 @@ std::string DOMText::data (void)
     return this->value;
 }
 
-bool DOMText::setAttribute (std::string attributeName, std::string attributeValue)
-{
-    return false;
-}
-
-bool DOMText::setAttribute (const char* attributeName, const char* attributeValue)
-{
-    return false;
-}
-
-std::string DOMText::getAttribute (std::string attributeName)
-{
-    return NULL;
-}
-
-std::string DOMText::getAttribute (const char* attributeName)
-{
-    return NULL;
-}
-
-void DOMText::appendChild (DOMChildNode* childNode)
-{
-    throw DOMException (EX_NODE_IS_TEXT);
-}
-
-DOMChildNodes DOMText::childNodes (void)
-{
-    throw DOMException (EX_NODE_IS_TEXT);
-}
-
-DOMChildNode* DOMText::childNode (int childNode)
-{
-    throw DOMException (EX_NODE_IS_TEXT);
-}
-
 DOMChildNode* DOMText::cloneNode (bool cloneChildren)
 {
     DOMText *copy = new DOMText(this->nodeValue());
     return copy;
-}
-
-DOMChildNode* DOMText::firstChild (void)
-{
-    throw DOMException (EX_NODE_IS_TEXT);
-}
-
-DOMChildNode* DOMText::lastChild (void)
-{
-    throw DOMException (EX_NODE_IS_TEXT);
 }
 
 DOMChildNode* DOMText::__getElementById (std::string id)
