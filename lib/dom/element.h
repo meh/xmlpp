@@ -52,90 +52,139 @@ class DOMElement : public DOMChildNode
     /// @param  elementName  The element's name (aka tag name)
     DOMElement (const char* elementName);
 
+    /// @brief  Destroys every children in the node.
     ~DOMElement (void);
 
     /// @brief  Get the node's name.
     ///
-    /// @return  The node's name
+    /// @return  The node's name.
     std::string nodeName (void);
 
-    /// @brief  Get the node's value.
-    ///
-    /// @return  The node's value.
-    std::string nodeValue (void);
-    void nodeValue (const char* value);
-    void nodeValue (std::string value);
-    
-    std::string data (void);
-
-    // Setters.
+    /// @ignore
+    std::string nodeValue (void) {};
+    /// @ignore
+    void nodeValue (const char* value) {};
+    /// @ignore
+    void nodeValue (std::string value) {};
+    /// @ignore
+    std::string data (void) {};
 
     /// @brief  Set an attribute to the element.
     ///
     /// @param  attributeName   The attribute's name.
     /// @param  attributeValue  The attribute's value.
-    ///
-    /// @return  True if the attribute is added.
-    bool setAttribute (std::string attributeName, std::string attributeValue);
+    void setAttribute (std::string attributeName, std::string attributeValue);
 
     /// @brief  Set an attribute to the element.
     ///
     /// @param  attributeName   The attribute's name.
     /// @param  attributeValue  The attribute's value.
-    ///
-    /// @return  True if the attribute is added.
-    bool setAttribute (const char* attributeName, const char* attributeValue);
+    void setAttribute (const char* attributeName, const char* attributeValue);
 
-    // Getters.
-    
     /// @brief  Get an attribute.
     ///
     /// @param  attributeName  The attribute's name.
     ///
-    /// @return  The attribute object.
+    /// @return  The attribute value.
     std::string getAttribute (std::string attributeName);
 
     /// @brief  Get an attribute.
     ///
     /// @param  attributeName  The attribute's name.
     ///
-    /// @return  The attribute object.
+    /// @return  The attribute value.
     std::string getAttribute (const char* attributeName);
 
-    /// @brief  Get if the element is initialized or not.
+    /// @brief  Remove an attribute from the node.
     ///
-    /// @return  True if the element is initialized.
-    bool isInitialized (void);
+    /// @param  attributeName  The attribute's name to remove.
+    void removeAttribute (std::string attributeName);
 
-    // Misc.
-    bool hasAttribute (std::string attributeName);
-    bool hasAttribute (const char* attributeName);
+    /// @brief  Remove an attribute from the node.
+    ///
+    /// @param  attributeName  The attribute's name to remove.
+    void removeAttribute (const char* attributeName);
 
+    /// @brief  Append a child to a DOMElement.
+    ///
+    /// @param  childNode  The pointer to the child to append.
     void appendChild (DOMChildNode* childNode);
+
+    /// @brief  Insert a child before another child.
+    ///
+    /// @param  childNode  The pointer to the child to insert.
+    /// @param  nodeAfter  The pointer to the child that you want to insert the child before.
     void insertBefore (DOMChildNode* childNode, DOMChildNode* nodeAfter);
 
-    DOMChildNodes childNodes (void);
-    DOMChildNode* childNode (int childNode);
-
-    DOMChildNode* cloneNode (bool cloneChildren = true);
-
+    /// @brief  Replace a child with another.
+    ///
+    /// @param  newChild  The pointer to the child to put in the node.
+    /// @param  oldChild  The pointer to the child to replace.
     void replaceChild (DOMChildNode* newChild, DOMChildNode* oldChild);
 
+    /// @brief  Remove a child from the node.
+    ///
+    /// @param  childNode  The node number.
     void removeChild (int childNode);
+
+    /// @brief  Remove a child from the node.
+    ///
+    /// @param  childNode  The pointer to the node that you want to delete.
     void removeChild (DOMChildNode* childNode);
 
+    /// @brief  Say if a node has children or not.
+    ///
+    /// @return True if the node has children.
+    ///         False if not.
+    bool hasChildNodes (void);
+
+    /// @brief  Get a vector with all the children of a DOMElement.
+    ///
+    /// @return  The vector with the children.
+    DOMChildNodes childNodes (void);
+
+    /// @brief  Get a child node.
+    ///
+    /// @param  childNode  The child number in the vector.
+    /// 
+    /// @return  The pointer to the child.
+    DOMChildNode* childNode (int childNode);
+
+    /// @brief  Get the first child of the node.
+    ///
+    /// @return  The pointer to the first child.
     DOMChildNode* firstChild (void);
+
+    /// @brief  Get the last child of the node.
+    ///
+    /// @return  The pointer to the last child.
     DOMChildNode* lastChild (void);
 
+    /// @brief  Clone a node with or without the children.
+    ///
+    /// @param  cloneChildren  True if you want to clone the children too.
+    ///                        False if you want to clone only the node.
+    DOMChildNode* cloneNode (bool cloneChildren = true);
+
+    /// @brief Get every element with the tag name passed starting from the node.
+    ///
+    /// @param  tagName  The tag name to use for searching.
+    ///
+    /// @return  A vector with the pointers to the matched nodes.
+    std::vector<DOMChildNode*> getElementsByTagName (std::string tagName);
+
+    /// @brief Get every element with the tag name passed starting from the node.
+    ///
+    /// @param  tagName  The tag name to use for searching.
+    ///
+    /// @return  A vector with the pointers to the matched nodes.
+    std::vector<DOMChildNode*> getElementsByTagName (const char* tagName);
+
+    // Don't use these methods.
     /// @ignore
     DOMChildNode* __getElementById (std::string id);
     /// @ignore
     DOMChildNode* __getElementById (const char* id);
-
-    std::vector<DOMChildNode*> getElementsByTagName (std::string tagName);
-    std::vector<DOMChildNode*> getElementsByTagName (const char* tagName);
-
-    bool hasChildNodes (void);
 };
 
 };

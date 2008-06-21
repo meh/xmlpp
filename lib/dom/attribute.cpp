@@ -25,14 +25,8 @@
 
 namespace xmlpp {
 
-DOMAttribute::DOMAttribute (void)
-{
-    this->initialized = false;
-}
-
 DOMAttribute::DOMAttribute (std::string attributeName, std::string attributeValue)
 {
-    this->initialized    = true;
     this->attributeName  = attributeName;
     this->attributeValue = attributeValue;
     this->updatePlain();
@@ -40,59 +34,45 @@ DOMAttribute::DOMAttribute (std::string attributeName, std::string attributeValu
 
 DOMAttribute::DOMAttribute (const char* attributeName, const char* attributeValue)
 {
-    this->initialized    = true;
     this->attributeName  = attributeName;
     this->attributeValue = attributeValue;
     this->updatePlain();
 }
 
-// Setters.
-void DOMAttribute::setName (std::string attributeName)
-{
-    this->attributeName = attributeName;
-    this->updatePlain();
-}
-
-void DOMAttribute::setName (const char* attributeName)
-{
-    this->attributeName = attributeName;
-    this->updatePlain();
-}
-
-void DOMAttribute::setValue (std::string attributeValue)
-{
-    this->attributeValue = attributeValue;
-    this->updatePlain();
-}
-
-void DOMAttribute::setValue (const char* attributeValue)
-{
-    this->attributeValue = attributeValue;
-    this->updatePlain();
-}
-
-// Getters.
-std::string DOMAttribute::name (void)
+std::string DOMAttribute::nodeName (void)
 {
     return this->attributeName;
 }
 
-std::string DOMAttribute::value (void)
+void DOMAttribute::nodeName (std::string attributeName)
+{
+    this->attributeName = attributeName;
+    this->updatePlain();
+}
+
+void DOMAttribute::nodeName (const char* attributeName)
+{
+    this->attributeName = attributeName;
+    this->updatePlain();
+}
+
+std::string DOMAttribute::nodeValue (void)
 {
     return this->attributeValue;
 }
 
-std::string DOMAttribute::plain (void)
+void DOMAttribute::nodeValue (std::string attributeValue)
 {
-    return this->plainText;
+    this->attributeValue = attributeValue;
+    this->updatePlain();
 }
 
-bool DOMAttribute::isInitialized (void)
+void DOMAttribute::nodeValue (const char* attributeValue)
 {
-    return this->initialized;
+    this->attributeValue = attributeValue;
+    this->updatePlain();
 }
 
-// Misc.
 void DOMAttribute::updatePlain (void)
 {
     if (!this->attributeName.empty() && !this->attributeValue.empty()) {

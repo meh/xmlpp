@@ -31,58 +31,89 @@ namespace xmlpp {
 
 class DOMText : public DOMChildNode
 {
-  private:
-
   public:
+    /// @brief  Create the text node with the given value.
+    ///
+    /// @param  text  The node's value.
     DOMText (std::string text);
+
+    /// @brief  Create the text node with the given value.
+    ///
+    /// @param  text  The node's value.
     DOMText (const char* text);
 
     /// @brief  Get the node's name.
     ///
-    /// @return  The node's name
+    /// @return "#text"
     std::string nodeName (void);
 
-    /// @brief  Get the node's value.
+    /// @brief  Get the node's value. 
     ///
     /// @return  The node's value.
     std::string nodeValue (void);
+
+    /// @brief  Set the node value.
+    ///
+    /// @param  value  The text to set.
     void nodeValue (std::string value);
+
+    /// @brief  Set the node value.
+    ///
+    /// @param  value  The text to set.
     void nodeValue (const char* value);
 
-    /// @brief  Get the text from the node.
+    /// @brief  Another name for the nodeValue method.
     ///
     /// @return  The text from the node.
     std::string data (void);
 
-    bool setAttribute (std::string attributeName, std::string attributeValue) {};
-    bool setAttribute (const char* attributeName, const char* attributeValue) {};
-
+    /// @ignore
+    void setAttribute (std::string attributeName, std::string attributeValue) {};
+    /// @ignore
+    void setAttribute (const char* attributeName, const char* attributeValue) {};
+    /// @ignore
     std::string getAttribute (std::string attributeName) {};
+    /// @ignore
     std::string getAttribute (const char* attributeName) {};
+    /// @ignore
+    void removeAttribute (std::string attributeName) {};
+    /// @ignore
+    void removeAttribute (const char* attrbuteName) {};
 
+    /// @ignore
     void appendChild (DOMChildNode* childNode) {};
+    /// @ignore
     void insertBefore (DOMChildNode* childNode, DOMChildNode* nodeAfter) {};
-
-    DOMChildNodes childNodes (void) {};
-    DOMChildNode* childNode (int childNode) {};
-
-    DOMChildNode* cloneNode (bool cloneChildren = true);
-
+    /// @ignore
     void replaceChild (DOMChildNode* newChild, DOMChildNode* oldChild) {};
-
+    /// @ignore
     void removeChild (int childNode) {};
+    /// @ignore
     void removeChild (DOMChildNode* childNode) {};
-
+    /// @ignore
+    DOMChildNodes childNodes (void) {};
+    /// @ignore
+    DOMChildNode* childNode (int childNode) {};
+    /// @ignore
     DOMChildNode* firstChild (void) {};
+    /// @ignore
     DOMChildNode* lastChild (void) {};
 
+    /// @brief Clonde the text node.
+    ///
+    /// @return  The pointer to the cloned DOMText.
+    DOMChildNode* cloneNode (bool cloneChildren = true);
+
+    /// @ignore
     DOMChildNode* __getElementById (std::string id);
+    /// @ignore
     DOMChildNode* __getElementById (const char* id);
-
+    /// @ignore
     std::vector<DOMChildNode*> getElementsByTagName (std::string tagName);
+    /// @ignore
     std::vector<DOMChildNode*> getElementsByTagName (const char* tagName);
-
-    bool hasChildNodes (void);
+    /// @ignore
+    bool hasChildNodes (void) {};
 };
 
 };

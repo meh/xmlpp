@@ -34,11 +34,10 @@ namespace xmlpp {
 class DOMChildNode
 {
   private:
+    /// @brief  The unique id of the node.
     double id;
 
   protected:
-    typedef std::vector<DOMChildNode*>::iterator DOMSibling;
-
     /// @brief The node's type: DOM_ELEMENT_NODE or DOM_TEXT_NODE
     DOMNodeType type;
 
@@ -51,14 +50,19 @@ class DOMChildNode
     /// @brief  Plain text view of the node.
     std::string plainText;
 
+    /// @brief  The previous sibling.
     DOMChildNode* pSibling;
+
+    /// @brief  The next sibling.
     DOMChildNode* nSibling;
+
+    /// @brief  The child's parent.
     DOMChildNode* parent;
 
   public:
     /// @brief  Create the node.
     ///
-    /// @param  type  The node's type.
+    /// @param  type  The node's type. DOM_ELEMENT_NODE and DOM_TEXT_NODE
     DOMChildNode (DOMNodeType type);
 
     // Getters.
@@ -68,48 +72,162 @@ class DOMChildNode
     /// @return  The type. DOM_ELEMENT_NODE or DOM_TEXT_NODE
     DOMNodeType nodeType (void);
 
+    /// @brief  Get the node's name.
+    ///
+    /// @return  The node's name if it's a DOMElement or "#text" if it's a DOMText.
     virtual std::string nodeName (void) = 0;
 
+    /// @brief  Get the node's value (text)
+    ///
+    /// @return  The node's value if it's a DOMText or nothing if it's a DOMElement.
     virtual std::string nodeValue (void) = 0;
+
+    /// @brief  Set the node value.
+    ///
+    /// @param  value  The text for the DOMText node.
     virtual void nodeValue (std::string value) = 0;
+
+    /// @brief  Set the node value.
+    ///
+    /// @param  value  The text for the DOMText node.
     virtual void nodeValue (const char* value) = 0;
 
+    /// @brief  Another name for the nodeValue method.
+    ///
+    /// @return  The node's value if it's a DOMText or nothing if it's a DOMElement.
     virtual std::string data (void) = 0;
 
-    virtual bool setAttribute (std::string attributeName, std::string attributeValue) = 0;
-    virtual bool setAttribute (const char* attributeName, const char* attributeValue) = 0;
+    /// @brief  Add an attribute to a DOMElement.
+    ///
+    /// @param  attributeName   The attribute name.
+    /// @param  attributeValue  The attribute value.
+    virtual void setAttribute (std::string attributeName, std::string attributeValue) = 0;
 
+    /// @brief  Add an attribute to a DOMElement.
+    ///
+    /// @param  attributeName   The attribute name.
+    /// @param  attributeValue  The attribute value.
+    virtual void setAttribute (const char* attributeName, const char* attributeValue) = 0;
+
+    /// @brief  Get an attribute from the DOMElement.
+    ///
+    /// @param  attributeName  The attribute name.
+    ///
+    /// @return  The attribute value.
     virtual std::string getAttribute (std::string attributeName) = 0;
-    virtual std::string getAttribute (const char* attributeName) = 0;
 
+    /// @brief  Get an attribute from the DOMElement.
+    ///
+    /// @param  attributeName  The attribute name.
+    ///
+    /// @return  The attribute value.
+    virtual std::string getAttribute (const char* attributeName) = 0;
+    
+    /// @brief  Remove an attribute from the node.
+    ///
+    /// @param  attributeName  The attribute's name to remove.
+    virtual void removeAttribute (std::string attributeName) = 0;
+
+    /// @brief  Remove an attribute from the node.
+    ///
+    /// @param  attributeName  The attribute's name to remove.
+    virtual void removeAttribute (const char* attributeName) = 0;
+
+    /// @brief  Append a child to a DOMElement.
+    ///
+    /// @param  childNode  The pointer to the child to append.
     virtual void appendChild (DOMChildNode* childNode) = 0;
+
+    /// @brief  Insert a child before another child.
+    ///
+    /// @param  childNode  The pointer to the child to insert.
+    /// @param  nodeAfter  The pointer to the child that you want to insert the child before.
     virtual void insertBefore (DOMChildNode* childNode, DOMChildNode* nodeAfter) = 0;
 
-    virtual std::vector<DOMChildNode*> childNodes (void) = 0;
-    virtual DOMChildNode* childNode (int childNode) = 0;
-
-    virtual DOMChildNode* cloneNode (bool cloneChildren = true) = 0;
-
-    virtual void removeChild (int childNode) = 0;
-    virtual void removeChild (DOMChildNode* childNode) = 0;
-
+    /// @brief  Replace a child with another.
+    ///
+    /// @param  newChild  The pointer to the child to put in the node.
+    /// @param  oldChild  The pointer to the child to replace.
     virtual void replaceChild (DOMChildNode* newChild, DOMChildNode* oldChild) = 0;
 
-    virtual DOMChildNode* firstChild (void) = 0;
-    virtual DOMChildNode* lastChild (void) = 0;
+    /// @brief  Remove a child from the node.
+    ///
+    /// @param  childNode  The node number.
+    virtual void removeChild (int childNode) = 0;
 
-    virtual DOMChildNode* __getElementById (std::string id) = 0;
-    virtual DOMChildNode* __getElementById (const char* id) = 0;
+    /// @brief  Remove a child from the node.
+    ///
+    /// @param  childNode  The pointer to the node that you want to delete.
+    virtual void removeChild (DOMChildNode* childNode) = 0;
 
-    virtual std::vector<DOMChildNode*> getElementsByTagName (std::string tagName) = 0;
-    virtual std::vector<DOMChildNode*> getElementsByTagName (const char* tagName) = 0;
-
+    /// @brief  Say if a node has children or not.
+    ///
+    /// @return True if the node has children.
+    ///         False if not.
     virtual bool hasChildNodes (void) = 0;
 
+    /// @brief  Get a vector with all the children of a DOMElement.
+    ///
+    /// @return  The vector with the children.
+    virtual std::vector<DOMChildNode*> childNodes (void) = 0;
+    
+    /// @brief  Get a child node.
+    ///
+    /// @param  childNode  The child number in the vector.
+    /// 
+    /// @return  The pointer to the child.
+    virtual DOMChildNode* childNode (int childNode) = 0;
+
+    /// @brief  Get the first child of the node.
+    ///
+    /// @return  The pointer to the first child.
+    virtual DOMChildNode* firstChild (void) = 0;
+
+    /// @brief  Get the last child of the node.
+    ///
+    /// @return  The pointer to the last child.
+    virtual DOMChildNode* lastChild (void) = 0;
+
+    /// @brief  Clone a node with or without the children.
+    ///
+    /// @param  cloneChildren  True if you want to clone the children too.
+    ///                        False if you want to clone only the node.
+    virtual DOMChildNode* cloneNode (bool cloneChildren = true) = 0;
+
+    /// @brief Get every element with the tag name passed starting from the node.
+    ///
+    /// @param  tagName  The tag name to use for searching.
+    ///
+    /// @return  A vector with the pointers to the matched nodes.
+    virtual std::vector<DOMChildNode*> getElementsByTagName (std::string tagName) = 0;
+
+    /// @brief Get every element with the tag name passed starting from the node.
+    ///
+    /// @param  tagName  The tag name to use for searching.
+    ///
+    /// @return  A vector with the pointers to the matched nodes.
+    virtual std::vector<DOMChildNode*> getElementsByTagName (const char* tagName) = 0;
+
+    /// @brief  Get the node's parent.
+    ///
+    /// @return  The pointer to the parent.
     DOMChildNode* parentNode (void);
+
+    /// @brief  Get the next sibling.
+    ///
+    /// @return  The pointer to the next sibling if it exists, NULL if it doesn't.
     DOMChildNode* nextSibling (void);
+
+    /// @brief  Get the previous sibling.
+    ///
+    /// @return  The pointer to the previous sibling if it exists, NULL if it doesn't.
     DOMChildNode* previousSibling (void);
 
+    // Don't use these methods.
+    /// @ignore
+    virtual DOMChildNode* __getElementById (std::string id) = 0;
+    /// @ignore
+    virtual DOMChildNode* __getElementById (const char* id) = 0;
     /// @ignore
     void __setParent (DOMChildNode* parent);
     /// @ignore
@@ -120,11 +238,14 @@ class DOMChildNode
     double __getID (void);
 
     // Operators.
+    /// @brief  Get if a node is exactly the same as another (checks the unique id of the node).
+    ///
+    /// @return  True if it's the same.
     bool operator == (DOMChildNode* childNode);
 };
 
+/// @brief A vector of pointers to DOMChildNode.
 typedef std::vector<DOMChildNode*> DOMChildNodes;
-typedef std::vector<DOMChildNode*>::iterator DOMSibling;
 
 };
 

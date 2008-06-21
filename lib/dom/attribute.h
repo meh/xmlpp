@@ -32,9 +32,6 @@ namespace xmlpp {
 class DOMAttribute
 {
   private:
-    /// @brief  True if the attribute is initialized (eg. created with the full constructor)
-    bool initialized;
-
     /// @brief  The attribute name.
     std::string attributeName;
 
@@ -45,9 +42,6 @@ class DOMAttribute
     std::string plainText;
 
   public:
-    /// @brief  Create the attribute without initalizing it.
-    DOMAttribute ();
-
     /// @brief  Create the attribute with initialization.
     ///
     /// @param  attributeName   The attribute's name.
@@ -60,51 +54,35 @@ class DOMAttribute
     /// @param  attributeValue  The attribute's value.
     DOMAttribute (const char* attributeName, const char* attributeValue);
 
-    // Setters.
-
-    /// @brief  Set the attribute's name.
-    ///
-    /// @param  attributeName  The attribute's name.
-    void setName (std::string attributeName);
-
-    /// @brief  Set the attribute's name.
-    ///
-    /// @param  attributeName  The attribute's name.
-    void setName (const char* attributeName);
-
-    /// @brief  Set the attribute's value.
-    ///
-    /// @param  attributeValue  The attribute's value.
-    void setValue (std::string attributeValue);
-
-    /// @brief  Set the attribute's value.
-    ///
-    /// @param  attributeValue  The attribute's value.
-    void setValue (const char* attributeValue);
-
-    // Getters.
-    
-    /// @brief  Get the attribute's name.
+    /// @brief  Get the attribute name.
     ///
     /// @return  The attribute's name.
-    std::string name (void);
+    std::string nodeName (void);
 
-    /// @brief  Get the attribute's value.
+    /// @brief  Set the attribute's name.
+    ///
+    /// @param  attributeName  The attribute's name.
+    void nodeName (std::string attributeName);
+
+    /// @brief  Set the attribute's name.
+    ///
+    /// @param  attributeName  The attribute's name.
+    void nodeName (const char* attributeName);
+
+    /// @brief  Get the attribute value.
     ///
     /// @return  The attribute's value.
-    std::string value (void);
+    std::string nodeValue (void);
 
-    /// @brief  Get the plain text version of the attribute.
+    /// @brief  Set the attribute's value.
     ///
-    /// @return  The plain text of the attribute.
-    std::string plain (void);
+    /// @param  attributeValue  The attribute's value.
+    void nodeValue (std::string attributeValue);
 
-    /// @brief  Get if the attribute is initialized or not.
+    /// @brief  Set the attribute's value.
     ///
-    /// @return  True if the attribute is initialized.
-    bool isInitialized (void);
-
-    // Misc.
+    /// @param  attributeValue  The attribute's value.
+    void nodeValue (const char* attributeValue);
     
     /// @brief  Updates the plain text version of the attribute.
     void updatePlain (void);

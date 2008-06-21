@@ -67,16 +67,6 @@ DOMChildNode* DOMText::cloneNode (bool cloneChildren)
     return copy;
 }
 
-DOMChildNode* DOMText::__getElementById (std::string id)
-{
-    return NULL;
-}
-
-DOMChildNode* DOMText::__getElementById (const char* id)
-{
-    return NULL;
-}
-
 std::vector<DOMChildNode*> DOMText::getElementsByTagName (std::string tagName)
 {
     std::vector<DOMChildNode*> elements;
@@ -89,9 +79,14 @@ std::vector<DOMChildNode*> DOMText::getElementsByTagName (const char* tagName)
     return this->getElementsByTagName((std::string) tagName);
 }
 
-bool DOMText::hasChildNodes (void)
+DOMChildNode* DOMText::__getElementById (std::string id)
 {
-    return false;
+    return NULL;
+}
+
+DOMChildNode* DOMText::__getElementById (const char* id)
+{
+    return NULL;
 }
 
 };
