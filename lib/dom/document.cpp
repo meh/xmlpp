@@ -40,6 +40,113 @@ std::string DOM::documentElement (void)
     return this->document;
 }
 
+void DOM::appendChild (DOMChildNode* childNode)
+{
+    childNode->__setParent(this);
+
+    if (this->children.size() > 0) {
+        childNode->__setPreviousSibling(this->children.back());
+        this->children.back()->__setNextSibling(childNode);
+    }
+    else {
+        childNode->__setPreviousSibling(NULL);
+    }
+
+    childNode->__setNextSibling(NULL);
+
+    this->children.push_back(childNode);
+}
+
+void DOM::insertBefore (DOMChildNode* childNode, DOMChildNode* nodeAfter)
+{
+    DOMChildNodes::iterator node;
+
+    if (this == nodeAfter->parentNode()) {
+        for (node = this->children.begin(); node < this->children.end(); node++) {
+            if (*node == nodeAfter) {
+                this->children.insert(node, childNode);
+                break;
+            }
+        }
+    }
+}
+
+void DOM::replaceChild (DOMChildNode* newChild, DOMChildNode* oldChild)
+{
+    DOMChildNode *parent = oldChild->parentNode();
+
+    if (parent == this) {
+        for (size_t i = 0; i < this->children.size(); i++) {
+            if (this->children[i] == oldChild) {
+                delete this->children[i];
+                this->children[i] = newChild;
+
+                if (i == 0) {
+                    this->children[i]->__setPreviousSibling(NULL);
+                }
+                else {
+                    this->children[i]->__setPreviousSibling(this->children[i-1]);
+                    this->children[i-1]->__setNextSibling(this->children[i]);
+                }
+
+                if (i < this->children.size()-2) {
+                    this->children[i]->__setNextSibling(this->children[i+1]);
+                    this->children[i+1]->__setPreviousSibling(this->children[i]);
+                }
+                else {
+                    this->children[i]->__setNextSibling(NULL);
+                }
+                break;
+            }
+        }
+    }
+}
+
+void DOM::removeChild (int childNode)
+{
+    if (childNode < this->children.size()) {
+        DOMChildNodes::iterator element = this->children.begin()+childNode;
+        delete *element;
+
+        if (childNode == 0 && this->children.size() > 1)  {
+           (*(element+1))->__setPreviousSibling(NULL);
+        }
+        else if (childNode != 0 && childNode == this->children.size()-1) {
+            (*(element-1))->__setNextSibling(NULL);
+        }
+        else if (childNode > 0 && this->children.size() > 1){
+            (*(element+1))->__setPreviousSibling(*(element-1));
+            (*(element-1))->__setNextSibling(*(element+1));
+        }
+
+        this->children.erase(element);
+    }
+}
+
+void DOM::removeChild (DOMChildNode* childNode)
+{
+    for (size_t i = 0; i < this->children.size(); i++) {
+        if (this->childNodes(i) == childNode) {
+            DOMChildNodes::iterator element = this->children.begin()+i;
+            delete *element;
+
+            if (i == 0 && this->children.size() > 1) {
+               (*(element+1))->__setPreviousSibling(NULL);
+            }
+            else if (i == this->children.size()-1) {
+                (*(element-1))->__setNextSibling(NULL);
+            }
+            else {
+                (*(element+1))->__setPreviousSibling(*(element-1));
+                (*(element-1))->__setNextSibling(*(element+1));
+            }
+
+            this->children.erase(element);
+            break;
+        }
+    }
+}
+
 DOMChildNode* DOM::childNodes (int childNode)
 {
     if (this->children.size() <= childNode) {
@@ -48,6 +155,16 @@ DOMChildNode* DOM::childNodes (int childNode)
     else {
         return this->children.at(childNode);
     }
+}
+
+DOMChildNode* DOM::firstChild (void)
+{
+    return this->children.front();
+}
+
+DOMChildNode* DOM::lastChild (void)
+{
+    return this->children.back();
 }
 
 DOMChildNode* DOM::getElementById (std::string id)

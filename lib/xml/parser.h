@@ -26,6 +26,12 @@
 
 namespace xmlpp {
 
+struct FetchedNode
+{
+    size_t point;
+    std::string text;
+};
+
 /// @brief  The XMLParser class parses a xml file or string and prepares the XML
 ///         object.
 class XMLParser
@@ -35,7 +41,7 @@ class XMLParser
     std::string plainText;
 
     /// @brief  The DOM object.
-    DOM* domObject;
+    DOM* documentObj;
 
     /// @brief  Gets the XMLParser file.
     ///
@@ -49,10 +55,17 @@ class XMLParser
 
     /// @brief  Parses the text passed.
     ///
-    /// @param  xmlText  The text to parse.
+    /// @param  xml  The text to parse.
     ///
-    /// @return  The XML object.
-    DOM* parse (std::string xmlText);
+    /// @return  The DOM object.
+    DOM* parseDocument (std::string xml);
+    DOMChildNode* parseNode (std::string xml);
+    FetchedNode* fetchNode (size_t start, std::string xml);
+
+    DOMElement* parseElement (std::string xml);
+    std::string cleanElement (std::string element);
+
+    std::string closingTag (std::string tag);
 
   public:
     /// @brief  Creates the XMLParser object.

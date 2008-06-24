@@ -133,7 +133,16 @@ void DOMElement::appendChild (DOMChildNode* childNode)
 
 void DOMElement::insertBefore (DOMChildNode* childNode, DOMChildNode* nodeAfter)
 {
-    
+    DOMChildNodes::iterator node;
+
+    if (this == nodeAfter->parentNode()) {
+        for (node = this->children.begin(); node < this->children.end(); node++) {
+            if (*node == nodeAfter) {
+                this->children.insert(node, childNode);
+                break;
+            }
+        }
+    }
 }
 
 void DOMElement::replaceChild (DOMChildNode* newChild, DOMChildNode* oldChild)

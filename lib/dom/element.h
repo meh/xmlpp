@@ -63,8 +63,8 @@ class DOMElement : public DOMChildNode
     // Don't use these methods.
     #ifndef DOXYGEN_SHOULD_SKIP_THIS
     std::string nodeValue (void) {};
-    void nodeValue (const char* value) {};
-    void nodeValue (std::string value) {};
+    void nodeValue (const char*) {};
+    void nodeValue (std::string) {};
     std::string data (void) {};
     #endif
 

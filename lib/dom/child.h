@@ -26,6 +26,7 @@
 
 #include "../common.h"
 
+#define DOM_DOCUMENT      0
 #define DOM_ELEMENT_NODE  1
 #define DOM_TEXT_NODE     3
 
@@ -235,6 +236,7 @@ class DOMChildNode
     ///
     /// @return  True if it's the same.
     bool operator == (DOMChildNode* childNode);
+    bool operator != (DOMChildNode* childNode);
 };
 
 /// @brief A vector of pointers to DOMChildNode.

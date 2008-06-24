@@ -70,19 +70,19 @@ class DOMText : public DOMChildNode
 
     // Don't use these methods.
     #ifndef DOXYGEN_SHOULD_SKIP_THIS
-    void setAttribute (std::string attributeName, std::string attributeValue) {};
-    void setAttribute (const char* attributeName, const char* attributeValue) {};
-    std::string getAttribute (std::string attributeName) {};
-    std::string getAttribute (const char* attributeName) {};
-    void removeAttribute (std::string attributeName) {};
-    void removeAttribute (const char* attrbuteName) {};
+    void setAttribute (std::string, std::string) {};
+    void setAttribute (const char*, const char*) {};
+    std::string getAttribute (std::string) {};
+    std::string getAttribute (const char*) {};
+    void removeAttribute (std::string) {};
+    void removeAttribute (const char*) {};
 
-    void appendChild (DOMChildNode* childNode) {};
-    void insertBefore (DOMChildNode* childNode, DOMChildNode* nodeAfter) {};
-    void replaceChild (DOMChildNode* newChild, DOMChildNode* oldChild) {};
-    void removeChild (int childNode) {};
-    void removeChild (DOMChildNode* childNode) {};
-    DOMChildNode* childNodes (int childNode) {};
+    void appendChild (DOMChildNode*) {};
+    void insertBefore (DOMChildNode*, DOMChildNode*) {};
+    void replaceChild (DOMChildNode*, DOMChildNode*) {};
+    void removeChild (int) {};
+    void removeChild (DOMChildNode*) {};
+    DOMChildNode* childNodes (int) {};
     DOMChildNode* firstChild (void) {};
     DOMChildNode* lastChild (void) {};
     #endif

@@ -43,8 +43,6 @@ DOMChildNode* DOMChildNode::parentNode (void)
     return this->parent;
 }
 
-
-
 DOMChildNode* DOMChildNode::previousSibling (void)
 {
     return this->pSibling;
@@ -79,6 +77,16 @@ double DOMChildNode::__getID (void)
 bool DOMChildNode::operator == (DOMChildNode* childNode)
 {
     if (this->id == childNode->__getID()) {
+        return true;
+    }
+    else {
+        return false;
+    }
+}
+
+bool DOMChildNode::operator != (DOMChildNode* childNode)
+{
+    if (this->id != childNode->__getID()) {
         return true;
     }
     else {
