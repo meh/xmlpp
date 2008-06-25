@@ -1,5 +1,6 @@
 AC_INIT(lib/xml++.h)
 AM_CONFIG_HEADER(config.h)
+AC_CONFIG_MACRO_DIR([m4])
 
 AC_PREFIX_DEFAULT=/usr
 
