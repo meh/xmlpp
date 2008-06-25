@@ -30,6 +30,7 @@
 #include <string>
 #include <vector>
 #include <stack>
+#include <list>
 #include <map>
 #include <ctime>
 #include <cstdlib>

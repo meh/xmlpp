@@ -31,6 +31,18 @@ XMLException::XMLException (int code) : Exception ()
         case EX_PARSER_FILE_READ_ERROR:
         this->description = "Error while reading the text file, maybe it doesn't exist.";
         break;
+
+        case EX_XML_NOT_STANDARD:
+        this->description = "There are some errors in the XML file.";
+        break;
+
+        case EX_XML_BAD_NODE:
+        this->description = "A node is bad written.";
+        break;
+
+        case EX_XML_TAG_NOT_CLOSED:
+        this->description = "A tag is not closed.";
+        break;
     }
 }
 

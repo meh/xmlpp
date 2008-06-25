@@ -23,6 +23,9 @@
 
 #include "common.h"
 
+#if !defined XMLPP_UTILS_HEADER
+#define XMLPP_UTILS_HEADER TRUE
+
 namespace xmlpp {
     namespace utils {
         std::string escapeSlashes (std::string text);
@@ -33,6 +36,13 @@ namespace xmlpp {
         ///
         /// @return  The slashed string.
         std::string addSlashes (std::string text);
+
+        std::string unescapeChar (std::string text);
+        bool isSpace (const char text);
+
+        std::map<std::string, std::string> getSpecialChars (void);
     };
 };
+
+#endif
 

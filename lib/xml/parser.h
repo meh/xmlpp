@@ -59,13 +59,53 @@ class XMLParser
     ///
     /// @return  The DOM object.
     DOM* parseDocument (std::string xml);
+
+    /// @brief  Parse the node.
+    ///
+    /// @param  xml  The fetched node.
+    ///
+    /// @return  The child node.
     DOMChildNode* parseNode (std::string xml);
+
+    /// @brief  Fetch the node.
+    ///
+    /// @param  start  The position in the xml file.
+    /// @param  xml    The xml text from the start point.
+    ///
+    /// @return  The fetched node.
     FetchedNode* fetchNode (size_t start, std::string xml);
 
+    /// @brief  Parse an element and get name and attributes.
+    ///
+    /// @param  xml  The xml element.
+    ///
+    /// @return  The element.
     DOMElement* parseElement (std::string xml);
+
+    /// @brief  Clean the element node (remove spaces etc)
     std::string cleanElement (std::string element);
 
+    /// @brief  Parse a text node removing spaces and substituting special chars.
+    ///
+    /// @param  text  The xml text node.
+    ///
+    /// @return  The text node.
+    DOMText* parseText (std::string text);
+
+    /// @brief  Get the name of the tag that's being closed.
+    ///
+    /// @param  tag  The raw tag.
+    ///
+    /// @return  The tag name if it's a valid closing tag or NULL if it's not a tag.
     std::string closingTag (std::string tag);
+
+    /// @brief  Get the xml version.
+    /// @todo  Everything :x
+    ///
+    /// @param  The xml element with the version.
+    ///
+    /// @return  The version string.
+    std::string getVersion (std::string xml);
 
   public:
     /// @brief  Creates the XMLParser object.

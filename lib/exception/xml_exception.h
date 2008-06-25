@@ -28,7 +28,10 @@
 
 namespace xmlpp {
 
-#define EX_PARSER_FILE_READ_ERROR 1
+#define EX_PARSER_FILE_READ_ERROR  1
+#define EX_XML_NOT_STANDARD        2
+#define EX_XML_BAD_NODE            3
+#define EX_XML_TAG_NOT_CLOSED      4
 
 class XMLException : public Exception
 {

@@ -23,6 +23,9 @@
 
 #include "utils.h"
 
+#if !defined XMLPP_UTILS_SOURCE
+#define XMLPP_UTILS_SOURCE TRUE
+
 namespace xmlpp {
 
 namespace utils {
@@ -55,7 +58,52 @@ namespace utils {
 
         return slashed;
     }
+
+    std::string unescapeChar (std::string text)
+    {
+        std::string nText = "&";
+        size_t      i = 0;
+        while (text[i] != ';') {
+            i++;
+            nText += text[i];
+        }
+
+        std::map<std::string, std::string> specialChars = getSpecialChars();
+
+        std::map<std::string, std::string>::iterator esc;
+        for (esc = specialChars.begin(); esc != specialChars.end(); esc++) {
+            if ((*esc).first == nText) {
+                return (*esc).second;
+            }
+        }
+
+        return (std::string) "";
+    }
+
+    bool isSpace (const char text)
+    {
+        if (text == ' ' || text == '\n' || text == '\r' || text == '\t') {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+
+    std::map<std::string, std::string> getSpecialChars (void)
+    {
+        std::map<std::string, std::string> specialChars;
+
+        specialChars["&nbsp;"] = " ";
+        specialChars["&amp;"]  = "&";
+        specialChars["&gt;"]   = ">";
+        specialChars["&lt;"]   = "<";
+
+        return specialChars;
+    }
 };
 
 };
+
+#endif
 

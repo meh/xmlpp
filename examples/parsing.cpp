@@ -6,8 +6,15 @@ using namespace xmlpp;
 
 int main (int argc, char *argv[])
 {
-    XMLParser *parser = new XMLParser();
-    DOM *document     = parser->parseFromFile("lol.xml");
+    try {
+        XMLParser *parser = new XMLParser();
+        DOM *document     = parser->parseFromFile("lol.xml");
+
+        cout << document->firstChild()->firstChild()->nodeName() << endl;
+    }
+    catch (Exception e) {
+        cerr << e.getMessage() << endl;
+    }
 
     return 0;
 }
