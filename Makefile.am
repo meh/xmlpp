@@ -1,4 +1,4 @@
-SUBDIRS= lib/ lib/dom/ lib/xml/ lib/exception
+SUBDIRS= lib/ lib/dom/ lib/xml/ lib/exception libltdl
 
 DIST_SUBDIRS = lib lib/dom lib/xml lib/exception
 
