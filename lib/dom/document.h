@@ -25,6 +25,7 @@
 #define XMLPP_DOM_DOCUMENT TRUE
 
 #include "../common.h"
+#include "dom.h"
 #include "child.h"
 #include "element.h"
 #include "text.h"
@@ -32,7 +33,7 @@
 namespace xmlpp {
 
 /// @brief DOM document class.
-class DOM : public DOMChildNode
+class DOMDocument : public DOM
 {
   private:
     /// @brief  The plain text version of the document.
@@ -42,7 +43,7 @@ class DOM : public DOMChildNode
     DOMChildNodes children;
 
   public:
-    DOM () : DOMChildNode (DOM_DOCUMENT) {};
+    DOMDocument () : DOM (DOM_DOCUMENT) {};
     /// @brief  Says if the document is empty or not.
     ///
     /// @return  True if it's empty.
@@ -125,25 +126,6 @@ class DOM : public DOMChildNode
     ///
     /// @return  A vector with the pointers to the matched nodes.
     DOMChildNodes getElementsByTagName (const char* tagName);
-
-    // Don't use these methods.
-    #ifndef DOXYGEN_SHOULD_SKIP_THIS
-    std::string nodeName (void) {};
-    std::string nodeValue (void) {};
-    void nodeValue (std::string) {};
-    void nodeValue (const char*) {};
-    std::string data (void) {};
-    void setAttribute (std::string, std::string) {};
-    void setAttribute (const char*, const char*) {};
-    std::string getAttribute (std::string) {};
-    std::string getAttribute (const char*) {};
-    void removeAttribute (std::string) {};
-    void removeAttribute (const char*) {};
-    bool hasChildNodes (void) {};
-    DOMChildNode* __getElementById (std::string) {};
-    DOMChildNode* __getElementById (const char*) {};
-    DOMChildNode* cloneNode (bool) {};
-    #endif
 };
 
 };

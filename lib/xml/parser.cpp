@@ -63,7 +63,7 @@ std::string XMLParser::fetch (std::string xmlString)
     return plainText;
 }
 
-DOM* XMLParser::parseFromFile (std::string xmlFile)
+DOMDocument* XMLParser::parseFromFile (std::string xmlFile)
 {
     this->plainText   = this->fetch(xmlFile);
     this->documentObj = this->parseFromString(this->plain());
@@ -71,7 +71,7 @@ DOM* XMLParser::parseFromFile (std::string xmlFile)
     return this->documentObj;
 }
 
-DOM* XMLParser::parseFromFile (const char* xmlFile)
+DOMDocument* XMLParser::parseFromFile (const char* xmlFile)
 {
     this->plainText   = this->fetch((std::string) xmlFile);
     this->documentObj = this->parseFromString(this->plain());
@@ -79,17 +79,17 @@ DOM* XMLParser::parseFromFile (const char* xmlFile)
     return this->documentObj;
 }
 
-DOM* XMLParser::parseFromString (std::string xmlText)
+DOMDocument* XMLParser::parseFromString (std::string xmlText)
 {
     return this->parseDocument(xmlText);
 }
 
-DOM* XMLParser::parseFromString (const char* xmlText)
+DOMDocument* XMLParser::parseFromString (const char* xmlText)
 {
     return this->parseDocument((std::string) xmlText);
 }
 
-DOM* XMLParser::document (void)
+DOMDocument* XMLParser::document (void)
 {
     return this->documentObj;
 }
@@ -99,9 +99,9 @@ std::string XMLParser::plain (void)
     return this->plainText;
 }
 
-DOM* XMLParser::parseDocument (std::string xml)
+DOMDocument* XMLParser::parseDocument (std::string xml)
 {
-    DOM *document = new DOM();
+    DOMDocument *document = new DOMDocument();
 
     for (size_t i = 0; i < xml.length(); i++) {
         // It has only to get elements because the document can't have

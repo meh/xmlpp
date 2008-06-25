@@ -32,6 +32,7 @@
 #include <stack>
 #include <list>
 #include <map>
+#include <cctype>
 #include <ctime>
 #include <cstdlib>
 

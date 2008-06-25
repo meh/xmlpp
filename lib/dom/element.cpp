@@ -25,12 +25,12 @@
 
 namespace xmlpp {
 
-DOMElement::DOMElement (std::string elementName) : DOMChildNode(DOM_ELEMENT_NODE)
+DOMElement::DOMElement (std::string elementName) : DOMChildNode(DOM_NODE_ELEMENT)
 {
     this->name = elementName;
 }
 
-DOMElement::DOMElement (const char* elementName) : DOMChildNode(DOM_ELEMENT_NODE)
+DOMElement::DOMElement (const char* elementName) : DOMChildNode(DOM_NODE_ELEMENT)
 {
     this->name = elementName;
 }
@@ -45,11 +45,11 @@ DOMElement::~DOMElement (void)
 
     for (size_t i = 0; i < this->children.size(); i++) {
         switch (this->children[i]->nodeType()) {
-            case DOM_ELEMENT_NODE: 
+            case DOM_NODE_ELEMENT: 
             delete (DOMElement*) this->children[i];
             break;
 
-            case DOM_TEXT_NODE:
+            case DOM_NODE_TEXT:
             delete (DOMText*) this->children[i];
             break;
         }
@@ -70,6 +70,36 @@ std::string DOMElement::nodeValue (void)
 std::string DOMElement::data (void)
 {
     return (std::string) "";
+}
+
+std::string DOMElement::id (void)
+{
+    return this->getAttribute("id");
+}
+
+void DOMElement::id (std::string newId)
+{
+    this->setAttribute("id", newId);
+}
+
+void DOMElement::id (const char* newId)
+{
+    this->setAttribute("id", newId);
+}
+
+std::string DOMElement::title (void)
+{
+    return this->getAttribute("title");
+}
+
+void DOMElement::title (std::string title)
+{
+    this->setAttribute("title", title);
+}
+
+void DOMElement::title (const char* title)
+{
+    this->setAttribute("title", title);
 }
 
 void DOMElement::setAttribute (std::string attributeName, std::string attributeValue)
@@ -155,8 +185,8 @@ void DOMElement::insertBefore (DOMChildNode* childNode, DOMChildNode* nodeAfter)
 
 void DOMElement::replaceChild (DOMChildNode* newChild, DOMChildNode* oldChild)
 {
-    DOMChildNode *parent = oldChild->parentNode();
-
+    DOM *parent = oldChild->parentNode();
+    
     if (parent == this) {
         for (size_t i = 0; i < this->children.size(); i++) {
             if (this->children[i] == oldChild) {

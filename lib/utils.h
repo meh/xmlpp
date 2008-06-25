@@ -28,6 +28,11 @@
 
 namespace xmlpp {
     namespace utils {
+        /// @brief  Escape all the slashes in a string.
+        ///
+        /// @param  text  The string to add slashes to.
+        ///
+        /// @return  The fully escaped string.
         std::string escapeSlashes (std::string text);
 
         /// @brief  PHP-like addslashes()
@@ -37,10 +42,32 @@ namespace xmlpp {
         /// @return  The slashed string.
         std::string addSlashes (std::string text);
 
+        /// @brief  Unescapes html special chars.
+        ///
+        /// @param  text  The string with the beginning of the special char.
+        ///
+        /// @return  The unescaped char.
         std::string unescapeChar (std::string text);
+
+        /// @brief Check if the char is a 'space' (space, \n, \r, \t).
+        ///
+        /// @param  text  The char to check.
+        ///
+        /// @return  True if it's a space.
+        ///          False if it's not.
         bool isSpace (const char text);
 
+        /// @brief  Get the special chars associative array.
+        ///
+        /// @return  The map with all the special chars.
         std::map<std::string, std::string> getSpecialChars (void);
+
+        /// @brief  Get the uppercase string.
+        ///
+        /// @param  text  The string that will be uppercased.
+        ///
+        /// @return  The uppercase string.
+        std::string toUppercase (std::string text);
     };
 };
 

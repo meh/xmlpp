@@ -1,5 +1,5 @@
-/// @file dom_exception.h
-/// @brief This file includes the dom exception definitions.
+/// @file dom/dom.cpp
+/// @brief This file includes the DOM.
 
 /****************************************************************************
 * XML++ is a library to work with XML files.                                *
@@ -21,33 +21,47 @@
 * along with this program.  If not, see <http://www.gnu.org/licenses/>.     *
 ****************************************************************************/
 
-#if !defined (XMLPP_DOM_EXCEPTION)
-#define XMLPP_DOM_EXCEPTION TRUE
-
-#include "exception.h"
+#include "dom.h"
 
 namespace xmlpp {
 
-/// @brief  I don't remember lol.
-#define EX_ATTRIBUTE_MODE_NOT_EXISTENT  1
-
-/// @brief  Exception raised if the node used is an element node and
-///         it doesn't have that method.
-#define EX_NODE_IS_ELEMENT              2
-
-/// @brief  Exception raised if the node used is a text node and it
-///         doesnt' have that method.
-#define EX_NODE_IS_TEXT                 3
-
-/// @brief  Exception raised if the child node requested doesn't exist.
-#define EX_OUT_OF_RANGE                 4
-
-class DOMException : public Exception
+DOM::DOM (int type)
 {
-  public:
-    DOMException (int code);
-};
+    this->type = type;
+
+    // Create a random id.
+    this->uniqueID = (rand() / (rand() * 0.23)) * (clock() / 10000);
+}
+
+int DOM::getType (void)
+{
+    return this->type;
+}
+
+double DOM::__getID (void)
+{
+    return this->uniqueID;
+}
+
+bool DOM::operator == (DOM* element)
+{
+    if (this->uniqueID == element->__getID()) {
+        return true;
+    }
+    else {
+        return false;
+    }
+}
+
+bool DOM::operator != (DOM* element)
+{
+    if (this->uniqueID != element->__getID()) {
+        return true;
+    }
+    else {
+        return false;
+    }
+}
 
 };
 
-#endif

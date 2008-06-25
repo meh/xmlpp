@@ -101,6 +101,18 @@ namespace utils {
 
         return specialChars;
     }
+
+    std::string toUppercase (std::string text)
+    {
+        std::string upper;
+
+        size_t i;
+        for (i = 0; i < text.length(); i++) {
+            upper += toupper(text.at(i));
+        }
+
+        return upper;
+    }
 };
 
 };

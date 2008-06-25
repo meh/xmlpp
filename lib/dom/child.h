@@ -25,20 +25,16 @@
 #define XMLPP_DOM_CHILD TRUE
 
 #include "../common.h"
+#include "dom.h"
 
-#define DOM_DOCUMENT      0
-#define DOM_ELEMENT_NODE  1
-#define DOM_TEXT_NODE     3
+#define DOM_NODE_ELEMENT  1
+#define DOM_NODE_TEXT     3
 
 namespace xmlpp {
 
 /// @brief DOMChildNode class, the base abstract class for DOMText and DOMElement.
-class DOMChildNode
+class DOMChildNode : public DOM
 {
-  private:
-    /// @brief  The unique id of the node.
-    double id;
-
   protected:
     /// @brief The node's type: DOM_ELEMENT_NODE or DOM_TEXT_NODE
     DOMNodeType type;
@@ -59,7 +55,7 @@ class DOMChildNode
     DOMChildNode* nSibling;
 
     /// @brief  The child's parent.
-    DOMChildNode* parent;
+    DOM* parent;
 
   public:
     typedef std::vector<DOMChildNode*> DOMChildNodes;
@@ -100,6 +96,21 @@ class DOMChildNode
     ///
     /// @return  The node's value if it's a DOMText or nothing if it's a DOMElement.
     virtual std::string data (void) = 0;
+
+    /// @brief  Get the element's id.
+    ///
+    /// @return  The element's id.
+    virtual std::string id (void) = 0;
+
+    /// @brief  Set the element's id.
+    ///
+    /// @param  id  The new id.
+    virtual void id (std::string id) = 0;
+
+    /// @brief  Set the element's id.
+    ///
+    /// @param  id  The new id.
+    virtual void id (const char* id) = 0;
 
     /// @brief  Add an attribute to a DOMElement.
     ///
@@ -210,7 +221,7 @@ class DOMChildNode
     /// @brief  Get the node's parent.
     ///
     /// @return  The pointer to the parent.
-    DOMChildNode* parentNode (void);
+    DOM* parentNode (void);
 
     /// @brief  Get the next sibling.
     ///
@@ -226,17 +237,10 @@ class DOMChildNode
     #ifndef DOXYGEN_SHOULD_SKIP_THIS
     virtual DOMChildNode* __getElementById (std::string id) = 0;
     virtual DOMChildNode* __getElementById (const char* id) = 0;
-    void __setParent (DOMChildNode* parent);
+    void __setParent (DOM* parent);
     void __setNextSibling (DOMChildNode* sibling);
     void __setPreviousSibling (DOMChildNode* sibling);
-    double __getID (void);
     #endif
-
-    /// @brief  Get if a node is exactly the same as another (checks the unique id of the node).
-    ///
-    /// @return  True if it's the same.
-    bool operator == (DOMChildNode* childNode);
-    bool operator != (DOMChildNode* childNode);
 };
 
 /// @brief A vector of pointers to DOMChildNode.

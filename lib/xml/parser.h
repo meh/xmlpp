@@ -22,7 +22,7 @@
 ****************************************************************************/
 
 #include "../common.h"
-#include "../dom.h"
+#include "../dom/document.h"
 
 namespace xmlpp {
 
@@ -41,7 +41,7 @@ class XMLParser
     std::string plainText;
 
     /// @brief  The DOM object.
-    DOM* documentObj;
+    DOMDocument* documentObj;
 
     /// @brief  Gets the XMLParser file.
     ///
@@ -58,7 +58,7 @@ class XMLParser
     /// @param  xml  The text to parse.
     ///
     /// @return  The DOM object.
-    DOM* parseDocument (std::string xml);
+    DOMDocument* parseDocument (std::string xml);
 
     /// @brief  Parse the node.
     ///
@@ -126,33 +126,33 @@ class XMLParser
     /// @param  xmlFile  The xml file.
     ///
     /// @return  The DOM document.
-    DOM* parseFromFile (std::string xmlFile);
+    DOMDocument* parseFromFile (std::string xmlFile);
 
     /// @brief  Parse an xml file.
     /// 
     /// @param  xmlFile  The xml file.
     ///
     /// @return  The DOM document.
-    DOM* parseFromFile (const char* xmlFile);
+    DOMDocument* parseFromFile (const char* xmlFile);
 
     /// @brief  Parses the text passed.
     ///
     /// @param  xmlText  The text to parse.
     ///
     /// @return  The DOM object.
-    DOM* parseFromString (std::string xmlText);
+    DOMDocument* parseFromString (std::string xmlText);
 
     /// @brief  Parses the text passed.
     ///
     /// @param  xmlText  The text to parse.
     ///
     /// @return  The DOM object.
-    DOM* parseFromString (const char* xmlText);
+    DOMDocument* parseFromString (const char* xmlText);
 
     /// @brief  Gets the last parsed XML document.
     ///
     /// @return  The last DOM object.
-    DOM* document (void);
+    DOMDocument* document (void);
 
     /// @brief Gets the last parsed plain text.
     ///

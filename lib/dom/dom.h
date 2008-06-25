@@ -1,5 +1,5 @@
-/// @file dom_exception.h
-/// @brief This file includes the dom exception definitions.
+/// @file dom/dom.h
+/// @brief This file includes the DOM.
 
 /****************************************************************************
 * XML++ is a library to work with XML files.                                *
@@ -21,31 +21,39 @@
 * along with this program.  If not, see <http://www.gnu.org/licenses/>.     *
 ****************************************************************************/
 
-#if !defined (XMLPP_DOM_EXCEPTION)
-#define XMLPP_DOM_EXCEPTION TRUE
+#if !defined(XMLPP_DOM)
+#define XMLPP_DOM TRUE
 
-#include "exception.h"
+#include "../common.h"
 
 namespace xmlpp {
 
-/// @brief  I don't remember lol.
-#define EX_ATTRIBUTE_MODE_NOT_EXISTENT  1
+#define DOM_DOCUMENT  1
+#define DOM_CHILD     2
 
-/// @brief  Exception raised if the node used is an element node and
-///         it doesn't have that method.
-#define EX_NODE_IS_ELEMENT              2
-
-/// @brief  Exception raised if the node used is a text node and it
-///         doesnt' have that method.
-#define EX_NODE_IS_TEXT                 3
-
-/// @brief  Exception raised if the child node requested doesn't exist.
-#define EX_OUT_OF_RANGE                 4
-
-class DOMException : public Exception
+class DOM
 {
+  private:
+    /// @brief  The unique id of the node.
+    double uniqueID;
+
+    int type;
+
   public:
-    DOMException (int code);
+    DOM (int);
+
+    int getType (void);
+
+    // Don't use these methods.
+    #ifndef DOXYGEN_SHOULD_SKIP_THIS
+    double __getID (void);
+    #endif
+
+    /// @brief  Get if a node is exactly the same as another (checks the unique id of the node).
+    ///
+    /// @return  True if it's the same.
+    bool operator == (DOM* element);
+    bool operator != (DOM* element);
 };
 
 };

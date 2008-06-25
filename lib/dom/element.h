@@ -68,6 +68,36 @@ class DOMElement : public DOMChildNode
     std::string data (void);
     #endif
 
+    /// @brief  Get the element's id.
+    ///
+    /// @return  The element's id.
+    std::string id (void);
+
+    /// @brief  Set the element's id.
+    ///
+    /// @param  id  The new id.
+    void id (std::string newId);
+
+    /// @brief  Set the element's id.
+    ///
+    /// @param  id  The new id.
+    void id (const char* newId);
+
+    /// @brief  Get the element's title.
+    ///
+    /// @return  The element's title.
+    std::string title (void);
+
+    /// @brief  Set the element's title.
+    ///
+    /// @param  title  The new title.
+    void title (std::string title);
+
+    /// @brief  Set the element's title.
+    ///
+    /// @param  title  The new title.
+    void title (const char* title);
+
     /// @brief  Set an attribute to the element.
     ///
     /// @param  attributeName   The attribute's name.

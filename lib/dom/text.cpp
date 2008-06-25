@@ -25,12 +25,12 @@
 
 namespace xmlpp {
 
-DOMText::DOMText (std::string text) : DOMChildNode (DOM_TEXT_NODE)
+DOMText::DOMText (std::string text) : DOMChildNode (DOM_NODE_TEXT)
 {
     this->value = text;
 }
 
-DOMText::DOMText (const char* text) : DOMChildNode (DOM_TEXT_NODE)
+DOMText::DOMText (const char* text) : DOMChildNode (DOM_NODE_TEXT)
 {
     this->value = text;
 }

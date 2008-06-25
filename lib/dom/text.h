@@ -70,6 +70,10 @@ class DOMText : public DOMChildNode
 
     // Don't use these methods.
     #ifndef DOXYGEN_SHOULD_SKIP_THIS
+    std::string id (void) {};
+    void id (std::string) {};
+    void id (const char*) {};
+
     void setAttribute (std::string, std::string) {};
     void setAttribute (const char*, const char*) {};
     std::string getAttribute (std::string);
