@@ -27,8 +27,6 @@
 #include "../common.h"
 #include "dom.h"
 #include "child.h"
-#include "element.h"
-#include "text.h"
 
 namespace xmlpp {
 

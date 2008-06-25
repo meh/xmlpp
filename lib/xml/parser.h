@@ -23,6 +23,8 @@
 
 #include "../common.h"
 #include "../dom/document.h"
+#include "../dom/element.h"
+#include "../dom/text.h"
 
 namespace xmlpp {
 

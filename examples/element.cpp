@@ -25,15 +25,15 @@ int main (int argc, char *argv[])
 
     // Bulbasaur
     try {
-        DOMChildNode *gen = pokemon->childNode(0)->firstChild()->nextSibling();
+        DOMChildNode *gen = pokemon->childNodes(0)->firstChild()->nextSibling();
 
         if (gen != NULL) {
             switch (gen->nodeType()) {
-                case DOM_ELEMENT_NODE:
-                cout << gen->firstChild()->text() << endl;
+                case DOM_NODE_ELEMENT:
+                cout << gen->firstChild()->nodeValue() << endl;
                 break;
 
-                case DOM_TEXT_NODE:
+                case DOM_NODE_TEXT:
                 cout << gen->nodeValue() << endl;
                 break;
             }
