@@ -106,18 +106,18 @@ DOM* XMLParser::parseDocument (std::string xml)
     for (size_t i = 0; i < xml.length(); i++) {
         // It has only to get elements because the document can't have
         // text child nodes.
-        if (xml[i] == '<') {
+        if (xml.at(i) == '<') {
             std::string nodeText = "<";
             
-            while (xml[i] != '>') {
+            while (xml.at(i) != '>') {
                 i++;
-                nodeText += xml[i];
+                nodeText += xml.at(i);
             }
             i++;
 
             nodeText = this->cleanElement(nodeText);
 
-            if (nodeText[1] == '?' && nodeText[nodeText.length()-2] == '?') {
+            if (nodeText.length() > 4 && nodeText.at(1) == '?' && nodeText.at(nodeText.length()-2) == '?') {
                 std::string version = this->getVersion(nodeText);
             }
             else if (nodeText.length() > 3 && nodeText[nodeText.length()-2] == '/') {
@@ -140,9 +140,9 @@ DOMChildNode* XMLParser::parseNode (std::string xml)
 {
     size_t i = 0;
     std::string nodeText = "<";
-    while (xml[i] != '>' && i < xml.length()) {
+    while (i < xml.length() && xml.at(i) != '>') {
         i++;
-        nodeText += xml[i];
+        nodeText += xml.at(i);
     }
     DOMElement *mainNode = this->parseElement(nodeText);
 
@@ -153,24 +153,24 @@ DOMChildNode* XMLParser::parseNode (std::string xml)
     size_t h;
     for (h = 0; h < xml.length(); h++) {
         // If it's an element node
-        if (xml[h] == '<') {
+        if (xml.at(h) == '<') {
             std::string nodeText = "<";
             
-            while (xml[h] != '>' && h < xml.length()) {
+            while (h < xml.length() && xml.at(h) != '>') {
                 h++;
-                nodeText += xml[h];
+                nodeText += xml.at(h);
             }
             h++;
 
             nodeText = this->cleanElement(nodeText);
 
-            if (nodeText.length() > 3 && nodeText[nodeText.length()-2] == '/') {
+            if (nodeText.length() > 3 && nodeText.at(nodeText.length()-2) == '/') {
                 mainNode->appendChild(this->parseElement(nodeText));
             }
             else {
                 FetchedNode *fNode = this->fetchNode((h-nodeText.length()), nodeText+xml.substr(h));
                 h = fNode->point-1;
-                mainNode->appendChild(this->parseNode((*fNode).text));
+                mainNode->appendChild(this->parseNode(fNode->text));
 
                 delete fNode;
             }
@@ -179,13 +179,16 @@ DOMChildNode* XMLParser::parseNode (std::string xml)
         else {
             std::string text;
             
-            while (xml[h] != '<' && h < xml.length()) {
-                text += xml[h];
+            while (h < xml.length() && xml.at(h) != '<') {
+                text += xml.at(h);
                 h++;
             }
             h--;
 
-            mainNode->appendChild(this->parseText(text));
+            DOMChildNode *textNode = this->parseText(text);
+            if (!textNode->nodeValue().empty()) {
+                mainNode->appendChild(textNode);
+            }
         }
     }
 
@@ -198,9 +201,9 @@ FetchedNode* XMLParser::fetchNode (size_t start, std::string xml)
 
     size_t i = 0;
     std::string nodeText = "<";
-    while (xml[i] != '>' && i < xml.length()) {
+    while (i < xml.length() && xml.at(i) != '>') {
         i++;
-        nodeText += xml[i];
+        nodeText += xml.at(i);
     }
     DOMElement *node = this->parseElement(nodeText);
 
@@ -214,12 +217,12 @@ FetchedNode* XMLParser::fetchNode (size_t start, std::string xml)
     std::stack<int> tags;
     tags.push(1);
 
-    while (!tags.empty() && i < xml.length()) {
-        if (xml[i] == '<') {
+    while (i < xml.length() && !tags.empty()) {
+        if (xml.at(i) == '<') {
             std::string nodeText = "<";
-            while (xml[i] != '>' && i < xml.length()) {
+            while (i < xml.length() && xml.at(i) != '>') {
                 i++;
-                nodeText += xml[i];
+                nodeText += xml.at(i);
             }
             i++;
 
@@ -246,8 +249,8 @@ FetchedNode* XMLParser::fetchNode (size_t start, std::string xml)
         throw XMLException(EX_XML_TAG_NOT_CLOSED);
     }
 
-    (*fNode).point = i + start;
-    (*fNode).text  = xml.substr(0, i-1);
+    fNode->point = i + start;
+    fNode->text  = xml.substr(0, i-1);
 
     return fNode;
 }
@@ -261,8 +264,8 @@ DOMElement* XMLParser::parseElement (std::string xml)
     // Get the element name
     std::string name;
     size_t i = 1;
-    while (xml[i] != ' ') {
-        name += xml[i];
+    while (i < xml.length() && xml.at(i) != ' ' && xml.at(i) != '>') {
+        name += xml.at(i);
         i++;
     }
     element = new DOMElement(name);
@@ -270,11 +273,11 @@ DOMElement* XMLParser::parseElement (std::string xml)
     // Get the attributes
     size_t h;
     for (h = i; h < xml.length(); h++) {
-        if (xml[h] != ' ' && xml[h] != '/' && xml[h] != '>') {
+        if (xml.at(h) != ' ' && xml.at(h) != '/' && xml.at(h) != '>') {
             // Get attribute's name
             std::string attributeName;
-            while (xml[h] != '=') {
-                attributeName += xml[h];
+            while (xml.at(h) != '=') {
+                attributeName += xml.at(h);
                 h++;
             }
             h += 2;
@@ -282,8 +285,8 @@ DOMElement* XMLParser::parseElement (std::string xml)
             // Get attribute's value.
             std::string attributeValue;
             char stringType = xml[h-1];
-            while (xml[h] != stringType && xml[h-1] != '\\') {
-                attributeValue += xml[h];
+            while (xml.at(h) != stringType && xml.at(h-1) != '\\') {
+                attributeValue += xml.at(h);
                 h++;
             }
 
@@ -303,7 +306,7 @@ std::string XMLParser::cleanElement (std::string element)
 
     bool firstSpace = true;
     for (size_t i = 0; i < element.length(); i++) {
-        if (element[i] == '"' && element[i-1] != '\\') {
+        if (element.at(i) == '"' && element.at(i-1) != '\\') {
             if (inString && stringType == '"') {
                 inString   = false;
                 stringType = 'x';
@@ -316,7 +319,7 @@ std::string XMLParser::cleanElement (std::string element)
 
             clean += element[i];
         }
-        else if (element[i] == '\'' && element[i-1] != '\\') {
+        else if (element.at(i) == '\'' && element.at(i-1) != '\\') {
             if (inString && stringType == '\'') {
                 inString   = false;
                 stringType = 'x';
@@ -327,18 +330,18 @@ std::string XMLParser::cleanElement (std::string element)
                 stringType = '\'';
             }
 
-            clean += element[i];
+            clean += element.at(i);
         }
         else if (inString) {
-            clean += element[i];
+            clean += element.at(i);
         }
-        else if (utils::isSpace((const char) element[i])) {
+        else if (utils::isSpace(element.at(i))) {
             if (firstSpace) {
                 clean += ' ';
                 firstSpace = false;
             }
         }
-        else if (element[i] == '/') {
+        else if (element.at(i) == '/') {
             clean += "/>";
             break;
         }
@@ -357,30 +360,36 @@ DOMText* XMLParser::parseText (std::string text)
 
     size_t i;
     for (i = 0; i < text.length(); i++) {
-        if (utils::isSpace((const char) text[i])) {
+        if (utils::isSpace(text.at(i))) {
             if (firstSpace) {
                 filteredText += " ";
                 firstSpace    = false;
             }
         }
-        if (text[i] == '&') {
+        else if (text.at(i) == '&') {
             std::string unescaped = utils::unescapeChar(text.substr(i));
 
             if (!unescaped.empty()) {
                 filteredText += unescaped;
 
-                while (text[i] != ';') {
+                while (i < text.length() && text.at(i) != ';') {
                     i++;
                 }
             }
+
+            firstSpace = true;
         }
         else {
-            filteredText += text[i];
+            filteredText += text.at(i);
             
             if (!firstSpace) {
                 firstSpace = true;
             }
         }
+    }
+
+    if (filteredText.length() == 1 && filteredText.at(0) == ' ') {
+        filteredText = "";
     }
 
     return new DOMText(filteredText);
@@ -396,10 +405,10 @@ std::string XMLParser::closingTag (std::string tag)
     bool    space = false;
     while (i < tag.length() && word < 2) {
         if (!utils::isSpace((const char) tag[i])) {
-            element += tag[i];
+            element += tag.at(i);
 
-            if (i > 1 && tag[i] != '>') {
-                tagName += tag[i];
+            if (i > 1 && tag.at(i) != '>') {
+                tagName += tag.at(i);
             }
 
             if (space) {
@@ -415,7 +424,7 @@ std::string XMLParser::closingTag (std::string tag)
         i++;
     }
 
-    if (element[1] == '/' && word < 2 && !tagName.empty()) {
+    if (element.at(1) == '/' && word < 2 && !tagName.empty()) {
         return tagName;
     }
     else {

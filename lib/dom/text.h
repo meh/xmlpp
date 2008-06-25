@@ -72,8 +72,8 @@ class DOMText : public DOMChildNode
     #ifndef DOXYGEN_SHOULD_SKIP_THIS
     void setAttribute (std::string, std::string) {};
     void setAttribute (const char*, const char*) {};
-    std::string getAttribute (std::string) {};
-    std::string getAttribute (const char*) {};
+    std::string getAttribute (std::string);
+    std::string getAttribute (const char*);
     void removeAttribute (std::string) {};
     void removeAttribute (const char*) {};
 
@@ -82,9 +82,9 @@ class DOMText : public DOMChildNode
     void replaceChild (DOMChildNode*, DOMChildNode*) {};
     void removeChild (int) {};
     void removeChild (DOMChildNode*) {};
-    DOMChildNode* childNodes (int) {};
-    DOMChildNode* firstChild (void) {};
-    DOMChildNode* lastChild (void) {};
+    DOMChildNode* childNodes (int);
+    DOMChildNode* firstChild (void);
+    DOMChildNode* lastChild (void);
     #endif
 
     /// @brief Clonde the text node.
@@ -98,7 +98,7 @@ class DOMText : public DOMChildNode
     DOMChildNode* __getElementById (const char* id);
     DOMChildNodes getElementsByTagName (std::string tagName);
     DOMChildNodes getElementsByTagName (const char* tagName);
-    bool hasChildNodes (void) {};
+    bool hasChildNodes (void);
     #endif
 };
 

@@ -57,13 +57,21 @@ DOMElement::~DOMElement (void)
     delete &this->children;
 }
 
-// Getters.
 std::string DOMElement::nodeName (void)
 {
     return this->name;
 }
 
-// Setters.
+std::string DOMElement::nodeValue (void)
+{
+    return (std::string) "";
+}
+
+std::string DOMElement::data (void)
+{
+    return (std::string) "";
+}
+
 void DOMElement::setAttribute (std::string attributeName, std::string attributeValue)
 {
     DOMAttributes::iterator attr = this->attributes.find(attributeName);

@@ -61,6 +61,31 @@ std::string DOMText::data (void)
     return this->value;
 }
 
+std::string DOMText::getAttribute (std::string)
+{
+    return (std::string) "";
+}
+
+std::string DOMText::getAttribute (const char*)
+{
+    return (std::string) "";
+}
+
+DOMChildNode* DOMText::childNodes (int)
+{
+    throw DOMException(EX_NODE_IS_TEXT);
+}
+
+DOMChildNode* DOMText::firstChild (void)
+{
+    throw DOMException(EX_NODE_IS_TEXT);
+}
+
+DOMChildNode* DOMText::lastChild (void)
+{
+    throw DOMException(EX_NODE_IS_TEXT);
+}
+
 DOMChildNode* DOMText::cloneNode (bool cloneChildren)
 {
     DOMText *copy = new DOMText(this->nodeValue());
@@ -87,6 +112,11 @@ DOMChildNode* DOMText::__getElementById (std::string id)
 DOMChildNode* DOMText::__getElementById (const char* id)
 {
     return NULL;
+}
+
+bool DOMText::hasChildNodes (void)
+{
+    return false;
 }
 
 };
