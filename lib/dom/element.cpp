@@ -62,6 +62,11 @@ std::string DOMElement::nodeName (void)
     return this->name;
 }
 
+std::string DOMElement::tagName (void)
+{
+    return utils::toUppercase (this->name);
+}
+
 std::string DOMElement::nodeValue (void)
 {
     return (std::string) "";

@@ -60,6 +60,11 @@ class DOMElement : public DOMChildNode
     /// @return  The node's name.
     std::string nodeName (void);
 
+    /// @brief  Uppercase version of the nodeName if it's an element node.
+    ///
+    /// @return  The uppercase version of the nodeName.
+    std::string tagName (void);
+
     // Don't use these methods.
     #ifndef DOXYGEN_SHOULD_SKIP_THIS
     std::string nodeValue (void);

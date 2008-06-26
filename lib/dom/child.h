@@ -77,6 +77,11 @@ class DOMChildNode : public DOM
     /// @return  The node's name if it's a DOMElement or "#text" if it's a DOMText.
     virtual std::string nodeName (void) = 0;
 
+    /// @brief  Uppercase version of the nodeName if it's an element node.
+    ///
+    /// @return  The uppercase version of the nodeName.
+    virtual std::string tagName (void) = 0;
+
     /// @brief  Get the node's value (text)
     ///
     /// @return  The node's value if it's a DOMText or nothing if it's a DOMElement.
@@ -111,6 +116,21 @@ class DOMChildNode : public DOM
     ///
     /// @param  id  The new id.
     virtual void id (const char* id) = 0;
+
+    /// @brief  Get the element's title.
+    ///
+    /// @return  The element's title.
+    virtual std::string title (void) = 0;
+
+    /// @brief  Set the element's title.
+    ///
+    /// @param  title  The new title.
+    virtual void title (std::string title) = 0;
+
+    /// @brief  Set the element's title.
+    ///
+    /// @param  title  The new title.
+    virtual void title (const char* title) = 0;
 
     /// @brief  Add an attribute to a DOMElement.
     ///
