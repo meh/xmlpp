@@ -10,9 +10,7 @@ int main (int argc, char *argv[])
         XMLParser   *parser   = new XMLParser();
         DOMDocument *document = parser->parseFromFile("lol.xml");
 
-        cout << ((DOM*) document)->getType() << endl;
-
-//        cout << document->firstChild()->firstChild()->firstChild()->nodeValue() << endl;
+        cout << document->firstChild()->firstChild()->firstChild()->nodeValue() << endl;
     }
     catch (Exception e) {
         cerr << e.getMessage() << endl;
