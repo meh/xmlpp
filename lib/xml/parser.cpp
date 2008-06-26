@@ -107,12 +107,12 @@ DOMDocument* XMLParser::parseDocument (std::string xml)
         // It has only to get elements because the document can't have
         // text child nodes.
         if (xml.at(i) == '<') {
-            std::string nodeText = "<";
-            
+            std::string nodeText;
             while (i < xml.length() && xml.at(i) != '>') {
-                i++;
                 nodeText += xml.at(i);
+                i++;
             }
+            nodeText += ">";
             i++;
 
             nodeText = this->cleanElement(nodeText);
@@ -139,11 +139,12 @@ DOMDocument* XMLParser::parseDocument (std::string xml)
 DOMChildNode* XMLParser::parseNode (std::string xml)
 {
     size_t i = 0;
-    std::string nodeText = "<";
+    std::string nodeText;
     while (i < xml.length() && xml.at(i) != '>') {
-        i++;
         nodeText += xml.at(i);
+        i++;
     }
+    nodeText += ">";
     DOMElement *mainNode = this->parseElement(nodeText);
 
     // Removing the closing tag of the main node.
@@ -154,12 +155,12 @@ DOMChildNode* XMLParser::parseNode (std::string xml)
     for (h = 0; h < xml.length(); h++) {
         // If it's an element node
         if (xml.at(h) == '<') {
-            std::string nodeText = "<";
-            
+            std::string nodeText;
             while (h < xml.length() && xml.at(h) != '>') {
-                h++;
                 nodeText += xml.at(h);
+                h++;
             }
+            nodeText += ">";
             h++;
 
             nodeText = this->cleanElement(nodeText);
@@ -200,11 +201,13 @@ FetchedNode* XMLParser::fetchNode (size_t start, std::string xml)
     FetchedNode *fNode = new FetchedNode;
 
     size_t i = 0;
-    std::string nodeText = "<";
+    std::string nodeText;
     while (i < xml.length() && xml.at(i) != '>') {
-        i++;
         nodeText += xml.at(i);
+        i++;
     }
+    nodeText += ">";
+
     DOMElement *node = this->parseElement(nodeText);
 
     if (node == NULL) {
