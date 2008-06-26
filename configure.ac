@@ -1,13 +1,13 @@
 AC_INIT(lib/xml++.h)
-AC_CONFIG_FILES([libltdl/Makefile])
+#AC_CONFIG_FILES([libltdl/Makefile])
 AM_CONFIG_HEADER(config.h)
 AC_CONFIG_MACRO_DIR([m4])
 
 AC_PREFIX_DEFAULT(/usr)
 
-LT_INIT()
-LT_CONFIG_LTDL_DIR([libltdl])
-LTDL_INIT([recursive])
+#LT_INIT()
+#LT_CONFIG_LTDL_DIR([libltdl])
+#LTDL_INIT([recursive])
 
 GENERIC_LIBARY_NAME=xml++
 

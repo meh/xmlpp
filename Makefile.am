@@ -1,6 +1,6 @@
-SUBDIRS= lib/ lib/dom/ lib/xml/ lib/exception libltdl
+SUBDIRS= lib/ lib/dom/ lib/xml/ lib/exception
 
-DIST_SUBDIRS = lib lib/dom lib/xml lib/exception libltdl
+DIST_SUBDIRS = lib lib/dom lib/xml lib/exception
 
 ACLOCAL_AMFLAGS = -I m4
 
