@@ -1,4 +1,4 @@
-h_sources = dom.h document.h child.h attribute.h element.h text.h
+h_sources = dom.h document.h child.h attribute.h element.h text.h 
 cc_sources = dom.cpp document.cpp child.cpp attribute.cpp element.cpp text.cpp
 
 library_includedir=/usr/include/xml++/dom
