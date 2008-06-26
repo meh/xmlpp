@@ -109,7 +109,7 @@ DOMDocument* XMLParser::parseDocument (std::string xml)
         if (xml.at(i) == '<') {
             std::string nodeText = "<";
             
-            while (xml.at(i) != '>') {
+            while (i < xml.length() && xml.at(i) != '>') {
                 i++;
                 nodeText += xml.at(i);
             }
@@ -219,11 +219,12 @@ FetchedNode* XMLParser::fetchNode (size_t start, std::string xml)
 
     while (i < xml.length() && !tags.empty()) {
         if (xml.at(i) == '<') {
-            std::string nodeText = "<";
+            std::string nodeText;
             while (i < xml.length() && xml.at(i) != '>') {
-                i++;
                 nodeText += xml.at(i);
+                i++;
             }
+            nodeText += ">";
             i++;
 
             std::string closed = this->closingTag(nodeText);
