@@ -25,6 +25,11 @@
 
 namespace xmlpp {
 
+
+DOMDocument::DOMDocument (void) : DOM (DOM_DOCUMENT)
+{
+}
+
 bool DOMDocument::empty (void)
 {
     if (this->children.empty()) {

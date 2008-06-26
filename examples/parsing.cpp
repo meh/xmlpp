@@ -7,10 +7,12 @@ using namespace xmlpp;
 int main (int argc, char *argv[])
 {
     try {
-        XMLParser *parser = new XMLParser();
-        DOM *document     = parser->parseFromFile("lol.xml");
+        XMLParser   *parser   = new XMLParser();
+        DOMDocument *document = parser->parseFromFile("lol.xml");
 
-        cout << document->firstChild()->firstChild()->firstChild()->nodeValue() << endl;
+        cout << ((DOM*) document)->getType() << endl;
+
+//        cout << document->firstChild()->firstChild()->firstChild()->nodeValue() << endl;
     }
     catch (Exception e) {
         cerr << e.getMessage() << endl;

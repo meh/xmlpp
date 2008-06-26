@@ -41,7 +41,8 @@ class DOMDocument : public DOM
     DOMChildNodes children;
 
   public:
-    DOMDocument () : DOM (DOM_DOCUMENT) {};
+    DOMDocument (void);
+    
     /// @brief  Says if the document is empty or not.
     ///
     /// @return  True if it's empty.
