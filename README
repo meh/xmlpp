@@ -1,1 +1,1 @@
-This is XML++ library :D
+To compile the library just run ./init.sh and the usual ./configure && make && make install
