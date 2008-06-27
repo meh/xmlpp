@@ -61,16 +61,6 @@ std::string DOMText::data (void)
     return this->value;
 }
 
-std::string DOMText::getAttribute (std::string)
-{
-    return (std::string) "";
-}
-
-std::string DOMText::getAttribute (const char*)
-{
-    return (std::string) "";
-}
-
 DOMChildNode* DOMText::childNodes (int)
 {
     throw DOMException(EX_NODE_IS_TEXT);
@@ -102,16 +92,6 @@ std::vector<DOMChildNode*> DOMText::getElementsByTagName (std::string tagName)
 std::vector<DOMChildNode*> DOMText::getElementsByTagName (const char* tagName)
 {
     return this->getElementsByTagName((std::string) tagName);
-}
-
-DOMChildNode* DOMText::__getElementById (std::string id)
-{
-    return NULL;
-}
-
-DOMChildNode* DOMText::__getElementById (const char* id)
-{
-    return NULL;
 }
 
 bool DOMText::hasChildNodes (void)

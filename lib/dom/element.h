@@ -67,10 +67,10 @@ class DOMElement : public DOMChildNode
 
     // Don't use these methods.
     #ifndef DOXYGEN_SHOULD_SKIP_THIS
-    std::string nodeValue (void);
+    std::string nodeValue (void) { return (std::string) ""; };
     void nodeValue (const char*) {};
     void nodeValue (std::string) {};
-    std::string data (void);
+    std::string data (void) { return (std::string) ""; };
     #endif
 
     /// @brief  Get the element's id.

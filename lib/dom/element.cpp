@@ -67,16 +67,6 @@ std::string DOMElement::tagName (void)
     return utils::toUppercase (this->name);
 }
 
-std::string DOMElement::nodeValue (void)
-{
-    return (std::string) "";
-}
-
-std::string DOMElement::data (void)
-{
-    return (std::string) "";
-}
-
 std::string DOMElement::id (void)
 {
     return this->getAttribute("id");

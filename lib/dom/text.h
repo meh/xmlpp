@@ -70,18 +70,18 @@ class DOMText : public DOMChildNode
 
     // Don't use these methods.
     #ifndef DOXYGEN_SHOULD_SKIP_THIS
-    std::string tagName (void) {};
-    std::string id (void) {};
+    std::string tagName (void) { return (std::string) ""; };
+    std::string id (void) { return (std::string) "" ; };
     void id (std::string) {};
     void id (const char*) {};
-    std::string title (void) {};
+    std::string title (void) { return (std::string) ""; };
     void title (std::string title) {};
     void title (const char* title) {};
 
     void setAttribute (std::string, std::string) {};
     void setAttribute (const char*, const char*) {};
-    std::string getAttribute (std::string);
-    std::string getAttribute (const char*);
+    std::string getAttribute (std::string) { return (std::string) ""; };
+    std::string getAttribute (const char*) { return (std::string) ""; };
     void removeAttribute (std::string) {};
     void removeAttribute (const char*) {};
 
@@ -102,8 +102,8 @@ class DOMText : public DOMChildNode
 
     // Don't use these methods.
     #ifndef DOXYGEN_SHOULD_SKIP_THIS
-    DOMChildNode* __getElementById (std::string id);
-    DOMChildNode* __getElementById (const char* id);
+    DOMChildNode* __getElementById (std::string id) { return NULL; };
+    DOMChildNode* __getElementById (const char* id) { return NULL; };
     DOMChildNodes getElementsByTagName (std::string tagName);
     DOMChildNodes getElementsByTagName (const char* tagName);
     bool hasChildNodes (void);
