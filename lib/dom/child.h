@@ -65,7 +65,10 @@ class DOMChildNode : public DOM
     /// @param  type  The node's type. DOM_ELEMENT_NODE and DOM_TEXT_NODE
     DOMChildNode (DOMNodeType type);
 
-    // Getters.
+    /// @brief  Get plain text of the element.
+    ///
+    /// @return  The plain text version of the element.
+    virtual std::string plain (void) = 0;
 
     /// @brief  Get the node's type.
     ///

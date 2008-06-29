@@ -55,6 +55,16 @@ class DOMElement : public DOMChildNode
     /// @brief  Destroys every children in the node.
     ~DOMElement (void);
 
+    /// @brief  Get plain text of the element.
+    ///
+    /// @return  The plain text version of the element.
+    std::string plain (void);
+
+    /// @brief  Get plain text attributes.
+    ///
+    /// @return  Plain text attributes.
+    std::string plainAttributes (void);
+
     /// @brief  Get the node's name.
     ///
     /// @return  The node's name.

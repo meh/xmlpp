@@ -43,6 +43,11 @@ class DOMText : public DOMChildNode
     /// @param  text  The node's value.
     DOMText (const char* text);
 
+    /// @brief  Get plain text of the element.
+    ///
+    /// @return  The plain text version of the element.
+    std::string plain (void);
+
     /// @brief  Get the node's name.
     ///
     /// @return "#text"

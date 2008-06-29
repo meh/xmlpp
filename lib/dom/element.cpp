@@ -39,7 +39,7 @@ DOMElement::~DOMElement (void)
 {
     DOMAttributes::iterator attr;
     for (attr = this->attributes.begin(); attr != this->attributes.end(); attr++) {
-        delete (*attr).second;
+        delete attr->second;
     }
     delete &this->attributes;
 
@@ -55,6 +55,48 @@ DOMElement::~DOMElement (void)
         }
     }
     delete &this->children;
+}
+
+std::string DOMElement::plain (void)
+{
+    std::string plain;
+
+    plain += "<" + this->name;
+    
+    std::string attributes = this->plainAttributes();
+
+    if (!attributes.empty()) {
+        plain += " " + attributes;
+    }
+
+    if (this->hasChildNodes()) {
+        plain += ">";
+
+        size_t i;
+        for (i = 0; i < this->children.size(); i++) {
+            plain += this->childNodes(i)->plain();
+        }
+        
+        plain += "</" + this->name + ">";
+    }
+    else {
+        plain += "/>";
+    }
+
+    return plain;
+}
+
+std::string DOMElement::plainAttributes (void)
+{
+    std::string plain;
+    DOMAttributes::iterator attr;
+
+    for (attr = this->attributes.begin(); attr != this->attributes.end(); attr++) {
+        plain += attr->first + "=";
+        plain += "\"" + attr->second->nodeValue() + "\" ";
+    }
+
+    return plain;
 }
 
 std::string DOMElement::nodeName (void)
@@ -102,7 +144,7 @@ void DOMElement::setAttribute (std::string attributeName, std::string attributeV
     DOMAttributes::iterator attr = this->attributes.find(attributeName);
 
     if (attr != this->attributes.end()) {
-        (*attr).second->nodeValue(attributeValue);
+        attr->second->nodeValue(attributeValue);
     }
     else {
         this->attributes[attributeName] = new DOMAttribute(attributeName, attributeValue);
@@ -137,7 +179,7 @@ void DOMElement::removeAttribute (std::string attributeName)
     DOMAttributes::iterator attr = this->attributes.find(attributeName);
 
     if (attr != this->attributes.end()) {
-        delete (*attr).second;
+        delete attr->second;
         this->attributes.erase(attr);
     }
 }
@@ -290,7 +332,7 @@ DOMChildNode* DOMElement::cloneNode (bool cloneChildren)
 
     DOMAttributes::iterator attr;
     for (attr = this->attributes.begin(); attr != this->attributes.end(); attr++) {
-        copy->setAttribute((*attr).second->nodeName(), (*attr).second->nodeValue());
+        copy->setAttribute(attr->second->nodeName(), attr->second->nodeValue());
     }
     
     if (cloneChildren) {

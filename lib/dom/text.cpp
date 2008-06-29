@@ -35,6 +35,11 @@ DOMText::DOMText (const char* text) : DOMChildNode (DOM_NODE_TEXT)
     this->value = text;
 }
 
+std::string DOMText::plain (void)
+{
+    return this->value;
+}
+
 // Getters.
 std::string DOMText::nodeName (void)
 {
