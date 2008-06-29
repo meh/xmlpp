@@ -29,18 +29,18 @@
 namespace xmlpp {
 
 /// @brief  I don't remember lol.
-#define EX_ATTRIBUTE_MODE_NOT_EXISTENT  1
+const int EX_ATTRIBUTE_MODE_NOT_EXISTENT = 1;
 
 /// @brief  Exception raised if the node used is an element node and
 ///         it doesn't have that method.
-#define EX_NODE_IS_ELEMENT              2
+const int EX_NODE_IS_ELEMENT = 2;
 
 /// @brief  Exception raised if the node used is a text node and it
 ///         doesnt' have that method.
-#define EX_NODE_IS_TEXT                 3
+const int EX_NODE_IS_TEXT = 3;
 
 /// @brief  Exception raised if the child node requested doesn't exist.
-#define EX_OUT_OF_RANGE                 4
+const int EX_OUT_OF_RANGE = 4;
 
 class DOMException : public Exception
 {

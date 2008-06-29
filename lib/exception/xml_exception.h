@@ -29,16 +29,16 @@
 namespace xmlpp {
 
 /// @brief  Exception raised if there's an error in read the xml file.
-#define EX_PARSER_FILE_READ_ERROR  1
+const int EX_PARSER_FILE_READ_ERROR = 1;
 
 /// @brief  Exception raised if the XML file has some errors.
-#define EX_XML_NOT_STANDARD        2
+const int EX_XML_NOT_STANDARD = 2;
 
 /// @brief  Exception raised if there's an error in a node.
-#define EX_XML_BAD_NODE            3
+const int EX_XML_BAD_NODE = 3;
 
 /// @brief  Exception raised if a tag isn't closed.
-#define EX_XML_TAG_NOT_CLOSED      4
+const int EX_XML_TAG_NOT_CLOSED = 4;
 
 class XMLException : public Exception
 {
