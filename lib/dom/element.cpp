@@ -88,15 +88,22 @@ std::string DOMElement::plain (void)
 
 std::string DOMElement::plainAttributes (void)
 {
-    std::string plain;
-    DOMAttributes::iterator attr;
+    if (!this->attributes.empty()) {
+        std::string plain;
+        DOMAttributes::iterator attr;
 
-    for (attr = this->attributes.begin(); attr != this->attributes.end(); attr++) {
-        plain += attr->first + "=";
-        plain += "\"" + attr->second->nodeValue() + "\" ";
+        for (attr = this->attributes.begin(); attr != this->attributes.end(); attr++) {
+            plain += attr->first + "=";
+            plain += "\"" + attr->second->nodeValue() + "\" ";
+        }
+
+        plain.resize(plain.length()-1);
+
+        return plain;
     }
-
-    return plain;
+    else {
+        return (std::string) "";
+    }
 }
 
 std::string DOMElement::nodeName (void)
