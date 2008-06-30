@@ -45,6 +45,9 @@ class DOMDocument
     /// @brief  Initiate the DOM document.
     DOMDocument (void);
 
+    /// @brief  RAEG deconstructor.
+    ~DOMDocument (void);
+
     /// @brief  Get the plain text version of the document.
     /// 
     /// @return  The plain text document.

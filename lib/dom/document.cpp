@@ -31,6 +31,11 @@ DOMDocument::DOMDocument (void)
     this->element = new DOMElement();
 }
 
+DOMDocument::~DOMDocument (void)
+{
+    delete this->element;
+}
+
 std::string DOMDocument::documentElement (void)
 {
     std::string document;
