@@ -26,6 +26,8 @@
 
 #include "../common.h"
 #include "node.h"
+#include "element.h"
+#include "text.h"
 
 namespace xmlpp {
 

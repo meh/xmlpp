@@ -36,12 +36,12 @@ class DOMText : public DOMNode
     /// @brief  Create the text node with the given value.
     ///
     /// @param  text  The node's value.
-    DOMText (std::string text);
+    DOMText (std::string value);
 
     /// @brief  Create the text node with the given value.
     ///
     /// @param  text  The node's value.
-    DOMText (const char* text);
+    DOMText (const char* value);
 
     /// @brief  Get plain text of the element.
     ///

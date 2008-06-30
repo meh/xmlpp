@@ -22,14 +22,8 @@
 ****************************************************************************/
 
 #include "parser.h"
-#include <iostream>
-using namespace std;
 
 namespace xmlpp {
-
-XMLParser::XMLParser()
-{
-}
 
 XMLParser::XMLParser (std::string xmlFile)
 {
@@ -136,7 +130,7 @@ DOMDocument* XMLParser::parseDocument (std::string xml)
     return document;
 }
 
-DOMChildNode* XMLParser::parseNode (std::string xml)
+DOMNode* XMLParser::parseNode (std::string xml)
 {
     size_t i = 0;
     std::string nodeText;
@@ -186,7 +180,7 @@ DOMChildNode* XMLParser::parseNode (std::string xml)
             }
             h--;
 
-            DOMChildNode *textNode = this->parseText(text);
+            DOMNode *textNode = this->parseText(text);
             if (!textNode->nodeValue().empty()) {
                 mainNode->appendChild(textNode);
             }

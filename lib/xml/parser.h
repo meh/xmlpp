@@ -67,7 +67,7 @@ class XMLParser
     /// @param  xml  The fetched node.
     ///
     /// @return  The child node.
-    DOMChildNode* parseNode (std::string xml);
+    DOMNode* parseNode (std::string xml);
 
     /// @brief  Fetch the node.
     ///
@@ -111,7 +111,7 @@ class XMLParser
 
   public:
     /// @brief  Creates the XMLParser object.
-    XMLParser (void);
+    XMLParser (void) {};
 
     /// @brief  Creates the XMLParser object and parse the given file.
     /// 

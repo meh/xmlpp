@@ -21,7 +21,7 @@
 * along with this program.  If not, see <http://www.gnu.org/licenses/>.     *
 ****************************************************************************/
 
-#include "child.h"
+#include "node.h"
 
 namespace xmlpp {
 

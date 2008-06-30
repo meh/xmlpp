@@ -25,17 +25,17 @@
 
 namespace xmlpp {
 
-DOMElement::DOMElement (void) : DOMNode(DOMNodeType.document)
+DOMElement::DOMElement (void) : DOMNode(document)
 {
     this->name = "#document";
 }
 
-DOMElement::DOMElement (std::string elementName) : DOMNode(DOMNodeType.element)
+DOMElement::DOMElement (std::string elementName) : DOMNode(element)
 {
     this->name = elementName;
 }
 
-DOMElement::DOMElement (const char* elementName) : DOMNode(DOMNodeType.element)
+DOMElement::DOMElement (const char* elementName) : DOMNode(element)
 {
     this->name = elementName;
 }
@@ -50,11 +50,11 @@ DOMElement::~DOMElement (void)
 
     for (size_t i = 0; i < this->children.size(); i++) {
         switch (this->children[i]->nodeType()) {
-            case DOMNodeType.element: 
+            case element: 
             delete (DOMElement*) this->children[i];
             break;
 
-            case DOMNodeType.text:
+            case text:
             delete (DOMText*) this->children[i];
             break;
         }
@@ -234,7 +234,7 @@ void DOMElement::insertBefore (DOMNode* childNode, DOMNode* nodeAfter)
 
 void DOMElement::replaceChild (DOMNode* newChild, DOMNode* oldChild)
 {
-    DOM *parent = oldChild->parentNode();
+    DOMNode *parent = oldChild->parentNode();
     
     if (parent == this) {
         for (size_t i = 0; i < this->children.size(); i++) {

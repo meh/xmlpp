@@ -25,8 +25,6 @@
 #define XMLPP_DOM_NODE TRUE
 
 #include "../common.h"
-#include "element.h"
-#include "text.h"
 
 namespace xmlpp {
 

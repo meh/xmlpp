@@ -25,14 +25,14 @@
 
 namespace xmlpp {
 
-DOMText::DOMText (std::string text) : DOMNode (DOMNodeType.text)
+DOMText::DOMText (std::string value) : DOMNode (text)
 {
-    this->value = text;
+    this->value = value;
 }
 
-DOMText::DOMText (const char* text) : DOMNode (DOMNodeType.text)
+DOMText::DOMText (const char* value) : DOMNode (text)
 {
-    this->value = text;
+    this->value = value;
 }
 
 std::string DOMText::plain (void)
