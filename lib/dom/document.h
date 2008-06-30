@@ -41,10 +41,8 @@ class DOMDocument
     /// @brief  The document element.
     DOMNode *element;
 
-    /// @brief Vector with the child nodes.
-    DOMNodes children;
-
   public:
+    /// @brief  Initiate the DOM document.
     DOMDocument (void);
 
     /// @brief  Get the plain text version of the document.

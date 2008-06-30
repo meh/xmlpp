@@ -36,11 +36,7 @@ std::string DOMDocument::documentElement (void)
     std::string document;
 
     document += "<?xml version=\"" + this->version() + "\"?>";
-
-    size_t i;
-    for (i = 0; i < this->children.size(); i++) {
-        document += this->childNodes(i)->plain();
-    }
+    document += this->element->plain();
 
     return document;
 }
