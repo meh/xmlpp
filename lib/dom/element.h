@@ -21,27 +21,30 @@
 * along with this program.  If not, see <http://www.gnu.org/licenses/>.     *
 ****************************************************************************/
 
-#if !defined(XMLPP_XML_ELEMENT)
-#define XMLPP_XML_ELEMENT TRUE
+#if !defined(XMLPP_DOM_ELEMENT)
+#define XMLPP_DOM_ELEMENT TRUE
 
 #include "../common.h"
-#include "child.h"
+#include "node.h"
 #include "text.h"
 #include "attribute.h"
 
 namespace xmlpp {
 
 /// @brief  The DOMElement class, childnodes, attributes etc.
-class DOMElement : public DOMChildNode
+class DOMElement : public DOMNode
 {
   private:
     /// @brief  Map with the attributes.
     DOMAttributes attributes;
     
     /// @brief  Child nodes vector (aka childNodes)
-    DOMChildNodes children;
+    DOMNodes children;
 
   public:
+    /// @brief  Constructor for the document node.
+    DOMElement (void);
+
     /// @brief  Create the element with initialization.
     ///
     /// @param  elementName  The element's name (aka tag name)
@@ -152,19 +155,19 @@ class DOMElement : public DOMChildNode
     /// @brief  Append a child to a DOMElement.
     ///
     /// @param  childNode  The pointer to the child to append.
-    void appendChild (DOMChildNode* childNode);
+    void appendChild (DOMNode* childNode);
 
     /// @brief  Insert a child before another child.
     ///
     /// @param  childNode  The pointer to the child to insert.
     /// @param  nodeAfter  The pointer to the child that you want to insert the child before.
-    void insertBefore (DOMChildNode* childNode, DOMChildNode* nodeAfter);
+    void insertBefore (DOMNode* childNode, DOMNode* nodeAfter);
 
     /// @brief  Replace a child with another.
     ///
     /// @param  newChild  The pointer to the child to put in the node.
     /// @param  oldChild  The pointer to the child to replace.
-    void replaceChild (DOMChildNode* newChild, DOMChildNode* oldChild);
+    void replaceChild (DOMNode* newChild, DOMNode* oldChild);
 
     /// @brief  Remove a child from the node.
     ///
@@ -174,7 +177,7 @@ class DOMElement : public DOMChildNode
     /// @brief  Remove a child from the node.
     ///
     /// @param  childNode  The pointer to the node that you want to delete.
-    void removeChild (DOMChildNode* childNode);
+    void removeChild (DOMNode* childNode);
 
     /// @brief  Say if a node has children or not.
     ///
@@ -187,42 +190,42 @@ class DOMElement : public DOMChildNode
     /// @param  childNode  The child number in the vector.
     /// 
     /// @return  The pointer to the child.
-    DOMChildNode* childNodes (int childNode);
+    DOMNode* childNodes (int childNode);
 
     /// @brief  Get the first child of the node.
     ///
     /// @return  The pointer to the first child.
-    DOMChildNode* firstChild (void);
+    DOMNode* firstChild (void);
 
     /// @brief  Get the last child of the node.
     ///
     /// @return  The pointer to the last child.
-    DOMChildNode* lastChild (void);
+    DOMNode* lastChild (void);
 
     /// @brief  Clone a node with or without the children.
     ///
     /// @param  cloneChildren  True if you want to clone the children too.
     ///                        False if you want to clone only the node.
-    DOMChildNode* cloneNode (bool cloneChildren = true);
+    DOMNode* cloneNode (bool cloneChildren = true);
 
     /// @brief Get every element with the tag name passed starting from the node.
     ///
     /// @param  tagName  The tag name to use for searching.
     ///
     /// @return  A vector with the pointers to the matched nodes.
-    DOMChildNodes getElementsByTagName (std::string tagName);
+    DOMNodes getElementsByTagName (std::string tagName);
 
     /// @brief Get every element with the tag name passed starting from the node.
     ///
     /// @param  tagName  The tag name to use for searching.
     ///
     /// @return  A vector with the pointers to the matched nodes.
-    DOMChildNodes getElementsByTagName (const char* tagName);
+    DOMNodes getElementsByTagName (const char* tagName);
 
     // Don't use these methods.
     #ifndef DOXYGEN_SHOULD_SKIP_THIS
-    DOMChildNode* __getElementById (std::string id);
-    DOMChildNode* __getElementById (const char* id);
+    DOMNode* __getElementById (std::string id);
+    DOMNode* __getElementById (const char* id);
     #endif
 };
 

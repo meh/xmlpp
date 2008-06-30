@@ -50,4 +50,3 @@ class XMLException : public Exception
 
 #endif
 
-

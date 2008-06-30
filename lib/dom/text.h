@@ -21,16 +21,16 @@
 * along with this program.  If not, see <http://www.gnu.org/licenses/>.     *
 ****************************************************************************/
 
-#if !defined(XMLPP_XML_TEXT)
-#define XMLPP_XML_TEXT TRUE
+#if !defined(XMLPP_DOM_TEXT)
+#define XMLPP_DOM_TEXT TRUE
 
 #include "../common.h"
-#include "child.h"
+#include "node.h"
 
 namespace xmlpp {
 
 /// @brief DOMText child node.
-class DOMText : public DOMChildNode
+class DOMText : public DOMNode
 {
   public:
     /// @brief  Create the text node with the given value.
@@ -90,27 +90,27 @@ class DOMText : public DOMChildNode
     void removeAttribute (std::string) {};
     void removeAttribute (const char*) {};
 
-    void appendChild (DOMChildNode*) {};
-    void insertBefore (DOMChildNode*, DOMChildNode*) {};
-    void replaceChild (DOMChildNode*, DOMChildNode*) {};
+    void appendChild (DOMNode*) {};
+    void insertBefore (DOMNode*, DOMNode*) {};
+    void replaceChild (DOMNode*, DOMNode*) {};
     void removeChild (int) {};
-    void removeChild (DOMChildNode*) {};
-    DOMChildNode* childNodes (int);
-    DOMChildNode* firstChild (void);
-    DOMChildNode* lastChild (void);
+    void removeChild (DOMNode*) {};
+    DOMNode* childNodes (int);
+    DOMNode* firstChild (void);
+    DOMNode* lastChild (void);
     #endif
 
     /// @brief Clonde the text node.
     ///
     /// @return  The pointer to the cloned DOMText.
-    DOMChildNode* cloneNode (bool cloneChildren = true);
+    DOMNode* cloneNode (bool cloneChildren = true);
 
     // Don't use these methods.
     #ifndef DOXYGEN_SHOULD_SKIP_THIS
-    DOMChildNode* __getElementById (std::string id) { return NULL; };
-    DOMChildNode* __getElementById (const char* id) { return NULL; };
-    DOMChildNodes getElementsByTagName (std::string tagName);
-    DOMChildNodes getElementsByTagName (const char* tagName);
+    DOMNode* __getElementById (std::string id) { return NULL; };
+    DOMNode* __getElementById (const char* id) { return NULL; };
+    DOMNodes getElementsByTagName (std::string tagName);
+    DOMNodes getElementsByTagName (const char* tagName);
     bool hasChildNodes (void);
     #endif
 };

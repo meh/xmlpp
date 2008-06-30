@@ -118,7 +118,7 @@ DOMDocument* XMLParser::parseDocument (std::string xml)
             nodeText = this->cleanElement(nodeText);
 
             if (nodeText.length() > 4 && nodeText.at(1) == '?' && nodeText.at(nodeText.length()-2) == '?') {
-                std::string version = this->getVersion(nodeText);
+                document->setVersion(this->getVersion(nodeText));
             }
             else if (nodeText.length() > 3 && nodeText[nodeText.length()-2] == '/') {
                 document->appendChild(this->parseElement(nodeText));
@@ -438,6 +438,10 @@ std::string XMLParser::closingTag (std::string tag)
 
 std::string XMLParser::getVersion (std::string xml)
 {
+/*    DOMElement *element = this->parseElement(xml);
+    std::string version = element->getAttribute("version");
+    delete element;*/
+
     std::string version = "";
 
     return version;

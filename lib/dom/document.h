@@ -25,29 +25,25 @@
 #define XMLPP_DOM_DOCUMENT TRUE
 
 #include "../common.h"
-#include "dom.h"
-#include "child.h"
+#include "node.h"
 
 namespace xmlpp {
 
 /// @brief DOM document class.
-class DOMDocument : public DOM
+class DOMDocument
 {
   private:
-    /// @brief  The plain text version of the document.
-    std::string document;
+    /// @brief  The XML version.
+    std::string xmlVersion;
+
+    /// @brief  The document element.
+    DOMNode *element;
 
     /// @brief Vector with the child nodes.
-    DOMChildNodes children;
+    DOMNodes children;
 
   public:
     DOMDocument (void);
-    
-    /// @brief  Says if the document is empty or not.
-    ///
-    /// @return  True if it's empty.
-    ///          False if it isn't.
-    bool empty (void);
 
     /// @brief  Get the plain text version of the document.
     /// 
@@ -57,19 +53,19 @@ class DOMDocument : public DOM
     /// @brief  Append a child to a DOMElement.
     ///
     /// @param  childNode  The pointer to the child to append.
-    void appendChild (DOMChildNode* childNode);
+    void appendChild (DOMNode* childNode);
 
     /// @brief  Insert a child before another child.
     ///
     /// @param  childNode  The pointer to the child to insert.
     /// @param  nodeAfter  The pointer to the child that you want to insert the child before.
-    void insertBefore (DOMChildNode* childNode, DOMChildNode* nodeAfter);
+    void insertBefore (DOMNode* childNode, DOMNode* nodeAfter);
 
     /// @brief  Replace a child with another.
     ///
     /// @param  newChild  The pointer to the child to put in the node.
     /// @param  oldChild  The pointer to the child to replace.
-    void replaceChild (DOMChildNode* newChild, DOMChildNode* oldChild);
+    void replaceChild (DOMNode* newChild, DOMNode* oldChild);
 
     /// @brief  Remove a child from the node.
     ///
@@ -79,52 +75,67 @@ class DOMDocument : public DOM
     /// @brief  Remove a child from the node.
     ///
     /// @param  childNode  The pointer to the node that you want to delete.
-    void removeChild (DOMChildNode* childNode);
+    void removeChild (DOMNode* childNode);
 
     /// @brief  Get a child node.
     ///
     /// @param  childNode  The child number in the vector.
     /// 
     /// @return  The pointer to the child.
-    DOMChildNode* childNodes (int childNode);
+    DOMNode* childNodes (int childNode);
 
     /// @brief  Get the first child of the node.
     ///
     /// @return  The pointer to the first child.
-    DOMChildNode* firstChild (void);
+    DOMNode* firstChild (void);
 
     /// @brief  Get the last child of the node.
     ///
     /// @return  The pointer to the last child.
-    DOMChildNode* lastChild (void);
+    DOMNode* lastChild (void);
 
     /// @brief  Get the element with that id.
     ///
     /// @param  id  The id to look for.
     ///
     /// @return  The DOMElement object with that nick.
-    DOMChildNode* getElementById (std::string id);
+    DOMNode* getElementById (std::string id);
 
     /// @brief  Get the element with that id.
     ///
     /// @param  id  The id to look for.
     ///
     /// @return  The DOMElement object with that nick.
-    DOMChildNode* getElementById (const char* id);
+    DOMNode* getElementById (const char* id);
 
     /// @brief Get every element with the tag name passed starting from the node.
     ///
     /// @param  tagName  The tag name to use for searching.
     ///
     /// @return  A vector with the pointers to the matched nodes.
-    DOMChildNodes getElementsByTagName (std::string tagName);
+    DOMNodes getElementsByTagName (std::string tagName);
 
     /// @brief Get every element with the tag name passed starting from the node.
     ///
     /// @param  tagName  The tag name to use for searching.
     ///
     /// @return  A vector with the pointers to the matched nodes.
-    DOMChildNodes getElementsByTagName (const char* tagName);
+    DOMNodes getElementsByTagName (const char* tagName);
+
+    /// @brief  Get the XML version of the document.
+    ///
+    /// @return  The XML version.
+    std::string version (void);
+
+    /// @brief  Set the XML version of the document.
+    ///
+    /// @param  version  The XML version to set.
+    void setVersion (std::string version);
+
+    /// @brief  Set the XML version of the document.
+    ///
+    /// @param  version  The XML version to set.
+    void setVersion (const char* version);
 };
 
 };

@@ -25,12 +25,12 @@
 
 namespace xmlpp {
 
-DOMText::DOMText (std::string text) : DOMChildNode (DOM_NODE_TEXT)
+DOMText::DOMText (std::string text) : DOMNode (DOMNodeType.text)
 {
     this->value = text;
 }
 
-DOMText::DOMText (const char* text) : DOMChildNode (DOM_NODE_TEXT)
+DOMText::DOMText (const char* text) : DOMNode (DOMNodeType.text)
 {
     this->value = text;
 }
@@ -66,35 +66,35 @@ std::string DOMText::data (void)
     return this->value;
 }
 
-DOMChildNode* DOMText::childNodes (int)
+DOMNode* DOMText::childNodes (int)
 {
     throw DOMException(EX_NODE_IS_TEXT);
 }
 
-DOMChildNode* DOMText::firstChild (void)
+DOMNode* DOMText::firstChild (void)
 {
     throw DOMException(EX_NODE_IS_TEXT);
 }
 
-DOMChildNode* DOMText::lastChild (void)
+DOMNode* DOMText::lastChild (void)
 {
     throw DOMException(EX_NODE_IS_TEXT);
 }
 
-DOMChildNode* DOMText::cloneNode (bool cloneChildren)
+DOMNode* DOMText::cloneNode (bool cloneChildren)
 {
     DOMText *copy = new DOMText(this->nodeValue());
     return copy;
 }
 
-std::vector<DOMChildNode*> DOMText::getElementsByTagName (std::string tagName)
+std::vector<DOMNode*> DOMText::getElementsByTagName (std::string tagName)
 {
-    std::vector<DOMChildNode*> elements;
+    std::vector<DOMNode*> elements;
 
     return elements;
 }
 
-std::vector<DOMChildNode*> DOMText::getElementsByTagName (const char* tagName)
+std::vector<DOMNode*> DOMText::getElementsByTagName (const char* tagName)
 {
     return this->getElementsByTagName((std::string) tagName);
 }

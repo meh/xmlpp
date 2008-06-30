@@ -36,9 +36,6 @@
 #include <ctime>
 #include <cstdlib>
 
-// Default typedefs
-typedef int DOMNodeType;
-
 #include "exception/exception.h"
 #include "utils.h"
 
