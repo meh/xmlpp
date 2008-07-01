@@ -39,29 +39,20 @@ enum DOMNodeType {
 class DOMNode 
 {
   private:
-    double uniqueID;
+    double _uniqueID;
 
   protected:
     /// @brief The node's type: DOM_ELEMENT_NODE or DOM_TEXT_NODE
-    DOMNodeType type;
-
-    /// @brief  Node's name.
-    std::string name;
-
-    /// @brief  Node's value.
-    std::string value;
-
-    /// @brief  Plain text view of the node.
-    std::string plainText;
+    DOMNodeType _type;
 
     /// @brief  The previous sibling.
-    DOMNode* pSibling;
+    DOMNode* _pSibling;
 
     /// @brief  The next sibling.
-    DOMNode* nSibling;
+    DOMNode* _nSibling;
 
     /// @brief  The child's parent.
-    DOMNode* parent;
+    DOMNode* _parent;
 
   public:
     typedef std::vector<DOMNode*> DOMNodes;

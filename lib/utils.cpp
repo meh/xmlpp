@@ -92,7 +92,7 @@ namespace utils {
 
     std::map<std::string, std::string> getSpecialChars (void)
     {
-        std::map<std::string, std::string> specialChars;
+        static std::map<std::string, std::string> specialChars;
 
         if (specialChars.empty()) {
             specialChars["&lsquo;"]  = "‘";

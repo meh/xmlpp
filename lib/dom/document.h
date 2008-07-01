@@ -36,10 +36,10 @@ class DOMDocument
 {
   private:
     /// @brief  The XML version.
-    std::string xmlVersion;
+    std::string _xmlVersion;
 
     /// @brief  The document element.
-    DOMElement *element;
+    DOMElement* _element;
 
   public:
     /// @brief  Initiate the DOM document.

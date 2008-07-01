@@ -25,57 +25,57 @@
 
 namespace xmlpp {
 
-DOMNode::DOMNode (DOMNodeType type)
+DOMNode::DOMNode (DOMNodeType _type)
 {
-    this->type = type;
+    this->_type = _type;
 
     // Create a random id.
-    this->uniqueID = (rand() / (rand() * 0.23)) * (clock() / 10000);
+    this->_uniqueID = (rand() / (rand() * 0.23)) * (clock() / 10000);
 }
 
 DOMNodeType DOMNode::nodeType (void)
 {
-    return this->type;
+    return this->_type;
 }
 
 DOMNode* DOMNode::parentNode (void)
 {
-    return this->parent;
+    return this->_parent;
 }
 
 DOMNode* DOMNode::previousSibling (void)
 {
-    return this->pSibling;
+    return this->_pSibling;
 }
 
 DOMNode* DOMNode::nextSibling (void)
 {
-    return this->nSibling;
+    return this->_nSibling;
 }
 
 void DOMNode::__setParent (DOMNode* parent)
 {
-    this->parent = parent;
+    this->_parent = parent;
 }
 
 void DOMNode::__setPreviousSibling (DOMNode* sibling)
 {
-    this->pSibling = sibling;
+    this->_pSibling = sibling;
 }
 
 void DOMNode::__setNextSibling (DOMNode* sibling)
 {
-    this->nSibling = sibling;
+    this->_nSibling = sibling;
 }
 
 double DOMNode::__getID (void)
 {
-    return this->uniqueID;
+    return this->_uniqueID;
 }
 
 bool DOMNode::operator == (DOMNode* element)
 {
-    if (this->uniqueID == element->__getID()) {
+    if (this->_uniqueID == element->__getID()) {
         return true;
     }
     else {
@@ -85,7 +85,7 @@ bool DOMNode::operator == (DOMNode* element)
 
 bool DOMNode::operator != (DOMNode* element)
 {
-    if (this->uniqueID != element->__getID()) {
+    if (this->_uniqueID != element->__getID()) {
         return true;
     }
     else {

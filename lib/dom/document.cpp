@@ -28,12 +28,12 @@ namespace xmlpp {
 DOMDocument::DOMDocument (void)
 {
     this->setVersion("1.0");
-    this->element = new DOMElement();
+    this->_element = new DOMElement();
 }
 
 DOMDocument::~DOMDocument (void)
 {
-    delete this->element;
+    delete this->_element;
 }
 
 std::string DOMDocument::documentElement (void)
@@ -41,84 +41,84 @@ std::string DOMDocument::documentElement (void)
     std::string document;
 
     document += "<?xml version=\"" + this->version() + "\"?>";
-    document += this->element->plain();
+    document += this->_element->plain();
 
     return document;
 }
 
 void DOMDocument::appendChild (DOMNode* childNode)
 {
-    this->element->appendChild(childNode);
+    this->_element->appendChild(childNode);
 }
 
 void DOMDocument::insertBefore (DOMNode* childNode, DOMNode* nodeAfter)
 {
-    this->element->insertBefore(childNode, nodeAfter);
+    this->_element->insertBefore(childNode, nodeAfter);
 }
 
 void DOMDocument::replaceChild (DOMNode* newChild, DOMNode* oldChild)
 {
-    this->element->replaceChild(newChild, oldChild);
+    this->_element->replaceChild(newChild, oldChild);
 }
 
 void DOMDocument::removeChild (int childNode)
 {
-    this->element->removeChild(childNode);
+    this->_element->removeChild(childNode);
 }
 
 void DOMDocument::removeChild (DOMNode* childNode)
 {
-    this->element->removeChild(childNode);
+    this->_element->removeChild(childNode);
 }
 
 DOMNode* DOMDocument::childNodes (int childNode)
 {
-    return this->element->childNodes(childNode);
+    return this->_element->childNodes(childNode);
 }
 
 DOMNode* DOMDocument::firstChild (void)
 {
-    return this->element->firstChild();
+    return this->_element->firstChild();
 }
 
 DOMNode* DOMDocument::lastChild (void)
 {
-    return this->element->lastChild();
+    return this->_element->lastChild();
 }
 
 DOMNode* DOMDocument::getElementById (std::string id)
 {
-    return this->element->__getElementById(id);
+    return this->_element->__getElementById(id);
 }
 
 DOMNode* DOMDocument::getElementById (const char* id)
 {
-    return this->element->__getElementById(id);
+    return this->_element->__getElementById(id);
 }
 
 DOMNodes DOMDocument::getElementsByTagName (std::string tagName)
 {
-    return this->element->getElementsByTagName(tagName);
+    return this->_element->getElementsByTagName(tagName);
 }
 
 DOMNodes DOMDocument::getElementsByTagName (const char* tagName)
 {
-    return this->element->getElementsByTagName(tagName);
+    return this->_element->getElementsByTagName(tagName);
 }
 
 void DOMDocument::setVersion (std::string version)
 {
-    this->xmlVersion = version;
+    this->_xmlVersion = version;
 }
 
 void DOMDocument::setVersion (const char* version)
 {
-    this->xmlVersion = version;
+    this->_xmlVersion = version;
 }
 
 std::string DOMDocument::version (void)
 {
-    return this->xmlVersion;
+    return this->_xmlVersion;
 }
 
 };

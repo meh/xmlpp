@@ -33,13 +33,10 @@ class DOMAttribute
 {
   private:
     /// @brief  The attribute name.
-    std::string attributeName;
+    std::string _name;
 
     /// @brief  The attribute value.
-    std::string attributeValue;
-
-    /// @brief  Plain text of the attribute.
-    std::string plainText;
+    std::string _value;
 
   public:
     /// @brief  Create the attribute with initialization.
@@ -85,10 +82,10 @@ class DOMAttribute
     void nodeValue (const char* attributeValue);
     
     /// @brief  Updates the plain text version of the attribute.
-    void updatePlain (void);
+    std::string plain (void);
 
     // Operators.
-    std::string operator [] (const char* mode) const throw();
+    std::string operator [] (const char* mode) throw();
 };
 
 typedef std::map<std::string, DOMAttribute*> DOMAttributes;

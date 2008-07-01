@@ -25,7 +25,27 @@
 
 namespace xmlpp {
 
-std::string XMLParser::fetch (const char* fileName)
+DOMDocument* XMLParser::parseFromFile (std::string xmlFile)
+{
+    return this->parseFromString(this->_fetch(xmlFile.c_str()));
+}
+
+DOMDocument* XMLParser::parseFromFile (const char* xmlFile)
+{
+    return this->parseFromString(this->_fetch(xmlFile));
+}
+
+DOMDocument* XMLParser::parseFromString (std::string xmlText)
+{
+    return this->_parseDocument(xmlText);
+}
+
+DOMDocument* XMLParser::parseFromString (const char* xmlText)
+{
+    return this->_parseDocument((std::string) xmlText);
+}
+
+std::string XMLParser::_fetch (const char* fileName)
 {
     std::string plainText;
     std::string line;
@@ -49,27 +69,8 @@ std::string XMLParser::fetch (const char* fileName)
     return plainText;
 }
 
-DOMDocument* XMLParser::parseFromFile (std::string xmlFile)
-{
-    return this->parseFromString(this->fetch(xmlFile.c_str()));
-}
 
-DOMDocument* XMLParser::parseFromFile (const char* xmlFile)
-{
-    return this->parseFromString(this->fetch(xmlFile));
-}
-
-DOMDocument* XMLParser::parseFromString (std::string xmlText)
-{
-    return this->parseDocument(xmlText);
-}
-
-DOMDocument* XMLParser::parseFromString (const char* xmlText)
-{
-    return this->parseDocument((std::string) xmlText);
-}
-
-DOMDocument* XMLParser::parseDocument (std::string xml)
+DOMDocument* XMLParser::_parseDocument (std::string xml)
 {
     DOMDocument *document = new DOMDocument();
 
@@ -85,18 +86,18 @@ DOMDocument* XMLParser::parseDocument (std::string xml)
             nodeText += ">";
             i++;
 
-            nodeText = this->cleanElement(nodeText);
+            nodeText = this->_cleanElement(nodeText);
 
             if (nodeText.length() > 4 && nodeText.at(1) == '?' && nodeText.at(nodeText.length()-2) == '?') {
-                document->setVersion(this->getVersion(nodeText));
+                document->setVersion(this->_getVersion(nodeText));
             }
             else if (nodeText.length() > 3 && nodeText[nodeText.length()-2] == '/') {
-                document->appendChild(this->parseElement(nodeText));
+                document->appendChild(this->_parseElement(nodeText));
             }
             else {
-                FetchedNode *fNode = this->fetchNode(i-nodeText.length(), nodeText+xml.substr(i));
+                FetchedNode *fNode = this->_fetchNode(i-nodeText.length(), nodeText+xml.substr(i));
                 i = fNode->point-1;
-                document->appendChild(this->parseNode(fNode->text));
+                document->appendChild(this->_parseNode(fNode->text));
 
                 delete fNode;
             }
@@ -106,7 +107,7 @@ DOMDocument* XMLParser::parseDocument (std::string xml)
     return document;
 }
 
-DOMNode* XMLParser::parseNode (std::string xml)
+DOMNode* XMLParser::_parseNode (std::string xml)
 {
     size_t i = 0;
     std::string nodeText;
@@ -115,7 +116,7 @@ DOMNode* XMLParser::parseNode (std::string xml)
         i++;
     }
     nodeText += ">";
-    DOMElement *mainNode = this->parseElement(nodeText);
+    DOMElement *mainNode = this->_parseElement(nodeText);
 
     // Removing the closing tag of the main node.
     xml = xml.substr(i+1);
@@ -133,15 +134,15 @@ DOMNode* XMLParser::parseNode (std::string xml)
             nodeText += ">";
             h++;
 
-            nodeText = this->cleanElement(nodeText);
+            nodeText = this->_cleanElement(nodeText);
 
             if (nodeText.length() > 3 && nodeText.at(nodeText.length()-2) == '/') {
-                mainNode->appendChild(this->parseElement(nodeText));
+                mainNode->appendChild(this->_parseElement(nodeText));
             }
             else {
-                FetchedNode *fNode = this->fetchNode((h-nodeText.length()), nodeText+xml.substr(h));
+                FetchedNode *fNode = this->_fetchNode((h-nodeText.length()), nodeText+xml.substr(h));
                 h = fNode->point-1;
-                mainNode->appendChild(this->parseNode(fNode->text));
+                mainNode->appendChild(this->_parseNode(fNode->text));
 
                 delete fNode;
             }
@@ -156,7 +157,7 @@ DOMNode* XMLParser::parseNode (std::string xml)
             }
             h--;
 
-            DOMNode *textNode = this->parseText(text);
+            DOMNode *textNode = this->_parseText(text);
             if (textNode->nodeValue().empty()) {
                 delete textNode;
             }
@@ -169,7 +170,7 @@ DOMNode* XMLParser::parseNode (std::string xml)
     return mainNode;
 }
 
-FetchedNode* XMLParser::fetchNode (size_t start, std::string xml)
+FetchedNode* XMLParser::_fetchNode (size_t start, std::string xml)
 {
     FetchedNode *fNode = new FetchedNode;
 
@@ -181,7 +182,7 @@ FetchedNode* XMLParser::fetchNode (size_t start, std::string xml)
     }
     nodeText += ">";
 
-    DOMElement *node = this->parseElement(nodeText);
+    DOMElement *node = this->_parseElement(nodeText);
 
     if (node == NULL) {
         throw XMLException(EX_XML_BAD_NODE);
@@ -203,7 +204,7 @@ FetchedNode* XMLParser::fetchNode (size_t start, std::string xml)
             nodeText += ">";
             i++;
 
-            std::string closed = this->closingTag(nodeText);
+            std::string closed = this->_closingTag(nodeText);
 
             if (!closed.empty()) {
                 if (closed == nodeName) {
@@ -211,7 +212,7 @@ FetchedNode* XMLParser::fetchNode (size_t start, std::string xml)
                 }
             }
             else {
-                DOMElement *node = this->parseElement(nodeText);
+                DOMElement *node = this->_parseElement(nodeText);
                 if (node->nodeName() == nodeName) {
                     tags.push(1);
                 }
@@ -232,11 +233,11 @@ FetchedNode* XMLParser::fetchNode (size_t start, std::string xml)
     return fNode;
 }
 
-DOMElement* XMLParser::parseElement (std::string xml)
+DOMElement* XMLParser::_parseElement (std::string xml)
 {
     DOMElement *element;
 
-    xml = this->cleanElement(xml);
+    xml = this->_cleanElement(xml);
 
     // Get the element name
     std::string name;
@@ -274,7 +275,7 @@ DOMElement* XMLParser::parseElement (std::string xml)
     return element;
 }
 
-std::string XMLParser::cleanElement (std::string element)
+std::string XMLParser::_cleanElement (std::string element)
 {
     std::string clean;
 
@@ -330,7 +331,7 @@ std::string XMLParser::cleanElement (std::string element)
     return clean;
 }
 
-DOMText* XMLParser::parseText (std::string text)
+DOMText* XMLParser::_parseText (std::string text)
 {
     std::string filteredText;
     bool        firstSpace = true;
@@ -372,7 +373,7 @@ DOMText* XMLParser::parseText (std::string text)
     return new DOMText(filteredText);
 }
 
-std::string XMLParser::closingTag (std::string tag)
+std::string XMLParser::_closingTag (std::string tag)
 {
     std::string element;
     std::string tagName;
@@ -409,9 +410,9 @@ std::string XMLParser::closingTag (std::string tag)
     }
 }
 
-std::string XMLParser::getVersion (std::string xml)
+std::string XMLParser::_getVersion (std::string xml)
 {
-    DOMElement *element = this->parseElement(utils::strip("?", xml));
+    DOMElement *element = this->_parseElement(utils::strip("?", xml));
     std::string version = element->getAttribute("version");
     delete element;
 

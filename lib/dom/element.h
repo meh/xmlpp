@@ -35,11 +35,19 @@ namespace xmlpp {
 class DOMElement : public DOMNode
 {
   private:
+    /// @brief  Node's name.
+    std::string _name;
+
     /// @brief  Map with the attributes.
-    DOMAttributes attributes;
+    DOMAttributes _attributes;
     
     /// @brief  Child nodes vector (aka childNodes)
-    DOMNodes children;
+    DOMNodes _children;
+
+    /// @brief  Get plain text attributes.
+    ///
+    /// @return  Plain text attributes.
+    std::string _plainAttributes (void);
 
   public:
     /// @brief  Constructor for the document node.
@@ -62,11 +70,6 @@ class DOMElement : public DOMNode
     ///
     /// @return  The plain text version of the element.
     std::string plain (void);
-
-    /// @brief  Get plain text attributes.
-    ///
-    /// @return  Plain text attributes.
-    std::string plainAttributes (void);
 
     /// @brief  Get the node's name.
     ///

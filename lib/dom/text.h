@@ -32,6 +32,10 @@ namespace xmlpp {
 /// @brief DOMText child node.
 class DOMText : public DOMNode
 {
+  private:
+    /// @brief  Node's value.
+    std::string _value;
+
   public:
     /// @brief  Create the text node with the given value.
     ///

@@ -25,72 +25,69 @@
 
 namespace xmlpp {
 
-DOMAttribute::DOMAttribute (std::string attributeName, std::string attributeValue)
+DOMAttribute::DOMAttribute (std::string name, std::string value)
 {
-    this->attributeName  = attributeName;
-    this->attributeValue = attributeValue;
-    this->updatePlain();
+    this->_name  = name;
+    this->_value = value;
 }
 
-DOMAttribute::DOMAttribute (const char* attributeName, const char* attributeValue)
+DOMAttribute::DOMAttribute (const char* name, const char* value)
 {
-    this->attributeName  = attributeName;
-    this->attributeValue = attributeValue;
-    this->updatePlain();
+    this->_name  = name;
+    this->_value = value;
 }
 
 std::string DOMAttribute::nodeName (void)
 {
-    return this->attributeName;
+    return this->_name;
 }
 
-void DOMAttribute::nodeName (std::string attributeName)
+void DOMAttribute::nodeName (std::string name)
 {
-    this->attributeName = attributeName;
-    this->updatePlain();
+    this->_name = name;
 }
 
-void DOMAttribute::nodeName (const char* attributeName)
+void DOMAttribute::nodeName (const char* name)
 {
-    this->attributeName = attributeName;
-    this->updatePlain();
+    this->_name = name;
 }
 
 std::string DOMAttribute::nodeValue (void)
 {
-    return this->attributeValue;
+    return this->_value;
 }
 
-void DOMAttribute::nodeValue (std::string attributeValue)
+void DOMAttribute::nodeValue (std::string value)
 {
-    this->attributeValue = attributeValue;
-    this->updatePlain();
+    this->_value = value;
 }
 
-void DOMAttribute::nodeValue (const char* attributeValue)
+void DOMAttribute::nodeValue (const char* value)
 {
-    this->attributeValue = attributeValue;
-    this->updatePlain();
+    this->_value = value;
 }
 
-void DOMAttribute::updatePlain (void)
+std::string DOMAttribute::plain (void)
 {
-    if (!this->attributeName.empty() && !this->attributeValue.empty()) {
-        this->plainText = this->attributeName + "=\"" + this->attributeValue + "\"";
+    if (!this->_name.empty() && !this->_value.empty()) {
+        return this->_name + "=\"" + this->_value + "\"";
+    }
+    else {
+        return (std::string) "";
     }
 }
 
 // Operators.
-std::string DOMAttribute::operator [] (const char* mode) const throw()
+std::string DOMAttribute::operator [] (const char* mode) throw()
 {
     if (strcmp("name", mode) == 0) {
-        return this->attributeName;
+        return this->_name;
     }
     else if (strcmp("value", mode) == 0) {
-        return this->attributeValue;
+        return this->_value;
     }
     else if (strcmp("plain", mode) == 0) {
-        return this->plainText;
+        return this->plain();
     }
     else {
         throw DOMException(EX_ATTRIBUTE_MODE_NOT_EXISTENT);

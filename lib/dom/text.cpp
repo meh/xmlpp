@@ -27,17 +27,17 @@ namespace xmlpp {
 
 DOMText::DOMText (std::string value) : DOMNode (text)
 {
-    this->value = value;
+    this->_value = value;
 }
 
 DOMText::DOMText (const char* value) : DOMNode (text)
 {
-    this->value = value;
+    this->_value = value;
 }
 
 std::string DOMText::plain (void)
 {
-    return this->value;
+    return this->_value;
 }
 
 // Getters.
@@ -48,22 +48,22 @@ std::string DOMText::nodeName (void)
 
 std::string DOMText::nodeValue (void)
 {
-    return this->value;
+    return this->_value;
 }
 
 void DOMText::nodeValue (const char* value)
 {
-    this->value = value;
+    this->_value = value;
 }
 
 void DOMText::nodeValue (std::string value)
 {
-    this->value = value;
+    this->_value = value;
 }
 
 std::string DOMText::data (void)
 {
-    return this->value;
+    return this->_value;
 }
 
 DOMNode* DOMText::childNodes (int)
