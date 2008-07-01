@@ -334,6 +334,29 @@ DOMNode* DOMElement::cloneNode (bool cloneChildren)
     return copy;
 }
 
+DOMNodes DOMElement::getElementsByTagName (std::string tagName)
+{
+    DOMNodes elements;
+
+    for (size_t i = 0; i < this->_children.size(); i++) {
+        if (this->childNodes(i)->nodeName() == tagName) {
+            elements.push_back(this->childNodes(i));
+        }
+
+        DOMNodes subElements = this->childNodes(i)->getElementsByTagName(tagName);
+        for (size_t i = 0; i < subElements.size(); i++) {
+            elements.push_back(subElements[i]);
+        }
+    }
+
+    return elements;
+}
+
+DOMNodes DOMElement::getElementsByTagName (const char* tagName)
+{
+    return this->getElementsByTagName((std::string) tagName);
+}
+
 std::string DOMElement::_plainAttributes (void)
 {
     if (!this->_attributes.empty()) {
@@ -377,29 +400,6 @@ DOMNode* DOMElement::__getElementById (std::string id)
 DOMNode* DOMElement::__getElementById (const char* id)
 {
     return this->__getElementById((std::string) id);
-}
-
-DOMNodes DOMElement::getElementsByTagName (std::string tagName)
-{
-    DOMNodes elements;
-
-    for (size_t i = 0; i < this->_children.size(); i++) {
-        if (this->childNodes(i)->nodeName() == tagName) {
-            elements.push_back(this->childNodes(i));
-        }
-
-        DOMNodes subElements = this->childNodes(i)->getElementsByTagName(tagName);
-        for (size_t i = 0; i < subElements.size(); i++) {
-            elements.push_back(subElements[i]);
-        }
-    }
-
-    return elements;
-}
-
-DOMNodes DOMElement::getElementsByTagName (const char* tagName)
-{
-    return this->getElementsByTagName((std::string) tagName);
 }
 
 };
