@@ -39,13 +39,13 @@ class DOMDocument
     std::string xmlVersion;
 
     /// @brief  The document element.
-    DOMNode *element;
+    DOMElement *element;
 
   public:
     /// @brief  Initiate the DOM document.
     DOMDocument (void);
 
-    /// @brief  RAEG deconstructor.
+    /// @brief  Destroy the DOM document.
     ~DOMDocument (void);
 
     /// @brief  Get the plain text version of the document.
@@ -101,14 +101,14 @@ class DOMDocument
     ///
     /// @param  id  The id to look for.
     ///
-    /// @return  The DOMElement object with that nick.
+    /// @return  The DOMElement object with that id.
     DOMNode* getElementById (std::string id);
 
     /// @brief  Get the element with that id.
     ///
     /// @param  id  The id to look for.
     ///
-    /// @return  The DOMElement object with that nick.
+    /// @return  The DOMElement object with that id.
     DOMNode* getElementById (const char* id);
 
     /// @brief Get every element with the tag name passed starting from the node.

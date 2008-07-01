@@ -39,12 +39,6 @@ struct FetchedNode
 class XMLParser
 {
   private:
-    /// @brief  Plain text of the string to parse.
-    std::string plainText;
-
-    /// @brief  The DOM object.
-    DOMDocument* documentObj;
-
     /// @brief  Gets the XMLParser file.
     ///
     /// @param  xmlString  The filename or the string.
@@ -53,7 +47,7 @@ class XMLParser
     ///                    XMLParser_STRING to parse from string.
     ///
     /// @return  The plain text.
-    std::string fetch (std::string xmlString);
+    std::string fetch (const char* fileName);
 
     /// @brief  Parses the text passed.
     ///
@@ -112,16 +106,6 @@ class XMLParser
   public:
     /// @brief  Creates the XMLParser object.
     XMLParser (void) {};
-
-    /// @brief  Creates the XMLParser object and parse the given file.
-    /// 
-    /// @param  xmlFile  The filename.
-    XMLParser (std::string xmlFile);
-
-    /// @brief  Creates the XMLParser object and parse the given file.
-    /// 
-    /// @param  xmlFile  The filename.
-    XMLParser (const char* xmlFile);
 
     /// @brief  Parse an xml file.
     /// 

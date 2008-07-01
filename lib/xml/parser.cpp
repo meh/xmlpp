@@ -25,22 +25,12 @@
 
 namespace xmlpp {
 
-XMLParser::XMLParser (std::string xmlFile)
-{
-    this->documentObj = this->parseFromFile(xmlFile);
-}
-
-XMLParser::XMLParser (const char* xmlFile)
-{
-    this->documentObj = this->parseFromFile(xmlFile);
-}
-
-std::string XMLParser::fetch (std::string xmlString)
+std::string XMLParser::fetch (const char* fileName)
 {
     std::string plainText;
     std::string line;
 
-    std::ifstream xmlFile(xmlString.c_str());
+    std::ifstream xmlFile(fileName);
 
     if (xmlFile.is_open()) {
         while (!xmlFile.eof()) {
@@ -54,23 +44,19 @@ std::string XMLParser::fetch (std::string xmlString)
         throw XMLException(EX_PARSER_FILE_READ_ERROR);
     }
 
+    xmlFile.close();
+
     return plainText;
 }
 
 DOMDocument* XMLParser::parseFromFile (std::string xmlFile)
 {
-    this->plainText   = this->fetch(xmlFile);
-    this->documentObj = this->parseFromString(this->plain());
-
-    return this->documentObj;
+    return this->parseFromString(this->fetch(xmlFile.c_str()));
 }
 
 DOMDocument* XMLParser::parseFromFile (const char* xmlFile)
 {
-    this->plainText   = this->fetch((std::string) xmlFile);
-    this->documentObj = this->parseFromString(this->plain());
-
-    return this->documentObj;
+    return this->parseFromString(this->fetch(xmlFile));
 }
 
 DOMDocument* XMLParser::parseFromString (std::string xmlText)
@@ -81,16 +67,6 @@ DOMDocument* XMLParser::parseFromString (std::string xmlText)
 DOMDocument* XMLParser::parseFromString (const char* xmlText)
 {
     return this->parseDocument((std::string) xmlText);
-}
-
-DOMDocument* XMLParser::document (void)
-{
-    return this->documentObj;
-}
-
-std::string XMLParser::plain (void)
-{
-    return this->plainText;
 }
 
 DOMDocument* XMLParser::parseDocument (std::string xml)
@@ -118,9 +94,9 @@ DOMDocument* XMLParser::parseDocument (std::string xml)
                 document->appendChild(this->parseElement(nodeText));
             }
             else {
-                FetchedNode *fNode = this->fetchNode((i-nodeText.length()), nodeText+xml.substr(i));
+                FetchedNode *fNode = this->fetchNode(i-nodeText.length(), nodeText+xml.substr(i));
                 i = fNode->point-1;
-                document->appendChild(this->parseNode((*fNode).text));
+                document->appendChild(this->parseNode(fNode->text));
 
                 delete fNode;
             }
@@ -181,7 +157,10 @@ DOMNode* XMLParser::parseNode (std::string xml)
             h--;
 
             DOMNode *textNode = this->parseText(text);
-            if (!textNode->nodeValue().empty()) {
+            if (textNode->nodeValue().empty()) {
+                delete textNode;
+            }
+            else {
                 mainNode->appendChild(textNode);
             }
         }
@@ -209,7 +188,7 @@ FetchedNode* XMLParser::fetchNode (size_t start, std::string xml)
     }
 
     std::string nodeName = node->nodeName();
-    free(node);
+    delete node;
     
     std::stack<int> tags;
     tags.push(1);
@@ -236,7 +215,7 @@ FetchedNode* XMLParser::fetchNode (size_t start, std::string xml)
                 if (node->nodeName() == nodeName) {
                     tags.push(1);
                 }
-                free(node);
+                delete node;
             }
         }
 
@@ -398,9 +377,9 @@ std::string XMLParser::closingTag (std::string tag)
     std::string element;
     std::string tagName;
 
-    size_t  word  = 0;
-    size_t  i     = 0;
-    bool    space = false;
+    size_t word  = 0;
+    size_t i     = 0;
+    bool   space = false;
     while (i < tag.length() && word < 2) {
         if (!utils::isSpace((const char) tag[i])) {
             element += tag.at(i);
@@ -432,11 +411,9 @@ std::string XMLParser::closingTag (std::string tag)
 
 std::string XMLParser::getVersion (std::string xml)
 {
-/*    DOMElement *element = this->parseElement(xml);
+    DOMElement *element = this->parseElement(utils::strip("?", xml));
     std::string version = element->getAttribute("version");
-    delete element;*/
-
-    std::string version = "";
+    delete element;
 
     return version;
 }

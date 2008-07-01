@@ -94,10 +94,96 @@ namespace utils {
     {
         std::map<std::string, std::string> specialChars;
 
-        specialChars["&nbsp;"] = " ";
-        specialChars["&amp;"]  = "&";
-        specialChars["&gt;"]   = ">";
-        specialChars["&lt;"]   = "<";
+        if (specialChars.empty()) {
+            specialChars["&lsquo;"]  = "‘";
+            specialChars["&rsquo;"]  = "’";
+            specialChars["&sbquo;"]  = "‚";
+            specialChars["&ldquo;"]  = "“";
+            specialChars["&rdquo;"]  = "”";
+            specialChars["&bdquo;"]  = "„";
+            specialChars["&dagger;"] = "†";
+            specialChars["&Dagger;"] = "‡";
+            specialChars["&permil;"] = "‰";
+            specialChars["&lsaquo;"] = "‹";
+            specialChars["&rsaquo;"] = "›";
+            specialChars["&spades;"] = "♠";
+            specialChars["&clubs;"]  = "♣";
+            specialChars["&hearts;"] = "♥";
+            specialChars["&diams;"]  = "♦";
+            specialChars["&oline;"]  = "‾";
+            specialChars["&larr;"]   = "←";
+            specialChars["&uarr;"]   = "↑";
+            specialChars["&rarr;"]   = "→";
+            specialChars["&darr;"]   = "↓";
+            specialChars["&trade;"]  = "™";
+
+            specialChars["&#33;"] = "!";
+            specialChars["&#34;"] = specialChars["&quot;"] = "\"";
+            specialChars["&#35;"] = "#";
+            specialChars["&#36;"] = "$";
+            specialChars["&#37;"] = "%";
+            specialChars["&#38;"] = specialChars["&amp;"] = "&";
+            specialChars["&#39;"] = "'";
+            specialChars["&#40;"] = "(";
+            specialChars["&#41;"] = "(";
+            specialChars["&#42;"] = "*";
+            specialChars["&#43;"] = "+";
+            specialChars["&#44;"] = ",";
+            specialChars["&#45;"] = "-";
+            specialChars["&#46;"] = ".";
+            specialChars["&#47;"] = specialChars["&frasl;"] = "/";
+            specialChars["&#48;"] = "0";
+            specialChars["&#49;"] = "1";
+            specialChars["&#50;"] = "2";
+            specialChars["&#51;"] = "3";
+            specialChars["&#52;"] = "4";
+            specialChars["&#53;"] = "5";
+            specialChars["&#54;"] = "6";
+            specialChars["&#55;"] = "7";
+            specialChars["&#56;"] = "8";
+            specialChars["&#57;"] = "9";
+            specialChars["&#58;"] = ":";
+            specialChars["&#59;"] = ";";
+            specialChars["&#60;"] = specialChars["&lt;"] = "<";
+            specialChars["&#61;"] = "=";
+            specialChars["&#62;"] = specialChars["&gt;"] = ">";
+            specialChars["&#63;"] = "?";
+            specialChars["&#64;"] = "@";
+            specialChars["&#65;"] = "A";
+            specialChars["&ndash;"]  = "–";
+            specialChars["&mdash;"]  = "—";
+            specialChars["&nbsp;"]   = " ";
+            specialChars["&iexcl;"]  = "¡";
+            specialChars["&cent;"]   = "¢";
+            specialChars["&pound;"]  = "£";
+            specialChars["&curren;"] = "¤";
+            specialChars["&yen;"]    = "¥";
+            specialChars["&brvbar;"] = "¦";
+            specialChars["&brkbar;"] = "¦";
+            specialChars["&sect;"]   = "§";
+            specialChars["&uml;"]    = "¨";
+            specialChars["&die;"]    = "¨";
+            specialChars["&copy;"]   = "©";
+            specialChars["&ordf;"]   = "ª";
+            specialChars["&laquo;"]  = "«";
+            specialChars["&not;"]    = "¬";
+            specialChars["&shy;"]    = "­";
+            specialChars["&reg;"]    = "®";
+            specialChars["&hibar;"]  = "¯";
+            specialChars["&macr;"]   = "¯";
+            specialChars["&deg;"]    = "°";
+            specialChars["&plusmn;"] = "±";
+            specialChars["&sup2;"]   = "²";
+            specialChars["&sup3;"]   = "³";
+            specialChars["&acute;"]  = "´";
+            specialChars["&micro;"]  = "µ";
+            specialChars["&para;"]   = "¶";
+            specialChars["&middot;"] = "·";
+            specialChars["&cedil;"]  = "¸";
+
+
+            specialChars["&#x2122;"] = "™";
+        }
 
         return specialChars;
     }
@@ -113,6 +199,30 @@ namespace utils {
 
         return upper;
     }
+
+    std::string strip (const char* chars, std::string string)
+    {
+        std::string stripped;
+
+        size_t i;
+        for (i = 0; i < string.length(); i++) {
+            bool write = true;
+            size_t h;
+            for (h = 0; h < strlen(chars); h++) {
+                if (chars[h] == string.at(i)) {
+                    write = false;
+                    break;
+                }
+            }
+
+            if (write) {
+                stripped += string.at(i);
+            }
+        }
+
+        return stripped;
+    }
+
 };
 
 };

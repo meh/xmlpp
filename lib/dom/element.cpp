@@ -22,6 +22,8 @@
 ****************************************************************************/
 
 #include "element.h"
+#include <iostream>
+using namespace std;
 
 namespace xmlpp {
 
@@ -46,7 +48,6 @@ DOMElement::~DOMElement (void)
     for (attr = this->attributes.begin(); attr != this->attributes.end(); attr++) {
         delete attr->second;
     }
-    delete &this->attributes;
 
     for (size_t i = 0; i < this->children.size(); i++) {
         switch (this->children[i]->nodeType()) {
@@ -59,7 +60,6 @@ DOMElement::~DOMElement (void)
             break;
         }
     }
-    delete &this->children;
 }
 
 std::string DOMElement::plain (void)

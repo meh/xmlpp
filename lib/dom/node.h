@@ -28,6 +28,7 @@
 
 namespace xmlpp {
 
+/// @brief  Enum for node types.
 enum DOMNodeType {
     document,
     element,
@@ -275,13 +276,30 @@ class DOMNode
     ///
     /// @return  True if it's the same.
     bool operator == (DOMNode* element);
+
+    /// @brief  Get if a node is exactly the same as another (checks the unique id of the node).
+    ///
+    /// @return  True if it's not the same
     bool operator != (DOMNode* element);
+
+    /// @brief  Get if the node is of a certain type.
+    ///
+    /// @return  True if it's of the passed type.
+    bool operator == (DOMNodeType type);
+
+    /// @brief  Get if the node is of a certain type.
+    ///
+    /// @return  True if it's not of the passed type.  
+    bool operator != (DOMNodeType type);
 };
 
 /// @brief A vector of pointers to DOMNode.
 typedef std::vector<DOMNode*> DOMNodes;
 
 };
+
+#include "element.h"
+#include "text.h"
 
 #endif
 

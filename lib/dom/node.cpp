@@ -93,5 +93,25 @@ bool DOMNode::operator != (DOMNode* element)
     }
 }
 
+bool DOMNode::operator == (DOMNodeType type)
+{
+    if (this->nodeType() == type) {
+        return true;
+    }
+    else {
+        return false;
+    }
+}
+
+bool DOMNode::operator != (DOMNodeType type)
+{
+    if (this->nodeType() != type) {
+        return true;
+    }
+    else {
+        return false;
+    }
+}
+
 };
 

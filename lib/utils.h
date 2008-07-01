@@ -68,6 +68,14 @@ namespace xmlpp {
         ///
         /// @return  The uppercase string.
         std::string toUppercase (std::string text);
+
+        /// @brief  Strip the passed chars from the string.
+        ///
+        /// @param  chars   The chars to strip.
+        /// @param  string  The string to strip from.
+        ///
+        /// @return  The stripped string.
+        std::string strip (const char* chars, std::string string);
     };
 };
 
