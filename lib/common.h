@@ -35,6 +35,7 @@
 #include <cctype>
 #include <ctime>
 #include <cstdlib>
+#include <cstdio>
 
 #include "exception/exception.h"
 #include "utils.h"
