@@ -39,6 +39,9 @@ struct FetchedNode
 class XMLParser
 {
   private:
+    /// @brief  Line number being parsed.
+    int line;
+
     /// @brief  Gets the XMLParser file.
     ///
     /// @param  xmlString  The filename or the string.

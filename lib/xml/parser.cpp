@@ -86,8 +86,6 @@ DOMDocument* XMLParser::_parseDocument (std::string xml)
             nodeText += ">";
             i++;
 
-            nodeText = this->_cleanElement(nodeText);
-
             if (nodeText.length() > 4 && nodeText.at(1) == '?' && nodeText.at(nodeText.length()-2) == '?') {
                 document->setVersion(this->_getVersion(nodeText));
             }
@@ -412,7 +410,7 @@ std::string XMLParser::_closingTag (std::string tag)
 
 std::string XMLParser::_getVersion (std::string xml)
 {
-    DOMElement *element = this->_parseElement(utils::strip("?", xml));
+    DOMElement *element = this->_parseElement(utils::strip("?", this->_cleanElement(xml)));
     std::string version = element->getAttribute("version");
     delete element;
 

@@ -339,7 +339,7 @@ DOMNodes DOMElement::getElementsByTagName (std::string tagName)
     DOMNodes elements;
 
     for (size_t i = 0; i < this->_children.size(); i++) {
-        if (this->childNodes(i)->nodeName() == tagName) {
+        if (this->childNodes(i)->tagName() == utils::toUppercase(tagName)) {
             elements.push_back(this->childNodes(i));
         }
 
