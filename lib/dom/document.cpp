@@ -28,12 +28,17 @@ namespace xmlpp {
 DOMDocument::DOMDocument (void)
 {
     this->setVersion("1.0");
-    this->_element = new DOMElement();
+    this->_element = new DOMElement("#document");
 }
 
 DOMDocument::~DOMDocument (void)
 {
     delete this->_element;
+}
+
+DOMNodeType DOMDocument::nodeType (void)
+{
+    return document;
 }
 
 std::string DOMDocument::documentElement (void)

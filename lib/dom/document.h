@@ -53,6 +53,11 @@ class DOMDocument
     /// @return  The plain text document.
     std::string documentElement (void);
 
+    /// @brief  Get the node's type.
+    ///
+    /// @return  The type. document | element | text
+    DOMNodeType nodeType (void);
+
     /// @brief  Append a child to a DOMElement.
     ///
     /// @param  childNode  The pointer to the child to append.

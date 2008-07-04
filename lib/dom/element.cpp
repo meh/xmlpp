@@ -25,11 +25,6 @@
 
 namespace xmlpp {
 
-DOMElement::DOMElement (void) : DOMNode(document)
-{
-    this->_name = "#document";
-}
-
 DOMElement::DOMElement (std::string elementName) : DOMNode(element)
 {
     this->_name = elementName;
@@ -146,7 +141,6 @@ void DOMElement::setAttribute (const char* attributeName, const char* attributeV
     return this->setAttribute((std::string) attributeName, (std::string) attributeValue);
 }
 
-// Getters.
 std::string DOMElement::getAttribute (std::string attributeName)
 {
     DOMAttributes::iterator attr = this->_attributes.find(attributeName);
@@ -212,7 +206,7 @@ void DOMElement::insertBefore (DOMNode* childNode, DOMNode* nodeAfter)
 
 void DOMElement::replaceChild (DOMNode* newChild, DOMNode* oldChild)
 {
-    DOMNode *parent = oldChild->parentNode();
+    DOMNode* parent = oldChild->parentNode();
     
     if (parent == this) {
         for (size_t i = 0; i < this->_children.size(); i++) {
@@ -318,7 +312,7 @@ DOMNode* DOMElement::lastChild (void)
 
 DOMNode* DOMElement::cloneNode (bool cloneChildren)
 {
-    DOMElement *copy = new DOMElement(this->nodeName());
+    DOMElement* copy = new DOMElement(this->nodeName());
 
     DOMAttributes::iterator attr;
     for (attr = this->_attributes.begin(); attr != this->_attributes.end(); attr++) {
@@ -378,7 +372,7 @@ std::string DOMElement::_plainAttributes (void)
 
 DOMNode* DOMElement::__getElementById (std::string id)
 {
-    DOMNode *found = NULL;
+    DOMNode* found = NULL;
 
     for (size_t i = 0; i < this->_children.size(); i++) {
         if (this->childNodes(i)->getAttribute("id") == id) {

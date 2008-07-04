@@ -50,9 +50,6 @@ class DOMElement : public DOMNode
     std::string _plainAttributes (void);
 
   public:
-    /// @brief  Constructor for the document node.
-    DOMElement (void);
-
     /// @brief  Create the element with initialization.
     ///
     /// @param  elementName  The element's name (aka tag name)
