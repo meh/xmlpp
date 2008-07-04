@@ -40,7 +40,7 @@ class XMLParser
 {
   private:
     /// @brief  Line number being parsed.
-    int line;
+    int _line;
 
     /// @brief  Gets the XMLParser file.
     ///
@@ -72,7 +72,7 @@ class XMLParser
     /// @param  xml    The xml text from the start point.
     ///
     /// @return  The fetched node.
-    FetchedNode* _fetchNode (size_t start, std::string xml);
+    FetchedNode _fetchNode (size_t start, std::string xml);
 
     /// @brief  Parse an element and get name and attributes.
     ///
@@ -106,9 +106,6 @@ class XMLParser
     std::string _getVersion (std::string xml);
 
   public:
-    /// @brief  Creates the XMLParser object.
-    XMLParser (void) {};
-
     /// @brief  Parse an xml file.
     /// 
     /// @param  xmlFile  The xml file.
