@@ -39,10 +39,11 @@ enum DOMNodeType {
 class DOMNode 
 {
   private:
+    /// @brief  The unique id to recognize if a node is the same as another.
     double _uniqueID;
 
   protected:
-    /// @brief The node's type: DOM_ELEMENT_NODE or DOM_TEXT_NODE
+    /// @brief The node's type: document | element | text
     DOMNodeType _type;
 
     /// @brief  The previous sibling.
