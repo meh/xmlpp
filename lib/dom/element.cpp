@@ -290,6 +290,11 @@ bool DOMElement::hasChildNodes (void)
     }
 }
 
+int DOMElement::childNodesNumber (void)
+{
+    return this->_children.size();
+}
+
 DOMNode* DOMElement::childNodes (int childNode)
 {
     if (this->_children.size() <= childNode) {

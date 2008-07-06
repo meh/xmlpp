@@ -186,6 +186,11 @@ class DOMElement : public DOMNode
     ///         False if not.
     bool hasChildNodes (void);
 
+    /// @brief  Get the child nodes number.
+    ///
+    /// @return  The nodes number.
+    int childNodesNumber (void);
+
     /// @brief  Get a child node.
     ///
     /// @param  childNode  The child number in the vector.
