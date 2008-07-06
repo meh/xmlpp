@@ -339,6 +339,7 @@ DOMText* XMLParser::__parseText (std::string text)
         else if (text.at(i) == '&') {
             std::string unescaped = utils::unescapeChar(text.substr(i));
 
+            // If the block is an escapable char jump the block.
             if (!unescaped.empty()) {
                 filteredText += unescaped;
 
