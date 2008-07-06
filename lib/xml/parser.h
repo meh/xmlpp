@@ -42,6 +42,7 @@ class XMLParser
     /// @brief  Line number being parsed.
     int _line;
 
+  private:
     /// @brief  Gets the XMLParser file.
     ///
     /// @param  xmlString  The filename or the string.
@@ -50,21 +51,21 @@ class XMLParser
     ///                    XMLParser_STRING to parse from string.
     ///
     /// @return  The plain text.
-    std::string _fetch (const char* fileName);
+    std::string __fetch (const char* fileName);
 
     /// @brief  Parses the text passed.
     ///
     /// @param  xml  The text to parse.
     ///
     /// @return  The DOM object.
-    DOMDocument* _parseDocument (std::string xml);
+    DOMDocument* __parseDocument (std::string xml);
 
     /// @brief  Parse the node.
     ///
     /// @param  xml  The fetched node.
     ///
     /// @return  The child node.
-    DOMNode* _parseNode (std::string xml);
+    DOMNode* __parseNode (std::string xml);
 
     /// @brief  Fetch the node.
     ///
@@ -72,38 +73,38 @@ class XMLParser
     /// @param  xml    The xml text from the start point.
     ///
     /// @return  The fetched node.
-    FetchedNode _fetchNode (size_t start, std::string xml);
+    FetchedNode __fetchNode (size_t start, std::string xml);
 
     /// @brief  Parse an element and get name and attributes.
     ///
     /// @param  xml  The xml element.
     ///
     /// @return  The element.
-    DOMElement* _parseElement (std::string xml);
+    DOMElement* __parseElement (std::string xml);
 
     /// @brief  Clean the element node (remove spaces etc)
-    std::string _cleanElement (std::string element);
+    std::string __cleanElement (std::string element);
 
     /// @brief  Parse a text node removing spaces and substituting special chars.
     ///
     /// @param  text  The xml text node.
     ///
     /// @return  The text node.
-    DOMText* _parseText (std::string text);
+    DOMText* __parseText (std::string text);
 
     /// @brief  Get the name of the tag that's being closed.
     ///
     /// @param  tag  The raw tag.
     ///
     /// @return  The tag name if it's a valid closing tag or NULL if it's not a tag.
-    std::string _closingTag (std::string tag);
+    std::string __closingTag (std::string tag);
 
     /// @brief  Get the xml version.
     ///
     /// @param  The xml element with the version.
     ///
     /// @return  The version string.
-    std::string _getVersion (std::string xml);
+    std::string __getVersion (std::string xml);
 
   public:
     /// @brief  Parse an xml file.

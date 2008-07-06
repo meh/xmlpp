@@ -44,10 +44,11 @@ class DOMElement : public DOMNode
     /// @brief  Child nodes vector (aka childNodes)
     DOMNodes _children;
 
+  private:
     /// @brief  Get plain text attributes.
     ///
     /// @return  Plain text attributes.
-    std::string _plainAttributes (void);
+    std::string __plainAttributes (void);
 
   public:
     /// @brief  Create the element with initialization.

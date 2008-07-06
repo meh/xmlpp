@@ -61,7 +61,7 @@ std::string DOMElement::plain (void)
 
     plain += "<" + this->_name;
     
-    std::string _attributes = this->_plainAttributes();
+    std::string _attributes = this->__plainAttributes();
 
     if (!_attributes.empty()) {
         plain += " " + _attributes;
@@ -351,7 +351,7 @@ DOMNodes DOMElement::getElementsByTagName (const char* tagName)
     return this->getElementsByTagName((std::string) tagName);
 }
 
-std::string DOMElement::_plainAttributes (void)
+std::string DOMElement::__plainAttributes (void)
 {
     if (!this->_attributes.empty()) {
         std::string plain;
