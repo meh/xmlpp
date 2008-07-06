@@ -45,10 +45,7 @@ class XMLParser
   private:
     /// @brief  Gets the XMLParser file.
     ///
-    /// @param  xmlString  The filename or the string.
-    /// @param  parseMode  The parse modes:
-    ///                    XMLParser_FILE to parse from file.
-    ///                    XMLParser_STRING to parse from string.
+    /// @param  xmlString  The filename of the xml file.
     ///
     /// @return  The plain text.
     std::string __fetch (const char* fileName);
