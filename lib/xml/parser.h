@@ -28,7 +28,7 @@
 
 namespace xmlpp {
 
-struct FetchedNode
+struct XMLNode
 {
     size_t point;
     std::string text;
@@ -70,7 +70,7 @@ class XMLParser
     /// @param  xml    The xml text from the start point.
     ///
     /// @return  The fetched node.
-    FetchedNode __fetchNode (size_t start, std::string xml);
+    XMLNode __fetchNode (size_t start, std::string xml);
 
     /// @brief  Parse an element and get name and attributes.
     ///

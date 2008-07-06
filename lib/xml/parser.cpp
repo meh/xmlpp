@@ -91,7 +91,7 @@ DOMDocument* XMLParser::__parseDocument (std::string xml)
                 document->appendChild(this->__parseElement(nodeText));
             }
             else {
-                FetchedNode fNode = this->__fetchNode(i-nodeText.length(), nodeText+xml.substr(i));
+                XMLNode fNode = this->__fetchNode(i-nodeText.length(), nodeText+xml.substr(i));
                 i = fNode.point-1;
                 document->appendChild(this->__parseNode(fNode.text));
             }
@@ -134,7 +134,7 @@ DOMNode* XMLParser::__parseNode (std::string xml)
                 mainNode->appendChild(this->__parseElement(nodeText));
             }
             else {
-                FetchedNode fNode = this->__fetchNode((h-nodeText.length()), nodeText+xml.substr(h));
+                XMLNode fNode = this->__fetchNode((h-nodeText.length()), nodeText+xml.substr(h));
                 h = fNode.point-1;
                 mainNode->appendChild(this->__parseNode(fNode.text));
             }
@@ -162,9 +162,9 @@ DOMNode* XMLParser::__parseNode (std::string xml)
     return mainNode;
 }
 
-FetchedNode XMLParser::__fetchNode (size_t start, std::string xml)
+XMLNode XMLParser::__fetchNode (size_t start, std::string xml)
 {
-    FetchedNode fNode;
+    XMLNode fNode;
 
     size_t i = 0;
     std::string nodeText;
