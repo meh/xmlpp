@@ -70,7 +70,7 @@ std::string XMLParser::__fetch (const char* fileName)
 
 DOMDocument* XMLParser::__parseDocument (std::string xml)
 {
-    DOMDocument *document = new DOMDocument();
+    DOMDocument* document = new DOMDocument();
 
     for (size_t i = 0; i < xml.length(); i++) {
         // It has only to get elements because the document can't have
@@ -110,7 +110,7 @@ DOMNode* XMLParser::__parseNode (std::string xml)
         i++;
     }
     nodeText += ">";
-    DOMElement *mainNode = this->__parseElement(nodeText);
+    DOMElement* mainNode = this->__parseElement(nodeText);
 
     // Removing the closing tag of the main node.
     xml = xml.substr(i+1);
@@ -149,7 +149,7 @@ DOMNode* XMLParser::__parseNode (std::string xml)
             }
             h--;
 
-            DOMNode *textNode = this->__parseText(text);
+            DOMNode* textNode = this->__parseText(text);
             if (textNode->nodeValue().empty()) {
                 delete textNode;
             }
@@ -174,7 +174,7 @@ XMLNode XMLParser::__fetchNode (size_t start, std::string xml)
     }
     nodeText += ">";
 
-    DOMElement *node = this->__parseElement(nodeText);
+    DOMElement* node = this->__parseElement(nodeText);
 
     if (node == NULL) {
         throw XMLException(EX_XML_BAD_NODE);
@@ -204,7 +204,7 @@ XMLNode XMLParser::__fetchNode (size_t start, std::string xml)
                 }
             }
             else {
-                DOMElement *node = this->__parseElement(nodeText);
+                DOMElement* node = this->__parseElement(nodeText);
                 if (node->nodeName() == nodeName) {
                     tags.push(1);
                 }
@@ -227,7 +227,7 @@ XMLNode XMLParser::__fetchNode (size_t start, std::string xml)
 
 DOMElement* XMLParser::__parseElement (std::string xml)
 {
-    DOMElement *element;
+    DOMElement* element;
 
     xml = this->__cleanElement(xml);
 
@@ -405,7 +405,7 @@ std::string XMLParser::__closingTag (std::string tag)
 
 std::string XMLParser::__getVersion (std::string xml)
 {
-    DOMElement *element = this->__parseElement(utils::strip("?", this->__cleanElement(xml)));
+    DOMElement* element = this->__parseElement(utils::strip("?", this->__cleanElement(xml)));
     std::string version = element->getAttribute("version");
     delete element;
 

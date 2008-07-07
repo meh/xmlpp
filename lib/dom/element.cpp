@@ -254,6 +254,9 @@ void DOMElement::removeChild (int childNode)
 
         this->_children.erase(element);
     }
+    else {
+        throw DOMException (EX_OUT_OF_RANGE);
+    }
 }
 
 void DOMElement::removeChild (DOMNode* childNode)

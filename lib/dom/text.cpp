@@ -88,7 +88,7 @@ DOMNode* DOMText::lastChild (void)
 
 DOMNode* DOMText::cloneNode (bool cloneChildren)
 {
-    DOMText *copy = new DOMText(this->nodeValue());
+    DOMText* copy = new DOMText(this->nodeValue());
     return copy;
 }
 
