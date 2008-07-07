@@ -38,23 +38,6 @@ enum DOMNodeType {
 /// @brief DOMNode class, the base abstract class for DOMText and DOMElement.
 class DOMNode 
 {
-  private:
-    /// @brief  The unique id to recognize if a node is the same as another.
-    double _uniqueID;
-
-  protected:
-    /// @brief The node's type: document | element | text
-    DOMNodeType _type;
-
-    /// @brief  The previous sibling.
-    DOMNode* _pSibling;
-
-    /// @brief  The next sibling.
-    DOMNode* _nSibling;
-
-    /// @brief  The child's parent.
-    DOMNode* _parent;
-
   public:
     typedef std::vector<DOMNode*> DOMNodes;
 
@@ -288,6 +271,24 @@ class DOMNode
     ///
     /// @return  True if it's not of the passed type.  
     bool operator != (DOMNodeType type);
+
+  protected:
+    /// @brief The node's type: document | element | text
+    DOMNodeType _type;
+
+    /// @brief  The previous sibling.
+    DOMNode* _pSibling;
+
+    /// @brief  The next sibling.
+    DOMNode* _nSibling;
+
+    /// @brief  The child's parent.
+    DOMNode* _parent;
+
+  private:
+    /// @brief  The unique id to recognize if a node is the same as another.
+    double _uniqueID;
+
 };
 
 /// @brief A vector of pointers to DOMNode.

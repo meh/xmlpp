@@ -351,30 +351,6 @@ DOMNodes DOMElement::getElementsByTagName (std::string tagName)
     return elements;
 }
 
-DOMNodes DOMElement::getElementsByTagName (const char* tagName)
-{
-    return this->getElementsByTagName((std::string) tagName);
-}
-
-std::string DOMElement::__plainAttributes (void)
-{
-    if (!this->_attributes.empty()) {
-        std::string plain;
-        DOMAttributes::iterator attr;
-
-        for (attr = this->_attributes.begin(); attr != this->_attributes.end(); attr++) {
-            plain += attr->second->plain() + " ";
-        }
-
-        plain.resize(plain.length()-1);
-
-        return plain;
-    }
-    else {
-        return (std::string) "";
-    }
-}
-
 DOMNode* DOMElement::__getElementById (std::string id)
 {
     DOMNode* found = NULL;
@@ -396,9 +372,33 @@ DOMNode* DOMElement::__getElementById (std::string id)
     return found;
 }
 
+DOMNodes DOMElement::getElementsByTagName (const char* tagName)
+{
+    return this->getElementsByTagName((std::string) tagName);
+}
+
 DOMNode* DOMElement::__getElementById (const char* id)
 {
     return this->__getElementById((std::string) id);
+}
+
+std::string DOMElement::__plainAttributes (void)
+{
+    if (!this->_attributes.empty()) {
+        std::string plain;
+        DOMAttributes::iterator attr;
+
+        for (attr = this->_attributes.begin(); attr != this->_attributes.end(); attr++) {
+            plain += attr->second->plain() + " ";
+        }
+
+        plain.resize(plain.length()-1);
+
+        return plain;
+    }
+    else {
+        return (std::string) "";
+    }
 }
 
 };

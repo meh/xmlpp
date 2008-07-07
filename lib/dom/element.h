@@ -34,22 +34,6 @@ namespace xmlpp {
 /// @brief  The DOMElement class, childnodes, attributes etc.
 class DOMElement : public DOMNode
 {
-  private:
-    /// @brief  Node's name.
-    std::string _name;
-
-    /// @brief  Map with the attributes.
-    DOMAttributes _attributes;
-    
-    /// @brief  Child nodes vector (aka childNodes)
-    DOMNodes _children;
-
-  private:
-    /// @brief  Get plain text attributes.
-    ///
-    /// @return  Plain text attributes.
-    std::string __plainAttributes (void);
-
   public:
     /// @brief  Create the element with initialization.
     ///
@@ -233,6 +217,22 @@ class DOMElement : public DOMNode
     DOMNode* __getElementById (std::string id);
     DOMNode* __getElementById (const char* id);
     #endif
+
+  private:
+    /// @brief  Node's name.
+    std::string _name;
+
+    /// @brief  Map with the attributes.
+    DOMAttributes _attributes;
+    
+    /// @brief  Child nodes vector (aka childNodes)
+    DOMNodes _children;
+
+  private:
+    /// @brief  Get plain text attributes.
+    ///
+    /// @return  Plain text attributes.
+    std::string __plainAttributes (void);
 };
 
 };

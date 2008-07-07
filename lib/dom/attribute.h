@@ -31,13 +31,6 @@ namespace xmlpp {
 /// @brief  Class for the attributes of an element.
 class DOMAttribute
 {
-  private:
-    /// @brief  The attribute name.
-    std::string _name;
-
-    /// @brief  The attribute value.
-    std::string _value;
-
   public:
     /// @brief  Create the attribute with initialization.
     ///
@@ -86,6 +79,13 @@ class DOMAttribute
 
     // Operators.
     std::string operator [] (const char* mode) throw();
+
+  private:
+    /// @brief  The attribute name.
+    std::string _name;
+
+    /// @brief  The attribute value.
+    std::string _value;
 };
 
 typedef std::map<std::string, DOMAttribute*> DOMAttributes;

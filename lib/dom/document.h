@@ -34,13 +34,6 @@ namespace xmlpp {
 /// @brief DOM document class.
 class DOMDocument
 {
-  private:
-    /// @brief  The XML version.
-    std::string _xmlVersion;
-
-    /// @brief  The document element.
-    DOMElement* _element;
-
   public:
     /// @brief  Initiate the DOM document.
     DOMDocument (void);
@@ -144,6 +137,13 @@ class DOMDocument
     ///
     /// @param  version  The XML version to set.
     void setVersion (const char* version);
+
+  private:
+    /// @brief  The XML version.
+    std::string _xmlVersion;
+
+    /// @brief  The document element.
+    DOMElement* _element;
 };
 
 };

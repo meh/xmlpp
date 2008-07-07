@@ -38,6 +38,45 @@ struct XMLNode
 ///         object.
 class XMLParser
 {
+  public:
+    /// @brief  Parse an xml file.
+    /// 
+    /// @param  xmlFile  The xml file.
+    ///
+    /// @return  The DOM document.
+    DOMDocument* parseFromFile (std::string xmlFile);
+
+    /// @brief  Parse an xml file.
+    /// 
+    /// @param  xmlFile  The xml file.
+    ///
+    /// @return  The DOM document.
+    DOMDocument* parseFromFile (const char* xmlFile);
+
+    /// @brief  Parses the text passed.
+    ///
+    /// @param  xmlText  The text to parse.
+    ///
+    /// @return  The DOM object.
+    DOMDocument* parseFromString (std::string xmlText);
+
+    /// @brief  Parses the text passed.
+    ///
+    /// @param  xmlText  The text to parse.
+    ///
+    /// @return  The DOM object.
+    DOMDocument* parseFromString (const char* xmlText);
+
+    /// @brief  Gets the last parsed XML document.
+    ///
+    /// @return  The last DOM object.
+    DOMDocument* document (void);
+
+    /// @brief Gets the last parsed plain text.
+    ///
+    /// @return The last plain text document.
+    std::string plain (void);
+
   private:
     /// @brief  Line number being parsed.
     int _line;
@@ -102,45 +141,6 @@ class XMLParser
     ///
     /// @return  The version string.
     std::string __getVersion (std::string xml);
-
-  public:
-    /// @brief  Parse an xml file.
-    /// 
-    /// @param  xmlFile  The xml file.
-    ///
-    /// @return  The DOM document.
-    DOMDocument* parseFromFile (std::string xmlFile);
-
-    /// @brief  Parse an xml file.
-    /// 
-    /// @param  xmlFile  The xml file.
-    ///
-    /// @return  The DOM document.
-    DOMDocument* parseFromFile (const char* xmlFile);
-
-    /// @brief  Parses the text passed.
-    ///
-    /// @param  xmlText  The text to parse.
-    ///
-    /// @return  The DOM object.
-    DOMDocument* parseFromString (std::string xmlText);
-
-    /// @brief  Parses the text passed.
-    ///
-    /// @param  xmlText  The text to parse.
-    ///
-    /// @return  The DOM object.
-    DOMDocument* parseFromString (const char* xmlText);
-
-    /// @brief  Gets the last parsed XML document.
-    ///
-    /// @return  The last DOM object.
-    DOMDocument* document (void);
-
-    /// @brief Gets the last parsed plain text.
-    ///
-    /// @return The last plain text document.
-    std::string plain (void);
 };
 
 };

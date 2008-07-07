@@ -32,10 +32,6 @@ namespace xmlpp {
 /// @brief DOMText child node.
 class DOMText : public DOMNode
 {
-  private:
-    /// @brief  Node's value.
-    std::string _value;
-
   public:
     /// @brief  Create the text node with the given value.
     ///
@@ -118,6 +114,10 @@ class DOMText : public DOMNode
     DOMNodes getElementsByTagName (const char* tagName);
     bool hasChildNodes (void);
     #endif
+
+  private:
+    /// @brief  Node's value.
+    std::string _value;
 };
 
 };
