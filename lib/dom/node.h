@@ -202,10 +202,10 @@ class DOMNode
     ///         False if not.
     virtual bool hasChildNodes (void) = 0;
 
-    /// @brief  Get the child nodes number.
+    /// @brief  Get the vector.
     ///
-    /// @return  The nodes number.
-    int childNodesNumber (void);
+    /// @return  The vector with the child nodes.
+    virtual DOMNodes childNodes (void) = 0;
 
     /// @brief  Get a child node.
     ///

@@ -66,6 +66,11 @@ std::string DOMText::data (void)
     return this->_value;
 }
 
+DOMNodes DOMText::childNodes (void)
+{
+    throw DOMException(EX_NODE_IS_TEXT);
+}
+
 DOMNode* DOMText::childNodes (int)
 {
     throw DOMException(EX_NODE_IS_TEXT);

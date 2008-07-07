@@ -290,9 +290,9 @@ bool DOMElement::hasChildNodes (void)
     }
 }
 
-int DOMElement::childNodesNumber (void)
+DOMNodes DOMElement::childNodes (void)
 {
-    return this->_children.size();
+    return this->_children;
 }
 
 DOMNode* DOMElement::childNodes (int childNode)

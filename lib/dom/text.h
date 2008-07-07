@@ -99,7 +99,7 @@ class DOMText : public DOMNode
     void replaceChild (DOMNode*, DOMNode*) {};
     void removeChild (int) {};
     void removeChild (DOMNode*) {};
-    int childNodesNumber (void) { return 0; };
+    DOMNodes childNodes (void);
     DOMNode* childNodes (int);
     DOMNode* firstChild (void);
     DOMNode* lastChild (void);
