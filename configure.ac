@@ -40,4 +40,4 @@ AC_HEADER_STDC
 AC_PROG_CXX
 AC_LANG_CPLUSPLUS
 
-AC_OUTPUT(Makefile lib/Makefile lib/dom/Makefile lib/xml/Makefile lib/exception/Makefile xml++.pc)
+AC_OUTPUT(Makefile lib/Makefile lib/DOM/Makefile lib/XML/Makefile xml++.pc)
