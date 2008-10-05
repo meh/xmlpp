@@ -31,22 +31,22 @@
 
 namespace xmlpp {
 
-/// @brief  The DOMElement class, childnodes, attributes etc.
-class DOMElement : public DOMNode
+/// @brief  The Element class, childnodes, attributes etc.
+class Element : public Node
 {
   public:
     /// @brief  Create the element with initialization.
     ///
     /// @param  elementName  The element's name (aka tag name)
-    DOMElement (std::string elementName);
+    Element (std::string elementName);
 
     /// @brief  Create the element with initialization.
     ///
     /// @param  elementName  The element's name (aka tag name)
-    DOMElement (const char* elementName);
+    Element (const char* elementName);
 
     /// @brief  Destroys every children in the node.
-    ~DOMElement (void);
+    ~Element (void);
 
     /// @brief  Get plain text of the element.
     ///
@@ -137,22 +137,22 @@ class DOMElement : public DOMNode
     /// @param  attributeName  The attribute's name to remove.
     void removeAttribute (const char* attributeName);
 
-    /// @brief  Append a child to a DOMElement.
+    /// @brief  Append a child to a Element.
     ///
     /// @param  childNode  The pointer to the child to append.
-    void appendChild (DOMNode* childNode);
+    void appendChild (Node* childNode);
 
     /// @brief  Insert a child before another child.
     ///
     /// @param  childNode  The pointer to the child to insert.
     /// @param  nodeAfter  The pointer to the child that you want to insert the child before.
-    void insertBefore (DOMNode* childNode, DOMNode* nodeAfter);
+    void insertBefore (Node* childNode, Node* nodeAfter);
 
     /// @brief  Replace a child with another.
     ///
     /// @param  newChild  The pointer to the child to put in the node.
     /// @param  oldChild  The pointer to the child to replace.
-    void replaceChild (DOMNode* newChild, DOMNode* oldChild);
+    void replaceChild (Node* newChild, Node* oldChild);
 
     /// @brief  Remove a child from the node.
     ///
@@ -162,7 +162,7 @@ class DOMElement : public DOMNode
     /// @brief  Remove a child from the node.
     ///
     /// @param  childNode  The pointer to the node that you want to delete.
-    void removeChild (DOMNode* childNode);
+    void removeChild (Node* childNode);
 
     /// @brief  Say if a node has children or not.
     ///
@@ -173,49 +173,49 @@ class DOMElement : public DOMNode
     /// @brief  Get the vector.
     ///
     /// @return  The vector with the child nodes.
-    DOMNodes childNodes (void);
+    Nodes childNodes (void);
 
     /// @brief  Get a child node.
     ///
     /// @param  childNode  The child number in the vector.
     /// 
     /// @return  The pointer to the child.
-    DOMNode* childNodes (int childNode);
+    Node* childNodes (int childNode);
 
     /// @brief  Get the first child of the node.
     ///
     /// @return  The pointer to the first child.
-    DOMNode* firstChild (void);
+    Node* firstChild (void);
 
     /// @brief  Get the last child of the node.
     ///
     /// @return  The pointer to the last child.
-    DOMNode* lastChild (void);
+    Node* lastChild (void);
 
     /// @brief  Clone a node with or without the children.
     ///
     /// @param  cloneChildren  True if you want to clone the children too.
     ///                        False if you want to clone only the node.
-    DOMNode* cloneNode (bool cloneChildren = true);
+    Node* cloneNode (bool cloneChildren = true);
 
     /// @brief Get every element with the tag name passed starting from the node.
     ///
     /// @param  tagName  The tag name to use for searching.
     ///
     /// @return  A vector with the pointers to the matched nodes.
-    DOMNodes getElementsByTagName (std::string tagName);
+    Nodes getElementsByTagName (std::string tagName);
 
     /// @brief Get every element with the tag name passed starting from the node.
     ///
     /// @param  tagName  The tag name to use for searching.
     ///
     /// @return  A vector with the pointers to the matched nodes.
-    DOMNodes getElementsByTagName (const char* tagName);
+    Nodes getElementsByTagName (const char* tagName);
 
     // Don't use these methods.
     #ifndef DOXYGEN_SHOULD_SKIP_THIS
-    DOMNode* __getElementById (std::string id);
-    DOMNode* __getElementById (const char* id);
+    Node* __getElementById (std::string id);
+    Node* __getElementById (const char* id);
     #endif
 
   private:
@@ -226,7 +226,7 @@ class DOMElement : public DOMNode
     DOMAttributes _attributes;
     
     /// @brief  Child nodes vector (aka childNodes)
-    DOMNodes _children;
+    Nodes _children;
 
   private:
     /// @brief  Get plain text attributes.

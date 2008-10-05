@@ -1,4 +1,4 @@
-/// @file dom/DOMNamedNodeMap.h
+/// @file dom/NamedNodeMap.h
 
 /****************************************************************************
 * XML++ is a library for working with XML files.                            *
@@ -29,31 +29,31 @@ namespace xmlpp {
 
 namespace dom {
 
-class DOMNamedNodeMap
+class NamedNodeMap
 {
   public:
-    DOMNamedNodeMap (DOMNodeType type);
+    NamedNodeMap (NodeType type);
 
-    DOMNode* getNamedItem (DOMString name);
+    Node* getNamedItem (DOMString name);
 
-    DOMNode* setNamedItem (DOMNode* node) throw (DOMException);
+    Node* setNamedItem (Node* node) throw (DOMException);
     
-    DOMNode* removeNamedItem (DOMString name) throw (DOMException);
+    Node* removeNamedItem (DOMString name) throw (DOMException);
 
-    DOMNode* item (unsigned long index);
+    Node* item (unsigned long index);
 
     unsigned long length (void);
 
-    DOMNode* getNamedItemNS (DOMString namespaceURI, DOMString localName) throw (DOMException);
+    Node* getNamedItemNS (DOMString namespaceURI, DOMString localName) throw (DOMException);
 
-    DOMNode* setNamedItemNS (DOMNode* node) throw (DOMException);
+    Node* setNamedItemNS (Node* node) throw (DOMException);
 
-    DOMNode* removeNamedItemNS (DOMString namespaceURI, DOMString localName) throw (DOMException);
+    Node* removeNamedItemNS (DOMString namespaceURI, DOMString localName) throw (DOMException);
 
   private:
-    std::map<DOMString, DOMNode*> _items;
+    std::map<DOMString, Node*> _items;
 
-    DOMNodeType _ownerType;
+    NodeType _ownerType;
 };
 
 };

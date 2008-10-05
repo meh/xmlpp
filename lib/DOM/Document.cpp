@@ -21,27 +21,29 @@
 * along with this program.  If not, see <http://www.gnu.org/licenses/>.     *
 ****************************************************************************/
 
-#include "document.h"
+#include "Document.h"
 
 namespace xmlpp {
 
-DOMDocument::DOMDocument (void)
+namespace DOM {
+
+Document::Document (void)
 {
     this->setVersion("1.0");
     this->_element = new DOMElement("#document");
 }
 
-DOMDocument::~DOMDocument (void)
+Document::~Document (void)
 {
     delete this->_element;
 }
 
-DOMNodeType DOMDocument::nodeType (void)
+DOMNodeType Document::nodeType (void)
 {
     return document;
 }
 
-std::string DOMDocument::documentElement (void)
+std::string Document::documentElement (void)
 {
     std::string document;
 
@@ -55,80 +57,82 @@ std::string DOMDocument::documentElement (void)
     return document;
 }
 
-void DOMDocument::appendChild (DOMNode* childNode)
+void Document::appendChild (DOMNode* childNode)
 {
     this->_element->appendChild(childNode);
 }
 
-void DOMDocument::insertBefore (DOMNode* childNode, DOMNode* nodeAfter)
+void Document::insertBefore (DOMNode* childNode, DOMNode* nodeAfter)
 {
     this->_element->insertBefore(childNode, nodeAfter);
 }
 
-void DOMDocument::replaceChild (DOMNode* newChild, DOMNode* oldChild)
+void Document::replaceChild (DOMNode* newChild, DOMNode* oldChild)
 {
     this->_element->replaceChild(newChild, oldChild);
 }
 
-void DOMDocument::removeChild (int childNode)
+void Document::removeChild (int childNode)
 {
     this->_element->removeChild(childNode);
 }
 
-void DOMDocument::removeChild (DOMNode* childNode)
+void Document::removeChild (DOMNode* childNode)
 {
     this->_element->removeChild(childNode);
 }
 
-DOMNode* DOMDocument::childNodes (int childNode)
+DOMNode* Document::childNodes (int childNode)
 {
     return this->_element->childNodes(childNode);
 }
 
-DOMNode* DOMDocument::firstChild (void)
+DOMNode* Document::firstChild (void)
 {
     return this->_element->firstChild();
 }
 
-DOMNode* DOMDocument::lastChild (void)
+DOMNode* Document::lastChild (void)
 {
     return this->_element->lastChild();
 }
 
-DOMNode* DOMDocument::getElementById (std::string id)
+DOMNode* Document::getElementById (std::string id)
 {
     return this->_element->__getElementById(id);
 }
 
-DOMNode* DOMDocument::getElementById (const char* id)
+DOMNode* Document::getElementById (const char* id)
 {
     return this->_element->__getElementById(id);
 }
 
-DOMNodes DOMDocument::getElementsByTagName (std::string tagName)
+DOMNodes Document::getElementsByTagName (std::string tagName)
 {
     return this->_element->getElementsByTagName(tagName);
 }
 
-DOMNodes DOMDocument::getElementsByTagName (const char* tagName)
+DOMNodes Document::getElementsByTagName (const char* tagName)
 {
     return this->_element->getElementsByTagName(tagName);
 }
 
-void DOMDocument::setVersion (std::string version)
+void Document::setVersion (std::string version)
 {
     this->_xmlVersion = version;
 }
 
-void DOMDocument::setVersion (const char* version)
+void Document::setVersion (const char* version)
 {
     this->_xmlVersion = version;
 }
 
-std::string DOMDocument::version (void)
+std::string Document::version (void)
 {
     return this->_xmlVersion;
 }
+
+};
 
 };
 

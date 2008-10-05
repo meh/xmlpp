@@ -1,5 +1,5 @@
-/// @file common.h
-/// @brief This file includes the common constants and includes.
+/// @file dom/attribute.h
+/// @brief This file includes the XML attribute definitions.
 
 /****************************************************************************
 * XML++ is a library for working with XML files.                                *
@@ -21,35 +21,47 @@
 * along with this program.  If not, see <http://www.gnu.org/licenses/>.     *
 ****************************************************************************/
 
+#if !defined(XMLPP_DOM_ATTRIBUTE)
+#define XMLPP_DOM_ATTRIBUTE TRUE
 
-#if !defined(XMLPP_COMMON)
-#define XMLPP_COMMON TRUE
-
-#include <string.h>
-#include <fstream>
-#include <string>
-#include <vector>
-#include <stack>
-#include <list>
-#include <map>
-#include <cctype>
-#include <ctime>
-#include <cstdlib>
-#include <cstdio>
-
-#include "exception/exception.h"
-#include "utils.h"
+#include "../common.h"
 
 namespace xmlpp {
 
-typedef  std::string         DOMString;
-typedef  unsigned long long  DOMTimeStamp;
-typedef  unsigned short      DOMNodeType;
-typedef  unsigned short      DOMDocumentPosition;
-typedef  void*               DOMUserData;
-typedef  void*               DOMObject;
+namespace DOM {
+
+class DOMAttr : public Node
+{
+  public:
+    Attr (Element* owner, const char* name);
+    Attr (Element* owner, const char* name, const char* value);
+    Attr (Element* owner, const DOMString& name);
+    Attr (Element* owner, const DOMString& name, const DOMString& value);
+
+    DOMString name (void);
+
+    DOMString value (void);
+
+    void value (const char* value);
+    void value (DOMString value);
+
+  private:
+    void _init (Element* owner, const DOMString& name, const DOMString& value, bool specified);
+
+  private:
+    Element _ownerElement;
+
+    DOMString _name;
+
+    DOMString _value;
+
+    bool _isId;
+
+    bool _specified;
+};
+
+};
 
 };
 
 #endif
-

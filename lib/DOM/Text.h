@@ -29,8 +29,10 @@
 
 namespace xmlpp {
 
+namespace DOM {
+
 /// @brief DOMText child node.
-class DOMText : public DOMNode
+class DOMText : public Node
 {
   public:
     /// @brief  Create the text node with the given value.
@@ -90,34 +92,36 @@ class DOMText : public DOMNode
     void removeAttribute (std::string) {};
     void removeAttribute (const char*) {};
 
-    void appendChild (DOMNode*) {};
-    void insertBefore (DOMNode*, DOMNode*) {};
-    void replaceChild (DOMNode*, DOMNode*) {};
+    void appendChild (Node*) {};
+    void insertBefore (Node*, Node*) {};
+    void replaceChild (Node*, Node*) {};
     void removeChild (int) {};
-    void removeChild (DOMNode*) {};
-    DOMNodes childNodes (void);
-    DOMNode* childNodes (int);
-    DOMNode* firstChild (void);
-    DOMNode* lastChild (void);
+    void removeChild (Node*) {};
+    Nodes childNodes (void);
+    Node* childNodes (int);
+    Node* firstChild (void);
+    Node* lastChild (void);
     #endif
 
     /// @brief Clonde the text node.
     ///
     /// @return  The pointer to the cloned DOMText.
-    DOMNode* cloneNode (bool cloneChildren = true);
+    Node* cloneNode (bool cloneChildren = true);
 
     // Don't use these methods.
     #ifndef DOXYGEN_SHOULD_SKIP_THIS
-    DOMNode* __getElementById (std::string id) { return NULL; };
-    DOMNode* __getElementById (const char* id) { return NULL; };
-    DOMNodes getElementsByTagName (std::string tagName);
-    DOMNodes getElementsByTagName (const char* tagName);
+    Node* __getElementById (std::string id) { return NULL; };
+    Node* __getElementById (const char* id) { return NULL; };
+    Nodes getElementsByTagName (std::string tagName);
+    Nodes getElementsByTagName (const char* tagName);
     bool hasChildNodes (void);
     #endif
 
   private:
     /// @brief  Node's value.
     std::string _value;
+};
+
 };
 
 };

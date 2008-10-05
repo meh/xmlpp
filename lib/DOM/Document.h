@@ -22,24 +22,26 @@
 ****************************************************************************/
 
 #if !defined(XMLPP_DOM_DOCUMENT)
-#define XMLPP_DOM_DOCUMENT TRUE
+#define XMLPP_DOM_DOCUMENT
 
 #include "../common.h"
-#include "node.h"
-#include "element.h"
-#include "text.h"
+#include "Node.h"
+#include "Element.h"
+#include "Text.h"
 
 namespace xmlpp {
 
+namespace DOM {
+
 /// @brief DOM document class.
-class DOMDocument
+class Document
 {
   public:
     /// @brief  Initiate the DOM document.
-    DOMDocument (void);
+    Document (void);
 
     /// @brief  Destroy the DOM document.
-    ~DOMDocument (void);
+    ~Document (void);
 
     /// @brief  Get the plain text version of the document.
     /// 
@@ -144,6 +146,8 @@ class DOMDocument
 
     /// @brief  The document element.
     DOMElement* _element;
+};
+
 };
 
 };

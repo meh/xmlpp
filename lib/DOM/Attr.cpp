@@ -1,5 +1,5 @@
-/// @file dom/text.cpp
-/// @brief This file includes the DOM text implementations.
+/// @file dom/Attr.cpp
+/// @brief This file includes the XML Attr implementations.
 
 /****************************************************************************
 * XML++ is a library for working with XML files.                                *
@@ -21,93 +21,70 @@
 * along with this program.  If not, see <http://www.gnu.org/licenses/>.     *
 ****************************************************************************/
 
-#include "text.h"
+#include "Attr.h"
 
 namespace xmlpp {
 
-DOMText::DOMText (std::string value) : DOMNode (text)
+namespace DOM {
+
+Attr::Attr (Element* owner, const char* name) : Node()
 {
-    this->_value = value;
+    _init(owner, (DOMString) name, (DOMString) "", false);
 }
 
-DOMText::DOMText (const char* value) : DOMNode (text)
+Attr::Attr (Element* owner, const char* name, const char* value) : Node()
 {
-    this->_value = value;
+    _init(owner, (DOMString) name, (DOMString) value, true);
 }
 
-std::string DOMText::plain (void)
+Attr::Attr (Element* owner, const DOMString& name)
 {
-    return this->_value;
+    _init(owner, name, (DOMString) "", false);
 }
 
-// Getters.
-std::string DOMText::nodeName (void)
+Attr::Attr (Element* owner, const DOMString& name, const DOMString& value) : Node()
 {
-    return "#text";
+    _init(owner, name, value, true);
 }
 
-std::string DOMText::nodeValue (void)
+void
+Attr::_init (Element* owner, const DOMString& name, const DOMString& value, bool specified)
 {
-    return this->_value;
+    _ownerElement = owner;
+
+    _name  = name;
+    _value = value;
+
+    _isId      = (name == "id");
+    _specified = true;
+}   
+
+DOMString
+Attr::name (void)
+{
+    return _name;
 }
 
-void DOMText::nodeValue (const char* value)
+DOMString
+Attr::value (void)
 {
-    this->_value = value;
+    return _value;
 }
 
-void DOMText::nodeValue (std::string value)
+void
+Attr::value (const char* value)
 {
-    this->_value = value;
+    _value = value;
 }
 
-std::string DOMText::data (void)
+void
+Attr::value (const DOMString& value)
 {
-    return this->_value;
+    _value = value;
 }
 
-DOMNodes DOMText::childNodes (void)
-{
-    throw DOMException(EX_NODE_IS_TEXT);
-}
 
-DOMNode* DOMText::childNodes (int)
-{
-    throw DOMException(EX_NODE_IS_TEXT);
-}
-
-DOMNode* DOMText::firstChild (void)
-{
-    throw DOMException(EX_NODE_IS_TEXT);
-}
-
-DOMNode* DOMText::lastChild (void)
-{
-    throw DOMException(EX_NODE_IS_TEXT);
-}
-
-DOMNode* DOMText::cloneNode (bool cloneChildren)
-{
-    DOMText* copy = new DOMText(this->nodeValue());
-    return copy;
-}
-
-std::vector<DOMNode*> DOMText::getElementsByTagName (std::string tagName)
-{
-    std::vector<DOMNode*> elements;
-
-    return elements;
-}
-
-std::vector<DOMNode*> DOMText::getElementsByTagName (const char* tagName)
-{
-    return this->getElementsByTagName((std::string) tagName);
-}
-
-bool DOMText::hasChildNodes (void)
-{
-    return false;
-}
+};
 
 };
 

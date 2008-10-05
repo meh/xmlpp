@@ -1,5 +1,5 @@
-/// @file dom/attribute.cpp
-/// @brief This file includes the XML attribute implementations.
+/// @file dom/text.cpp
+/// @brief This file includes the DOM text implementations.
 
 /****************************************************************************
 * XML++ is a library for working with XML files.                                *
@@ -21,78 +21,97 @@
 * along with this program.  If not, see <http://www.gnu.org/licenses/>.     *
 ****************************************************************************/
 
-#include "attribute.h"
+#include "text.h"
 
 namespace xmlpp {
 
-DOMAttribute::DOMAttribute (std::string name, std::string value)
+namespace DOM {
+
+Text::Text (std::string value) : Node (text)
 {
-    this->_name  = name;
     this->_value = value;
 }
 
-DOMAttribute::DOMAttribute (const char* name, const char* value)
+Text::Text (const char* value) : Node (text)
 {
-    this->_name  = name;
     this->_value = value;
 }
 
-std::string DOMAttribute::nodeName (void)
-{
-    return this->_name;
-}
-
-void DOMAttribute::nodeName (std::string name)
-{
-    this->_name = name;
-}
-
-void DOMAttribute::nodeName (const char* name)
-{
-    this->_name = name;
-}
-
-std::string DOMAttribute::nodeValue (void)
+std::string Text::plain (void)
 {
     return this->_value;
 }
 
-void DOMAttribute::nodeValue (std::string value)
+// Getters.
+std::string Text::nodeName (void)
+{
+    return "#text";
+}
+
+std::string Text::nodeValue (void)
+{
+    return this->_value;
+}
+
+void Text::nodeValue (const char* value)
 {
     this->_value = value;
 }
 
-void DOMAttribute::nodeValue (const char* value)
+void Text::nodeValue (std::string value)
 {
     this->_value = value;
 }
 
-std::string DOMAttribute::plain (void)
+std::string Text::data (void)
 {
-    if (!this->_name.empty() && !this->_value.empty()) {
-        return this->_name + "=\"" + this->_value + "\"";
-    }
-    else {
-        return (std::string) "";
-    }
+    return this->_value;
 }
 
-// Operators.
-std::string DOMAttribute::operator [] (const char* mode) throw()
+Nodes Text::childNodes (void)
 {
-    if (strcmp("name", mode) == 0) {
-        return this->_name;
-    }
-    else if (strcmp("value", mode) == 0) {
-        return this->_value;
-    }
-    else if (strcmp("plain", mode) == 0) {
-        return this->plain();
-    }
-    else {
-        throw DOMException(EX_ATTRIBUTE_MODE_NOT_EXISTENT);
-    }
+    throw DOMException(EX_NODE_IS_TEXT);
 }
+
+Node* Text::childNodes (int)
+{
+    throw DOMException(EX_NODE_IS_TEXT);
+}
+
+Node* Text::firstChild (void)
+{
+    throw DOMException(EX_NODE_IS_TEXT);
+}
+
+Node* Text::lastChild (void)
+{
+    throw DOMException(EX_NODE_IS_TEXT);
+}
+
+Node* Text::cloneNode (bool cloneChildren)
+{
+    Text* copy = new Text(this->nodeValue());
+    return copy;
+}
+
+std::vector<Node*> Text::getElementsByTagName (std::string tagName)
+{
+    std::vector<Node*> elements;
+
+    return elements;
+}
+
+std::vector<Node*> Text::getElementsByTagName (const char* tagName)
+{
+    return this->getElementsByTagName((std::string) tagName);
+}
+
+bool Text::hasChildNodes (void)
+{
+    return false;
+}
+
+};
 
 };
 
