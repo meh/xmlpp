@@ -25,6 +25,7 @@
 #define XMLPP_DOM_DOCUMENT
 
 #include "../common.h"
+
 #include "Node.h"
 #include "Element.h"
 #include "Text.h"
@@ -34,118 +35,14 @@ namespace xmlpp {
 namespace DOM {
 
 /// @brief DOM document class.
-class Document
+class Document : public Node
 {
   public:
-    /// @brief  Initiate the DOM document.
     Document (void);
 
-    /// @brief  Destroy the DOM document.
     ~Document (void);
 
-    /// @brief  Get the plain text version of the document.
-    /// 
-    /// @return  The plain text document.
-    std::string documentElement (void);
-
-    /// @brief  Get the node's type.
-    ///
-    /// @return  The type. document | element | text
-    DOMNodeType nodeType (void);
-
-    /// @brief  Append a child to a DOMElement.
-    ///
-    /// @param  childNode  The pointer to the child to append.
-    void appendChild (DOMNode* childNode);
-
-    /// @brief  Insert a child before another child.
-    ///
-    /// @param  childNode  The pointer to the child to insert.
-    /// @param  nodeAfter  The pointer to the child that you want to insert the child before.
-    void insertBefore (DOMNode* childNode, DOMNode* nodeAfter);
-
-    /// @brief  Replace a child with another.
-    ///
-    /// @param  newChild  The pointer to the child to put in the node.
-    /// @param  oldChild  The pointer to the child to replace.
-    void replaceChild (DOMNode* newChild, DOMNode* oldChild);
-
-    /// @brief  Remove a child from the node.
-    ///
-    /// @param  childNode  The node number.
-    void removeChild (int childNode);
-
-    /// @brief  Remove a child from the node.
-    ///
-    /// @param  childNode  The pointer to the node that you want to delete.
-    void removeChild (DOMNode* childNode);
-
-    /// @brief  Get a child node.
-    ///
-    /// @param  childNode  The child number in the vector.
-    /// 
-    /// @return  The pointer to the child.
-    DOMNode* childNodes (int childNode);
-
-    /// @brief  Get the first child of the node.
-    ///
-    /// @return  The pointer to the first child.
-    DOMNode* firstChild (void);
-
-    /// @brief  Get the last child of the node.
-    ///
-    /// @return  The pointer to the last child.
-    DOMNode* lastChild (void);
-
-    /// @brief  Get the element with that id.
-    ///
-    /// @param  id  The id to look for.
-    ///
-    /// @return  The DOMElement object with that id.
-    DOMNode* getElementById (std::string id);
-
-    /// @brief  Get the element with that id.
-    ///
-    /// @param  id  The id to look for.
-    ///
-    /// @return  The DOMElement object with that id.
-    DOMNode* getElementById (const char* id);
-
-    /// @brief Get every element with the tag name passed starting from the node.
-    ///
-    /// @param  tagName  The tag name to use for searching.
-    ///
-    /// @return  A vector with the pointers to the matched nodes.
-    DOMNodes getElementsByTagName (std::string tagName);
-
-    /// @brief Get every element with the tag name passed starting from the node.
-    ///
-    /// @param  tagName  The tag name to use for searching.
-    ///
-    /// @return  A vector with the pointers to the matched nodes.
-    DOMNodes getElementsByTagName (const char* tagName);
-
-    /// @brief  Get the XML version of the document.
-    ///
-    /// @return  The XML version.
-    std::string version (void);
-
-    /// @brief  Set the XML version of the document.
-    ///
-    /// @param  version  The XML version to set.
-    void setVersion (std::string version);
-
-    /// @brief  Set the XML version of the document.
-    ///
-    /// @param  version  The XML version to set.
-    void setVersion (const char* version);
-
   private:
-    /// @brief  The XML version.
-    std::string _xmlVersion;
-
-    /// @brief  The document element.
-    DOMElement* _element;
 };
 
 };

@@ -1,9 +1,6 @@
-/// @file   dom/document.cpp
-/// @brief  This file includes the XML object implementation.
-
 /****************************************************************************
-* XML++ is a library for working with XML files.                                *
-* Copyright (C) 2008  cHoBi                                                 *
+* XML++ is a library for working with XML files.                            *
+* Copyleft meh.                                                             *
 *                                                                           *
 * This file is part of XML++                                                *
 *                                                                           *
@@ -27,109 +24,11 @@ namespace xmlpp {
 
 namespace DOM {
 
-Document::Document (void)
-{
-    this->setVersion("1.0");
-    this->_element = new DOMElement("#document");
-}
+Document::Document (const char* name)
 
-Document::~Document (void)
+Document::Document () : Node(Node::DOCUMENT_NODE)
 {
-    delete this->_element;
-}
-
-DOMNodeType Document::nodeType (void)
-{
-    return document;
-}
-
-std::string Document::documentElement (void)
-{
-    std::string document;
-
-    document += "<?xml version=\"" + this->version() + "\"?>";
     
-    size_t i;
-    for (i = 0; i < this->_element->childNodes().size(); i++) {
-        document += this->_element->childNodes(i)->plain();
-    }
-
-    return document;
-}
-
-void Document::appendChild (DOMNode* childNode)
-{
-    this->_element->appendChild(childNode);
-}
-
-void Document::insertBefore (DOMNode* childNode, DOMNode* nodeAfter)
-{
-    this->_element->insertBefore(childNode, nodeAfter);
-}
-
-void Document::replaceChild (DOMNode* newChild, DOMNode* oldChild)
-{
-    this->_element->replaceChild(newChild, oldChild);
-}
-
-void Document::removeChild (int childNode)
-{
-    this->_element->removeChild(childNode);
-}
-
-void Document::removeChild (DOMNode* childNode)
-{
-    this->_element->removeChild(childNode);
-}
-
-DOMNode* Document::childNodes (int childNode)
-{
-    return this->_element->childNodes(childNode);
-}
-
-DOMNode* Document::firstChild (void)
-{
-    return this->_element->firstChild();
-}
-
-DOMNode* Document::lastChild (void)
-{
-    return this->_element->lastChild();
-}
-
-DOMNode* Document::getElementById (std::string id)
-{
-    return this->_element->__getElementById(id);
-}
-
-DOMNode* Document::getElementById (const char* id)
-{
-    return this->_element->__getElementById(id);
-}
-
-DOMNodes Document::getElementsByTagName (std::string tagName)
-{
-    return this->_element->getElementsByTagName(tagName);
-}
-
-DOMNodes Document::getElementsByTagName (const char* tagName)
-{
-    return this->_element->getElementsByTagName(tagName);
-}
-
-void Document::setVersion (std::string version)
-{
-    this->_xmlVersion = version;
-}
-
-void Document::setVersion (const char* version)
-{
-    this->_xmlVersion = version;
-}
-
-std::string Document::version (void)
-{
-    return this->_xmlVersion;
 }
 
 };

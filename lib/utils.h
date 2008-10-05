@@ -27,56 +27,60 @@
 #define XMLPP_UTILS_HEADER TRUE
 
 namespace xmlpp {
-    namespace utils {
-        /// @brief  Escape all the slashes in a string.
-        ///
-        /// @param  text  The string to add slashes to.
-        ///
-        /// @return  The fully escaped string.
-        std::string escapeSlashes (std::string text);
 
-        /// @brief  PHP-like addslashes()
-        ///
-        /// @param  text  The text to escape.
-        ///
-        /// @return  The slashed string.
-        std::string addSlashes (std::string text);
+namespace Utils {
+    /// @brief  Escape all the slashes in a string.
+    ///
+    /// @param  text  The string to add slashes to.
+    ///
+    /// @return  The fully escaped string.
+    std::string escapeSlashes (std::string& text);
 
-        /// @brief  Unescapes html special chars.
-        ///
-        /// @param  text  The string with the beginning of the special char.
-        ///
-        /// @return  The unescaped char.
-        std::string unescapeChar (std::string text);
+    /// @brief  PHP-like addslashes()
+    ///
+    /// @param  text  The text to escape.
+    ///
+    /// @return  The slashed string.
+    std::string addSlashes (std::string& text);
+    
+    std::string unescapeString (std::string& text);
 
-        /// @brief Check if the char is a 'space' (space, \n, \r, \t).
-        ///
-        /// @param  text  The char to check.
-        ///
-        /// @return  True if it's a space.
-        ///          False if it's not.
-        bool isSpace (const char text);
+    /// @brief  Unescapes html special chars.
+    ///
+    /// @param  text  The string with the beginning of the special char.
+    ///
+    /// @return  The unescaped char.
+    std::string unescapeChar (std::string& text);
 
-        /// @brief  Get the special chars associative array.
-        ///
-        /// @return  The map with all the special chars.
-        std::map<std::string, std::string> getSpecialChars (void);
+    /// @brief Check if the char is a 'space' (space, \n, \r, \t).
+    ///
+    /// @param  text  The char to check.
+    ///
+    /// @return  True if it's a space.
+    ///          False if it's not.
+    bool isSpace (const char text);
 
-        /// @brief  Get the uppercase string.
-        ///
-        /// @param  text  The string that will be uppercased.
-        ///
-        /// @return  The uppercase string.
-        std::string toUppercase (std::string text);
+    /// @brief  Get the special chars associative array.
+    ///
+    /// @return  The map with all the special chars.
+    std::map<std::string, std::string> getSpecialChars (void);
 
-        /// @brief  Strip the passed chars from the string.
-        ///
-        /// @param  chars   The chars to strip.
-        /// @param  string  The string to strip from.
-        ///
-        /// @return  The stripped string.
-        std::string strip (const char* chars, std::string string);
-    };
+    /// @brief  Get the uppercase string.
+    ///
+    /// @param  text  The string that will be uppercased.
+    ///
+    /// @return  The uppercase string.
+    std::string toUppercase (std::string& text);
+
+    /// @brief  Strip the passed chars from the string.
+    ///
+    /// @param  chars   The chars to strip.
+    /// @param  string  The string to strip from.
+    ///
+    /// @return  The stripped string.
+    std::string strip (const char* chars, std::string string);
+};
+
 };
 
 #endif

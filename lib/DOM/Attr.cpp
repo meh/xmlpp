@@ -24,36 +24,36 @@ namespace xmlpp {
 
 namespace DOM {
 
-Attr::Attr (Element* owner, const char* name) : Node(Node::ATTRIBUTE_NODE, NULL, NULL, NULL)
+Attr::Attr (const char* name) : Node(Node::ATTRIBUTE_NODE)
 {
     _init(owner, (DOMString) name, (DOMString) "", false);
 }
 
-Attr::Attr (Element* owner, const char* name, const char* value) : Node(Node::ATTRIBUTE_NODE)
+Attr::Attr (const char* name, const char* value) : Node(Node::ATTRIBUTE_NODE)
 {
     _init(owner, (DOMString) name, (DOMString) value, true);
 }
 
-Attr::Attr (Element* owner, const DOMString& name) : Node(Node::ATTRIBUTE_NODE)
+Attr::Attr (const DOMString& name) : Node(Node::ATTRIBUTE_NODE)
 {
     _init(owner, name, (DOMString) "", false);
 }
 
-Attr::Attr (Element* owner, const DOMString& name, const DOMString& value) : Node(Node::ATTRIBUTE_NODE)
+Attr::Attr (const DOMString& name, const DOMString& value) : Node(Node::ATTRIBUTE_NODE)
 {
     _init(owner, name, value, true);
 }
 
 void
-Attr::_init (Element* owner, const DOMString& name, const DOMString& value, bool specified)
+Attr::_init (const DOMString& name, const DOMString& value, bool specified)
 {
-    _ownerElement = owner;
+    _ownerElement = NULL;
 
     _name  = name;
     _value = value;
 
     _isId      = (name == "id");
-    _specified = true;
+    _specified = specified;
 }   
 
 DOMString
@@ -65,7 +65,7 @@ Attr::name (void)
 DOMString
 Attr::value (void)
 {
-    return _value;
+    return Utils::unescapeString(_value);
 }
 
 void
@@ -78,6 +78,37 @@ void
 Attr::value (const DOMString& value)
 {
     _value = value;
+}
+
+Element*
+Attr::ownerElement (void)
+{
+    return _ownerElement;
+}
+
+// Parent realization.
+DOMString
+Attr::nodeName (void)
+{
+    return this->name();
+}
+
+void
+Attr::nodeValue (void) throw()
+{
+    this->value();
+}
+
+void
+Attr::nodeValue (const char* value) throw()
+{
+    this->value(value);
+}
+
+void
+Attr::nodeValue (const DOMString& value) throw()
+{
+    this->value(value);
 }
 
 };

@@ -1,9 +1,6 @@
-/// @file dom/Node.h
-/// @brief This file includes the DOM child definitions.
-
 /****************************************************************************
 * XML++ is a library for working with XML files.                            *
-* Copyright (C) 2008  cHoBi                                                 *
+* Copyleft meh.                                                             *
 *                                                                           *
 * This file is part of XML++                                                *
 *                                                                           *
@@ -22,7 +19,7 @@
 ****************************************************************************/
 
 #if !defined(XMLPP_DOM_NODE)
-#define XMLPP_DOM_NODE TRUE
+#define XMLPP_DOM_NODE
 
 #include "../common.h"
 #include "DOMNamedNodeMap.h"
@@ -31,31 +28,32 @@ namespace xmlpp {
 
 namespace DOM {
 
-/// @brief Node class, the base class for everything.
 class Node 
 {
   public:
-   static const NodeType  ELEMENT_NODE                 = 1;
-   static const NodeType  ATTRIBUTE_NODE               = 2;
-   static const NodeType  TEXT_NODE                    = 3;
-   static const NodeType  CDATA_SECTION_NODE           = 4;
-   static const NodeType  ENTITY_REFERENCE_NODE        = 5;
-   static const NodeType  ENTITY_NODE                  = 6;
-   static const NodeType  PROCESSING_INSTRUCTION_NODE  = 7;
-   static const NodeType  COMMENT_NODE                 = 8;
-   static const NodeType  DOCUMENT_NODE                = 9;
-   static const NodeType  DOCUMENT_TYPE_NODE           = 10;
-   static const NodeType  DOCUMENT_FRAGMENT_NODE       = 11;
-   static const NodeType  NOTATION_NODE                = 12;
+    static const NodeType  ELEMENT_NODE                 = 1;
+    static const NodeType  ATTRIBUTE_NODE               = 2;
+    static const NodeType  TEXT_NODE                    = 3;
+    static const NodeType  CDATA_SECTION_NODE           = 4;
+    static const NodeType  ENTITY_REFERENCE_NODE        = 5;
+    static const NodeType  ENTITY_NODE                  = 6;
+    static const NodeType  PROCESSING_INSTRUCTION_NODE  = 7;
+    static const NodeType  COMMENT_NODE                 = 8;
+    static const NodeType  DOCUMENT_NODE                = 9;
+    static const NodeType  DOCUMENT_TYPE_NODE           = 10;
+    static const NodeType  DOCUMENT_FRAGMENT_NODE       = 11;
+    static const NodeType  NOTATION_NODE                = 12;
 
-   static const DOMDocumentPosition  DOCUMENT_POSITION_DISCONNECTED             = 0x01;
-   static const DOMDocumentPosition  DOCUMENT_POSITION_PRECEDING                = 0x02;
-   static const DOMDocumentPosition  DOCUMENT_POSITION_FOLLOWING                = 0x04;
-   static const DOMDocumentPosition  DOCUMENT_POSITION_CONTAINS                 = 0x08;
-   static const DOMDocumentPosition  DOCUMENT_POSITION_IS_CONTAINED             = 0x10;
-   static const DOMDocumentPosition  DOCUMENT_POSITION_IMPLEMENTATION_SPECIFIC  = 0x20;
+    static const DOMDocumentPosition  DOCUMENT_POSITION_DISCONNECTED             = 0x01;
+    static const DOMDocumentPosition  DOCUMENT_POSITION_PRECEDING                = 0x02;
+    static const DOMDocumentPosition  DOCUMENT_POSITION_FOLLOWING                = 0x04;
+    static const DOMDocumentPosition  DOCUMENT_POSITION_CONTAINS                 = 0x08;
+    static const DOMDocumentPosition  DOCUMENT_POSITION_IS_CONTAINED             = 0x10;
+    static const DOMDocumentPosition  DOCUMENT_POSITION_IMPLEMENTATION_SPECIFIC  = 0x20;
 
   public:
+    #include "NodeList.h"
+
     virtual DOMString nodeName (void) = 0;
 
     virtual DOMString nodeValue (void) throw() = 0;
@@ -64,64 +62,52 @@ class Node
 
     NodeType nodeType (void);
 
+    Node* parentNode (void);
+
     virtual NodeList childNodes (void) = 0;
-
-    virtual DOMNamedNodeMap attributes (void);
-    
-    virtual void removeAttribute (DOMString attributeName) = 0;
-
-    virtual void removeAttribute (const char* attributeName) = 0;
-
-    virtual void appendChild (Node* childNode) = 0;
-
-    virtual void insertBefore (Node* childNode, Node* nodeAfter) = 0;
-
-    virtual void replaceChild (Node* newChild, Node* oldChild) = 0;
-
-    virtual void removeChild (int childNode) = 0;
-
-    virtual void removeChild (Node* childNode) = 0;
-
-    virtual bool hasChildNodes (void) = 0;
-
-    virtual Node* childNodes (int childNode) = 0;
 
     virtual Node* firstChild (void) = 0;
 
     virtual Node* lastChild (void) = 0;
 
-    virtual Node* cloneNode (bool cloneChildren = true) = 0;
-
-    virtual NodeList getElementsByTagName (std::string tagName) = 0;
-
-    virtual NodeList getElementsByTagName (const char* tagName) = 0;
-
-    Node* parentNode (void);
-
     Node* nextSibling (void);
 
     Node* previousSibling (void);
 
+    virtual NamedNodeMap attributes (void) = 0;
+
+    Document* ownerDocument (void);
+
+    virtual Node* insertBefore (Node* childNode, Node* nodeAfter) throw() = 0;
+
+    virtual Node* replaceChild (Node* newChild, Node* oldChild) throw() = 0;
+
+    virtual Node* removeChild (Node* childNode) throw() = 0;
+    
+    virtual Node* appendChild (Node* childNode) throw() = 0;
+
+    virtual bool hasChildNodes (void) = 0;
+
+    virtual Node* cloneNode (bool cloneChildren = true) = 0;
+
+    bool isSameNode (Node* another);
+
+    bool isEqualNode (Node* another);
+
   protected:
-    DOMString _name;
+    Node (Document* ownerDocument, NodeType type);
 
-    DOMString _value;
-
-    /// @brief The node's type: document | element | text
+  protected:
     NodeType _type;
 
-    /// @brief  The previous sibling.
     Node* _pSibling;
 
-    /// @brief  The next sibling.
     Node* _nSibling;
 
-    /// @brief  The child's parent.
     Node* _parent;
-};
 
-/// @brief A vector of pointers to Node.
-typedef std::vector<Node*> NodeList;
+    Document* _ownerDocument;
+};
 
 };
 

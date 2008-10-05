@@ -28,8 +28,8 @@
 
 namespace xmlpp {
 
-namespace utils {
-    std::string escapeSlashes (std::string text)
+namespace Utils {
+    std::string escapeSlashes (std::string& text)
     {
         std::string escaped = "";
 
@@ -44,7 +44,7 @@ namespace utils {
         return escaped;
     }
 
-    std::string addSlashes (std::string text)
+    std::string addSlashes (std::string& text)
     {
         std::string slashed = "";
 
@@ -59,7 +59,16 @@ namespace utils {
         return slashed;
     }
 
-    std::string unescapeChar (std::string text)
+    std::string unescapeString (std::string& text)
+    {
+        std::string nText;
+
+        nText = text;
+
+        return nText;
+    }
+
+    std::string unescapeChar (std::string& text)
     {
         std::string nText;
         size_t      i = 0;
@@ -283,7 +292,7 @@ namespace utils {
         return specialChars;
     }
 
-    std::string toUppercase (std::string text)
+    std::string toUppercase (std::string& text)
     {
         std::string upper;
 
@@ -295,7 +304,7 @@ namespace utils {
         return upper;
     }
 
-    std::string strip (const char* chars, std::string string)
+    std::string strip (const char* chars, std::string& string)
     {
         std::string stripped;
 

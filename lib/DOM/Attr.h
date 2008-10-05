@@ -32,10 +32,10 @@ namespace DOM {
 class Attr : public Node
 {
   public:
-    Attr (Element* owner, const char* name);
-    Attr (Element* owner, const char* name, const char* value);
-    Attr (Element* owner, const DOMString& name);
-    Attr (Element* owner, const DOMString& name, const DOMString& value);
+    Attr (const char* name);
+    Attr (const char* name, const char* value);
+    Attr (const DOMString& name);
+    Attr (const DOMString& name, const DOMString& value);
 
     DOMString name (void);
 

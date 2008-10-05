@@ -1,9 +1,6 @@
-/// @file dom/node.cpp
-/// @brief This file includes the DOM child definitions.
-
 /****************************************************************************
-* XML++ is a library for working with XML files.                                *
-* Copyright (C) 2008  cHoBi                                                 *
+* XML++ is a library for working with XML files.                            *
+* Copyleft meh.                                                             *
 *                                                                           *
 * This file is part of XML++                                                *
 *                                                                           *
@@ -21,68 +18,57 @@
 * along with this program.  If not, see <http://www.gnu.org/licenses/>.     *
 ****************************************************************************/
 
-#include "DOMNode.h"
+#include "Node.h"
 
 namespace xmlpp {
 
-DOMString DOMNode::nodeName (void)
+namespace DOM {
+
+Node::Node (Document* ownerDocument, NodeType type)
 {
-    return this->_name;
+    _type = type;
+
+    _parent   = NULL;
+    _pSibling = NULL;
+    _nSibling = NULL;
+
+    _ownerDocument = ownerDocument;
 }
 
-DOMString DOMNode::nodeValue (void) throw()
+NodeType
+Node::nodeType (void)
 {
-    return this->_value;
+    return _type;
 }
 
-DOMNodeType DOMNode::nodeType (void)
+Node*
+Node::parentNode (void)
 {
-    return this->_type;
+    return _parent;
 }
 
-DOMNamedNodeMap DOMNode::attributes (void)
+Node*
+Node::previousSibling (void)
 {
-    return this->_attributes;
+    return _pSibling;
 }
 
-DOMNode* DOMNode::parentNode (void)
+Node*
+Node::nextSibling (void)
 {
-    return this->_parent;
+    return _nSibling;
 }
 
-DOMNode* DOMNode::previousSibling (void)
+NamedNodeMap
+Node::attributes (void)
 {
-    return this->_pSibling;
+    return _attributes;
 }
 
-DOMNode* DOMNode::nextSibling (void)
+bool
+Node::isSameNode (Node* another)
 {
-    return this->_nSibling;
-}
-
-void DOMNode::__setParent (DOMNode* parent)
-{
-    this->_parent = parent;
-}
-
-void DOMNode::__setPreviousSibling (DOMNode* sibling)
-{
-    this->_pSibling = sibling;
-}
-
-void DOMNode::__setNextSibling (DOMNode* sibling)
-{
-    this->_nSibling = sibling;
-}
-
-double DOMNode::__getID (void)
-{
-    return this->_uniqueID;
-}
-
-bool DOMNode::operator == (DOMNode* element)
-{
-    if (this->_uniqueID == element->__getID()) {
+    if (this == another) {
         return true;
     }
     else {
@@ -90,35 +76,13 @@ bool DOMNode::operator == (DOMNode* element)
     }
 }
 
-bool DOMNode::operator != (DOMNode* element)
+bool
+Node::isEqualNode (Node* another)
 {
-    if (this->_uniqueID != element->__getID()) {
-        return true;
-    }
-    else {
-        return false;
-    }
+    return false;
 }
 
-bool DOMNode::operator == (DOMNodeType type)
-{
-    if (this->nodeType() == type) {
-        return true;
-    }
-    else {
-        return false;
-    }
-}
-
-bool DOMNode::operator != (DOMNodeType type)
-{
-    if (this->nodeType() != type) {
-        return true;
-    }
-    else {
-        return false;
-    }
-}
+};
 
 };
 
