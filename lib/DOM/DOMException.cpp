@@ -25,26 +25,22 @@
 
 namespace xmlpp {
 
-DOMException::DOMException (int code) : Exception ()
+namespace DOM {
+
+DOMException::DOMException (int code) : std::exception ()
 {
     switch (code) {
-        case EX_ATTRIBUTE_MODE_NOT_EXISTENT:
-        this->description = "The modes are only 'name' or 'value'.";
-        break;
-
-        case EX_NODE_IS_ELEMENT:
-        this->description = "The node is an element, that method isn't supported.";
-        break;
-
-        case EX_NODE_IS_TEXT:
-        this->description = "The node is an element, that method isn't supported.";
-        break;
-
-        case EX_OUT_OF_RANGE:
-        this->description = "The node hasn't that many child nodes.";
-        break;
+        
     }
 }
+
+const char*
+DOMException::what (void) const throw()
+{
+    return _description.c_str();
+}
+
+};
 
 };
 

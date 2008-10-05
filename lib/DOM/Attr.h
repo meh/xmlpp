@@ -1,9 +1,6 @@
-/// @file dom/attribute.h
-/// @brief This file includes the XML attribute definitions.
-
 /****************************************************************************
-* XML++ is a library for working with XML files.                                *
-* Copyright (C) 2008  cHoBi                                                 *
+* XML++ is a library for working with XML files.                            *
+* Copyleft meh.                                                             *
 *                                                                           *
 * This file is part of XML++                                                *
 *                                                                           *
@@ -26,11 +23,13 @@
 
 #include "../common.h"
 
+#include "Node.h"
+
 namespace xmlpp {
 
 namespace DOM {
 
-class DOMAttr : public Node
+class Attr : public Node
 {
   public:
     Attr (Element* owner, const char* name);
@@ -49,7 +48,7 @@ class DOMAttr : public Node
     void _init (Element* owner, const DOMString& name, const DOMString& value, bool specified);
 
   private:
-    Element _ownerElement;
+    Element* _ownerElement;
 
     DOMString _name;
 
@@ -58,6 +57,14 @@ class DOMAttr : public Node
     bool _isId;
 
     bool _specified;
+
+  // Parent realization.
+  public:
+    DOMString nodeName (void);
+
+    DOMString nodeValue (void) throw();
+    void nodeValue (const char* value) throw();
+    void nodeValue (const DOMString& value) throw(); 
 };
 
 };

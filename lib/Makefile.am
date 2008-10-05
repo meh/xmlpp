@@ -1,4 +1,4 @@
-SUBDIRS = dom xml exception 
+SUBDIRS = DOM XML
 
 h_sources = xml++.h common.h utils.h
 cc_sources = utils.cpp
@@ -9,5 +9,4 @@ INCLUDES = -I$(top_srcdir)
 
 lib_LTLIBRARIES= libxmlpp.la
 libxmlpp_la_SOURCES= $(h_sources) $(cc_sources)
-libxmlpp_la_LIBADD= dom/libdom.la xml/libxml.la exception/libexception.la
-libxmlpp_la_LDFLAGS= 
+libxmlpp_la_LIBADD= dom/libdom.la xml/libxml.la

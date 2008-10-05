@@ -1,9 +1,6 @@
-/// @file dom/Attr.cpp
-/// @brief This file includes the XML Attr implementations.
-
 /****************************************************************************
-* XML++ is a library for working with XML files.                                *
-* Copyright (C) 2008  cHoBi                                                 *
+* XML++ is a library for working with XML files.                            *
+* Copyleft meh.                                                             *
 *                                                                           *
 * This file is part of XML++                                                *
 *                                                                           *
@@ -27,22 +24,22 @@ namespace xmlpp {
 
 namespace DOM {
 
-Attr::Attr (Element* owner, const char* name) : Node()
+Attr::Attr (Element* owner, const char* name) : Node(Node::ATTRIBUTE_NODE, NULL, NULL, NULL)
 {
     _init(owner, (DOMString) name, (DOMString) "", false);
 }
 
-Attr::Attr (Element* owner, const char* name, const char* value) : Node()
+Attr::Attr (Element* owner, const char* name, const char* value) : Node(Node::ATTRIBUTE_NODE)
 {
     _init(owner, (DOMString) name, (DOMString) value, true);
 }
 
-Attr::Attr (Element* owner, const DOMString& name)
+Attr::Attr (Element* owner, const DOMString& name) : Node(Node::ATTRIBUTE_NODE)
 {
     _init(owner, name, (DOMString) "", false);
 }
 
-Attr::Attr (Element* owner, const DOMString& name, const DOMString& value) : Node()
+Attr::Attr (Element* owner, const DOMString& name, const DOMString& value) : Node(Node::ATTRIBUTE_NODE)
 {
     _init(owner, name, value, true);
 }
@@ -82,7 +79,6 @@ Attr::value (const DOMString& value)
 {
     _value = value;
 }
-
 
 };
 
