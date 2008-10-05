@@ -2,7 +2,7 @@
 /// @brief This file includes the dom exception definitions.
 
 /****************************************************************************
-* XML++ is a library to work with XML files.                                *
+* XML++ is a library for working with XML files.                                *
 * Copyright (C) 2008  cHoBi                                                 *
 *                                                                           *
 * This file is part of XML++                                                *
@@ -28,19 +28,62 @@
 
 namespace xmlpp {
 
-/// @brief  I don't remember lol.
-const int EX_ATTRIBUTE_MODE_NOT_EXISTENT = 1;
+/// @brief  If index or size is negative, or greater than the allowed value.
+const unsigned short      INDEX_SIZE_ERR                 = 1;
 
-/// @brief  Exception raised if the node used is an element node and
-///         it doesn't have that method.
-const int EX_NODE_IS_ELEMENT = 2;
+/// @brief  If the specified range of text does not fit into a DOMString.
+const unsigned short      DOMSTRING_SIZE_ERR             = 2;
 
-/// @brief  Exception raised if the node used is a text node and it
-///         doesnt' have that method.
-const int EX_NODE_IS_TEXT = 3;
+/// @brief  If any node is inserted somewhere it doesn't belong.
+const unsigned short      HIERARCHY_REQUEST_ERR          = 3;
 
-/// @brief  Exception raised if the child node requested doesn't exist.
-const int EX_OUT_OF_RANGE = 4;
+/// @brief  If a node is used in a different document than the one that
+///         created it (that doesn't support it).
+const unsigned short      WRONG_DOCUMENT_ERR             = 4;
+
+/// @brief  If an invalid or illegal character is specified, such as in a name.
+const unsigned short      INVALID_CHARACTER_ERR          = 5;
+
+/// @brief  If data is specified for a node which does not support data.
+const unsigned short      NO_DATA_ALLOWED_ERR            = 6;
+
+/// @brief  If an attempt is made to modify an object where modifications
+///         are not allowed.
+const unsigned short      NO_MODIFICATION_ALLOWED_ERR    = 7;
+
+/// @brief  If an attempt is made to reference a node in a context where it
+///         does not exist.
+const unsigned short      NOT_FOUND_ERR                  = 8;
+
+/// @brief  If the implementation does not support the requested type of
+///         object or operation.
+const unsigned short      NOT_SUPPORTED_ERR              = 9;
+
+/// @brief  If an attempt is made to add an attribute that is already in use
+///         elsewhere.
+const unsigned short      INUSE_ATTRIBUTE_ERR            = 10;
+
+/// @brief  If an attempt is made to use an object that is not, or is no
+///         longer, usable.
+const unsigned short      INVALID_STATE_ERR              = 11;
+
+/// @brief  If an invalid or illegal string is specified.
+const unsigned short      SYNTAX_ERR                     = 12;
+
+/// @brief  If an attempt is made to modify the type of the underlying object.
+const unsigned short      INVALID_MODIFICATION_ERR       = 13;
+
+/// @brief  If an attempt is made to create or change an object in a way which
+///         is incorrect with regard to namespaces.
+const unsigned short      NAMESPACE_ERR                  = 14;
+
+/// @brief  If a parameter or an operation is not supported by the underlying
+///         object.
+const unsigned short      INVALID_ACCESS_ERR             = 15;
+
+/// @brief  If a call to a method such as insertBefore or removeChild would
+///         make the Node invalid.
+const unsigned short      VALIDATION_ERR                 = 16;
 
 class DOMException : public Exception
 {

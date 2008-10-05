@@ -1,8 +1,8 @@
-/// @file dom/node.cpp
-/// @brief This file includes the DOM child definitions.
+/// @file dom/attribute.cpp
+/// @brief This file includes the XML attribute implementations.
 
 /****************************************************************************
-* XML++ is a library to work with XML files.                                *
+* XML++ is a library for working with XML files.                                *
 * Copyright (C) 2008  cHoBi                                                 *
 *                                                                           *
 * This file is part of XML++                                                *
@@ -21,95 +21,76 @@
 * along with this program.  If not, see <http://www.gnu.org/licenses/>.     *
 ****************************************************************************/
 
-#include "node.h"
+#include "attribute.h"
 
 namespace xmlpp {
 
-DOMNode::DOMNode (DOMNodeType _type)
+DOMAttribute::DOMAttribute (std::string name, std::string value)
 {
-    this->_type = _type;
-
-    // Create a random id.
-    this->_uniqueID = (rand() / (rand() * 0.23)) * (clock() / 10000);
+    this->_name  = name;
+    this->_value = value;
 }
 
-DOMNodeType DOMNode::nodeType (void)
+DOMAttribute::DOMAttribute (const char* name, const char* value)
 {
-    return this->_type;
+    this->_name  = name;
+    this->_value = value;
 }
 
-DOMNode* DOMNode::parentNode (void)
+std::string DOMAttribute::nodeName (void)
 {
-    return this->_parent;
+    return this->_name;
 }
 
-DOMNode* DOMNode::previousSibling (void)
+void DOMAttribute::nodeName (std::string name)
 {
-    return this->_pSibling;
+    this->_name = name;
 }
 
-DOMNode* DOMNode::nextSibling (void)
+void DOMAttribute::nodeName (const char* name)
 {
-    return this->_nSibling;
+    this->_name = name;
 }
 
-void DOMNode::__setParent (DOMNode* parent)
+std::string DOMAttribute::nodeValue (void)
 {
-    this->_parent = parent;
+    return this->_value;
 }
 
-void DOMNode::__setPreviousSibling (DOMNode* sibling)
+void DOMAttribute::nodeValue (std::string value)
 {
-    this->_pSibling = sibling;
+    this->_value = value;
 }
 
-void DOMNode::__setNextSibling (DOMNode* sibling)
+void DOMAttribute::nodeValue (const char* value)
 {
-    this->_nSibling = sibling;
+    this->_value = value;
 }
 
-double DOMNode::__getID (void)
+std::string DOMAttribute::plain (void)
 {
-    return this->_uniqueID;
-}
-
-bool DOMNode::operator == (DOMNode* element)
-{
-    if (this->_uniqueID == element->__getID()) {
-        return true;
+    if (!this->_name.empty() && !this->_value.empty()) {
+        return this->_name + "=\"" + this->_value + "\"";
     }
     else {
-        return false;
+        return (std::string) "";
     }
 }
 
-bool DOMNode::operator != (DOMNode* element)
+// Operators.
+std::string DOMAttribute::operator [] (const char* mode) throw()
 {
-    if (this->_uniqueID != element->__getID()) {
-        return true;
+    if (strcmp("name", mode) == 0) {
+        return this->_name;
+    }
+    else if (strcmp("value", mode) == 0) {
+        return this->_value;
+    }
+    else if (strcmp("plain", mode) == 0) {
+        return this->plain();
     }
     else {
-        return false;
-    }
-}
-
-bool DOMNode::operator == (DOMNodeType type)
-{
-    if (this->nodeType() == type) {
-        return true;
-    }
-    else {
-        return false;
-    }
-}
-
-bool DOMNode::operator != (DOMNodeType type)
-{
-    if (this->nodeType() != type) {
-        return true;
-    }
-    else {
-        return false;
+        throw DOMException(EX_ATTRIBUTE_MODE_NOT_EXISTENT);
     }
 }
 

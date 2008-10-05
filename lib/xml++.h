@@ -2,7 +2,7 @@
 /// @brief  This file includes the whole XML++ library.
 
 /****************************************************************************
-* XML++ is a library to work with XML files.                                *
+* XML++ is a library for working with XML files.                                *
 * Copyright (C) 2008  cHoBi                                                 *
 *                                                                           *
 * This file is part of XML++                                                *

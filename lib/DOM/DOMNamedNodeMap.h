@@ -1,8 +1,7 @@
-/// @file xml_exception.cpp
-/// @brief This file includes the xml exception implementations.
+/// @file dom/DOMNamedNodeMap.h
 
 /****************************************************************************
-* XML++ is a library for working with XML files.                                *
+* XML++ is a library for working with XML files.                            *
 * Copyright (C) 2008  cHoBi                                                 *
 *                                                                           *
 * This file is part of XML++                                                *
@@ -21,30 +20,45 @@
 * along with this program.  If not, see <http://www.gnu.org/licenses/>.     *
 ****************************************************************************/
 
-#include "xml_exception.h"
+#if !defined(XMLPP_DOM_NAMED_NODE_MAP)
+#define XMLPP_DOM_NAMED_NODE_MAP TRUE
+
+#include "../common.h"
 
 namespace xmlpp {
 
-XMLException::XMLException (int code) : Exception ()
+namespace dom {
+
+class DOMNamedNodeMap
 {
-    switch (code) {
-        case EX_PARSER_FILE_READ_ERROR:
-        this->description = "Error while reading the text file, maybe it doesn't exist.";
-        break;
+  public:
+    DOMNamedNodeMap (DOMNodeType type);
 
-        case EX_XML_NOT_STANDARD:
-        this->description = "There are some errors in the XML file.";
-        break;
+    DOMNode* getNamedItem (DOMString name);
 
-        case EX_XML_BAD_NODE:
-        this->description = "A node is bad written.";
-        break;
+    DOMNode* setNamedItem (DOMNode* node) throw (DOMException);
+    
+    DOMNode* removeNamedItem (DOMString name) throw (DOMException);
 
-        case EX_XML_TAG_NOT_CLOSED:
-        this->description = "A tag is not closed.";
-        break;
-    }
-}
+    DOMNode* item (unsigned long index);
+
+    unsigned long length (void);
+
+    DOMNode* getNamedItemNS (DOMString namespaceURI, DOMString localName) throw (DOMException);
+
+    DOMNode* setNamedItemNS (DOMNode* node) throw (DOMException);
+
+    DOMNode* removeNamedItemNS (DOMString namespaceURI, DOMString localName) throw (DOMException);
+
+  private:
+    std::map<DOMString, DOMNode*> _items;
+
+    DOMNodeType _ownerType;
+};
 
 };
+
+};
+
+#endif
 

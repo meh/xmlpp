@@ -2,7 +2,7 @@
 /// @brief  This file includes the XML parser implementations.
 
 /****************************************************************************
-* XML++ is a library to work with XML files.                                *
+* XML++ is a library for working with XML files.                                *
 * Copyright (C) 2008  cHoBi                                                 *
 *                                                                           *
 * This file is part of XML++                                                *
@@ -91,9 +91,11 @@ DOMDocument* XMLParser::__parseDocument (std::string xml)
                 document->appendChild(this->__parseElement(nodeText));
             }
             else {
-                XMLNode fNode = this->__fetchNode(i-nodeText.length(), nodeText+xml.substr(i));
-                i = fNode.point-1;
-                document->appendChild(this->__parseNode(fNode.text));
+                XMLNode* fNode = this->__fetchNode(i-nodeText.length(), nodeText+xml.substr(i));
+                i = fNode->point-1;
+                document->appendChild(this->__parseNode(fNode->text));
+
+                delete fNode;
             }
         }
     }
@@ -134,9 +136,11 @@ DOMNode* XMLParser::__parseNode (std::string xml)
                 mainNode->appendChild(this->__parseElement(nodeText));
             }
             else {
-                XMLNode fNode = this->__fetchNode((h-nodeText.length()), nodeText+xml.substr(h));
-                h = fNode.point-1;
-                mainNode->appendChild(this->__parseNode(fNode.text));
+                XMLNode* fNode = this->__fetchNode((h-nodeText.length()), nodeText+xml.substr(h));
+                h = fNode->point-1;
+                mainNode->appendChild(this->__parseNode(fNode->text));
+
+                delete fNode;
             }
         }
         // If it's a text node
@@ -162,9 +166,9 @@ DOMNode* XMLParser::__parseNode (std::string xml)
     return mainNode;
 }
 
-XMLNode XMLParser::__fetchNode (size_t start, std::string xml)
+XMLNode* XMLParser::__fetchNode (size_t start, std::string xml)
 {
-    XMLNode fNode;
+    XMLNode* fNode = new XMLNode;
 
     size_t i = 0;
     std::string nodeText;
@@ -219,8 +223,8 @@ XMLNode XMLParser::__fetchNode (size_t start, std::string xml)
         throw XMLException(EX_XML_TAG_NOT_CLOSED);
     }
 
-    fNode.point = i + start;
-    fNode.text  = xml.substr(0, i-1);
+    fNode->point = i + start;
+    fNode->text  = xml.substr(0, i-1);
 
     return fNode;
 }

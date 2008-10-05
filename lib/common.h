@@ -2,7 +2,7 @@
 /// @brief This file includes the common constants and includes.
 
 /****************************************************************************
-* XML++ is a library to work with XML files.                                *
+* XML++ is a library for working with XML files.                                *
 * Copyright (C) 2008  cHoBi                                                 *
 *                                                                           *
 * This file is part of XML++                                                *
@@ -39,6 +39,13 @@
 
 #include "exception/exception.h"
 #include "utils.h"
+
+typedef  std::string         DOMString;
+typedef  unsigned long long  DOMTimeStamp;
+typedef  unsigned short      DOMNodeType;
+typedef  unsigned short      DOMDocumentPosition;
+typedef  void*               DOMUserData;
+typedef  void*               DOMObject;
 
 #endif
 

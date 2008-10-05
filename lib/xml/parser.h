@@ -2,7 +2,7 @@
 /// @brief  This file includes the XML parser definitions.
 
 /****************************************************************************
-* XML++ is a library to work with XML files.                                *
+* XML++ is a library for working with XML files.                                *
 * Copyright (C) 2008  cHoBi                                                 *
 *                                                                           *
 * This file is part of XML++                                                *
@@ -109,7 +109,7 @@ class XMLParser
     /// @param  xml    The xml text from the start point.
     ///
     /// @return  The fetched node.
-    XMLNode __fetchNode (size_t start, std::string xml);
+    XMLNode* __fetchNode (size_t start, std::string xml);
 
     /// @brief  Parse an element and get name and attributes.
     ///

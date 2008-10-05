@@ -1,8 +1,8 @@
-/// @file dom/text.cpp
-/// @brief This file includes the DOM text implementations.
+/// @file dom/node.cpp
+/// @brief This file includes the DOM child definitions.
 
 /****************************************************************************
-* XML++ is a library to work with XML files.                                *
+* XML++ is a library for working with XML files.                                *
 * Copyright (C) 2008  cHoBi                                                 *
 *                                                                           *
 * This file is part of XML++                                                *
@@ -21,92 +21,103 @@
 * along with this program.  If not, see <http://www.gnu.org/licenses/>.     *
 ****************************************************************************/
 
-#include "text.h"
+#include "DOMNode.h"
 
 namespace xmlpp {
 
-DOMText::DOMText (std::string value) : DOMNode (text)
+DOMString DOMNode::nodeName (void)
 {
-    this->_value = value;
+    return this->_name;
 }
 
-DOMText::DOMText (const char* value) : DOMNode (text)
-{
-    this->_value = value;
-}
-
-std::string DOMText::plain (void)
+DOMString DOMNode::nodeValue (void) throw()
 {
     return this->_value;
 }
 
-// Getters.
-std::string DOMText::nodeName (void)
+DOMNodeType DOMNode::nodeType (void)
 {
-    return "#text";
+    return this->_type;
 }
 
-std::string DOMText::nodeValue (void)
+DOMNamedNodeMap DOMNode::attributes (void)
 {
-    return this->_value;
+    return this->_attributes;
 }
 
-void DOMText::nodeValue (const char* value)
+DOMNode* DOMNode::parentNode (void)
 {
-    this->_value = value;
+    return this->_parent;
 }
 
-void DOMText::nodeValue (std::string value)
+DOMNode* DOMNode::previousSibling (void)
 {
-    this->_value = value;
+    return this->_pSibling;
 }
 
-std::string DOMText::data (void)
+DOMNode* DOMNode::nextSibling (void)
 {
-    return this->_value;
+    return this->_nSibling;
 }
 
-DOMNodes DOMText::childNodes (void)
+void DOMNode::__setParent (DOMNode* parent)
 {
-    throw DOMException(EX_NODE_IS_TEXT);
+    this->_parent = parent;
 }
 
-DOMNode* DOMText::childNodes (int)
+void DOMNode::__setPreviousSibling (DOMNode* sibling)
 {
-    throw DOMException(EX_NODE_IS_TEXT);
+    this->_pSibling = sibling;
 }
 
-DOMNode* DOMText::firstChild (void)
+void DOMNode::__setNextSibling (DOMNode* sibling)
 {
-    throw DOMException(EX_NODE_IS_TEXT);
+    this->_nSibling = sibling;
 }
 
-DOMNode* DOMText::lastChild (void)
+double DOMNode::__getID (void)
 {
-    throw DOMException(EX_NODE_IS_TEXT);
+    return this->_uniqueID;
 }
 
-DOMNode* DOMText::cloneNode (bool cloneChildren)
+bool DOMNode::operator == (DOMNode* element)
 {
-    DOMText* copy = new DOMText(this->nodeValue());
-    return copy;
+    if (this->_uniqueID == element->__getID()) {
+        return true;
+    }
+    else {
+        return false;
+    }
 }
 
-std::vector<DOMNode*> DOMText::getElementsByTagName (std::string tagName)
+bool DOMNode::operator != (DOMNode* element)
 {
-    std::vector<DOMNode*> elements;
-
-    return elements;
+    if (this->_uniqueID != element->__getID()) {
+        return true;
+    }
+    else {
+        return false;
+    }
 }
 
-std::vector<DOMNode*> DOMText::getElementsByTagName (const char* tagName)
+bool DOMNode::operator == (DOMNodeType type)
 {
-    return this->getElementsByTagName((std::string) tagName);
+    if (this->nodeType() == type) {
+        return true;
+    }
+    else {
+        return false;
+    }
 }
 
-bool DOMText::hasChildNodes (void)
+bool DOMNode::operator != (DOMNodeType type)
 {
-    return false;
+    if (this->nodeType() != type) {
+        return true;
+    }
+    else {
+        return false;
+    }
 }
 
 };

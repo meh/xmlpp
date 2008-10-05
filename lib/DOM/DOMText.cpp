@@ -1,8 +1,8 @@
-/// @file dom/attribute.cpp
-/// @brief This file includes the XML attribute implementations.
+/// @file dom/text.cpp
+/// @brief This file includes the DOM text implementations.
 
 /****************************************************************************
-* XML++ is a library to work with XML files.                                *
+* XML++ is a library for working with XML files.                                *
 * Copyright (C) 2008  cHoBi                                                 *
 *                                                                           *
 * This file is part of XML++                                                *
@@ -21,77 +21,92 @@
 * along with this program.  If not, see <http://www.gnu.org/licenses/>.     *
 ****************************************************************************/
 
-#include "attribute.h"
+#include "text.h"
 
 namespace xmlpp {
 
-DOMAttribute::DOMAttribute (std::string name, std::string value)
+DOMText::DOMText (std::string value) : DOMNode (text)
 {
-    this->_name  = name;
     this->_value = value;
 }
 
-DOMAttribute::DOMAttribute (const char* name, const char* value)
+DOMText::DOMText (const char* value) : DOMNode (text)
 {
-    this->_name  = name;
     this->_value = value;
 }
 
-std::string DOMAttribute::nodeName (void)
-{
-    return this->_name;
-}
-
-void DOMAttribute::nodeName (std::string name)
-{
-    this->_name = name;
-}
-
-void DOMAttribute::nodeName (const char* name)
-{
-    this->_name = name;
-}
-
-std::string DOMAttribute::nodeValue (void)
+std::string DOMText::plain (void)
 {
     return this->_value;
 }
 
-void DOMAttribute::nodeValue (std::string value)
+// Getters.
+std::string DOMText::nodeName (void)
+{
+    return "#text";
+}
+
+std::string DOMText::nodeValue (void)
+{
+    return this->_value;
+}
+
+void DOMText::nodeValue (const char* value)
 {
     this->_value = value;
 }
 
-void DOMAttribute::nodeValue (const char* value)
+void DOMText::nodeValue (std::string value)
 {
     this->_value = value;
 }
 
-std::string DOMAttribute::plain (void)
+std::string DOMText::data (void)
 {
-    if (!this->_name.empty() && !this->_value.empty()) {
-        return this->_name + "=\"" + this->_value + "\"";
-    }
-    else {
-        return (std::string) "";
-    }
+    return this->_value;
 }
 
-// Operators.
-std::string DOMAttribute::operator [] (const char* mode) throw()
+DOMNodes DOMText::childNodes (void)
 {
-    if (strcmp("name", mode) == 0) {
-        return this->_name;
-    }
-    else if (strcmp("value", mode) == 0) {
-        return this->_value;
-    }
-    else if (strcmp("plain", mode) == 0) {
-        return this->plain();
-    }
-    else {
-        throw DOMException(EX_ATTRIBUTE_MODE_NOT_EXISTENT);
-    }
+    throw DOMException(EX_NODE_IS_TEXT);
+}
+
+DOMNode* DOMText::childNodes (int)
+{
+    throw DOMException(EX_NODE_IS_TEXT);
+}
+
+DOMNode* DOMText::firstChild (void)
+{
+    throw DOMException(EX_NODE_IS_TEXT);
+}
+
+DOMNode* DOMText::lastChild (void)
+{
+    throw DOMException(EX_NODE_IS_TEXT);
+}
+
+DOMNode* DOMText::cloneNode (bool cloneChildren)
+{
+    DOMText* copy = new DOMText(this->nodeValue());
+    return copy;
+}
+
+std::vector<DOMNode*> DOMText::getElementsByTagName (std::string tagName)
+{
+    std::vector<DOMNode*> elements;
+
+    return elements;
+}
+
+std::vector<DOMNode*> DOMText::getElementsByTagName (const char* tagName)
+{
+    return this->getElementsByTagName((std::string) tagName);
+}
+
+bool DOMText::hasChildNodes (void)
+{
+    return false;
 }
 
 };

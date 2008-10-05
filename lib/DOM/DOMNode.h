@@ -1,8 +1,8 @@
-/// @file dom/node.h
+/// @file dom/DOMNode.h
 /// @brief This file includes the DOM child definitions.
 
 /****************************************************************************
-* XML++ is a library to work with XML files.                                *
+* XML++ is a library for working with XML files.                            *
 * Copyright (C) 2008  cHoBi                                                 *
 *                                                                           *
 * This file is part of XML++                                                *
@@ -25,127 +25,68 @@
 #define XMLPP_DOM_NODE TRUE
 
 #include "../common.h"
+#include "DOMNamedNodeMap.h"
 
 namespace xmlpp {
 
-/// @brief  Enum for node types.
-enum DOMNodeType {
-    document,
-    element,
-    text
-};
+namespace dom {
 
-/// @brief DOMNode class, the base abstract class for DOMText and DOMElement.
+/// @brief DOMNode class, the base class for everything.
 class DOMNode 
 {
   public:
-    typedef std::vector<DOMNode*> DOMNodes;
+   const static DOMNodeType  ELEMENT_NODE                 = 1;
+   const static DOMNodeType  ATTRIBUTE_NODE               = 2;
+   const static DOMNodeType  TEXT_NODE                    = 3;
+   const static DOMNodeType  CDATA_SECTION_NODE           = 4;
+   const static DOMNodeType  ENTITY_REFERENCE_NODE        = 5;
+   const static DOMNodeType  ENTITY_NODE                  = 6;
+   const static DOMNodeType  PROCESSING_INSTRUCTION_NODE  = 7;
+   const static DOMNodeType  COMMENT_NODE                 = 8;
+   const static DOMNodeType  DOCUMENT_NODE                = 9;
+   const static DOMNodeType  DOCUMENT_TYPE_NODE           = 10;
+   const static DOMNodeType  DOCUMENT_FRAGMENT_NODE       = 11;
+   const static DOMNodeType  NOTATION_NODE                = 12;
 
-    /// @brief  Create the node.
-    ///
-    /// @param  type  The node's type. DOM_ELEMENT_NODE and DOM_TEXT_NODE
-    DOMNode (DOMNodeType type);
+   const static DOMDocumentPosition  DOCUMENT_POSITION_DISCONNECTED = 0x01;
+   const static DOMDocumentPosition  DOCUMENT_POSITION_PRECEDING    = 0x02;
+   const static DOMDocumentPosition  DOCUMENT_POSITION_FOLLOWING    = 0x04;
+   const static DOMDocumentPosition  DOCUMENT_POSITION_CONTAINS     = 0x08;
+   const static DOMDocumentPosition  DOCUMENT_POSITION_IS_CONTAINED = 0x10;
+   const static DOMDocumentPosition  DOCUMENT_POSITION_IMPLEMENTATION_SPECIFIC = 0x20;
+
+  public:
+    typedef std::vector<DOMNode*> DOMNodeList;
 
     /// @brief  Get plain text of the element.
     ///
     /// @return  The plain text version of the element.
     virtual std::string plain (void) = 0;
 
+    /// @brief  Get the node's name.
+    ///
+    /// @return  The node's name if it's a DOMElement or "#text" if it's a DOMText.
+    virtual std::string nodeName (void);
+
+    /// @brief  Get the node's value (text)
+    ///
+    /// @return  The node's value if it's a DOMText or nothing if it's a DOMElement.
+    virtual std::string nodeValue (void) throw();
+
     /// @brief  Get the node's type.
     ///
     /// @return  The type. document | element | text
     DOMNodeType nodeType (void);
 
-    /// @brief  Get the node's name.
+    /// @brief  Get the attributes. 
     ///
-    /// @return  The node's name if it's a DOMElement or "#text" if it's a DOMText.
-    virtual std::string nodeName (void) = 0;
-
-    /// @brief  Uppercase version of the nodeName if it's an element node.
-    ///
-    /// @return  The uppercase version of the nodeName.
-    virtual std::string tagName (void) = 0;
-
-    /// @brief  Get the node's value (text)
-    ///
-    /// @return  The node's value if it's a DOMText or nothing if it's a DOMElement.
-    virtual std::string nodeValue (void) = 0;
-
-    /// @brief  Set the node value.
-    ///
-    /// @param  value  The text for the DOMText node.
-    virtual void nodeValue (std::string value) = 0;
-
-    /// @brief  Set the node value.
-    ///
-    /// @param  value  The text for the DOMText node.
-    virtual void nodeValue (const char* value) = 0;
-
-    /// @brief  Another name for the nodeValue method.
-    ///
-    /// @return  The node's value if it's a DOMText or nothing if it's a DOMElement.
-    virtual std::string data (void) = 0;
-
-    /// @brief  Get the element's id.
-    ///
-    /// @return  The element's id.
-    virtual std::string id (void) = 0;
-
-    /// @brief  Set the element's id.
-    ///
-    /// @param  id  The new id.
-    virtual void id (std::string id) = 0;
-
-    /// @brief  Set the element's id.
-    ///
-    /// @param  id  The new id.
-    virtual void id (const char* id) = 0;
-
-    /// @brief  Get the element's title.
-    ///
-    /// @return  The element's title.
-    virtual std::string title (void) = 0;
-
-    /// @brief  Set the element's title.
-    ///
-    /// @param  title  The new title.
-    virtual void title (std::string title) = 0;
-
-    /// @brief  Set the element's title.
-    ///
-    /// @param  title  The new title.
-    virtual void title (const char* title) = 0;
-
-    /// @brief  Add an attribute to a DOMElement.
-    ///
-    /// @param  attributeName   The attribute name.
-    /// @param  attributeValue  The attribute value.
-    virtual void setAttribute (std::string attributeName, std::string attributeValue) = 0;
-
-    /// @brief  Add an attribute to a DOMElement.
-    ///
-    /// @param  attributeName   The attribute name.
-    /// @param  attributeValue  The attribute value.
-    virtual void setAttribute (const char* attributeName, const char* attributeValue) = 0;
-
-    /// @brief  Get an attribute from the DOMElement.
-    ///
-    /// @param  attributeName  The attribute name.
-    ///
-    /// @return  The attribute value.
-    virtual std::string getAttribute (std::string attributeName) = 0;
-
-    /// @brief  Get an attribute from the DOMElement.
-    ///
-    /// @param  attributeName  The attribute name.
-    ///
-    /// @return  The attribute value.
-    virtual std::string getAttribute (const char* attributeName) = 0;
+    /// @return  The attributes map
+    virtual DOMNamedNodeMap attributes (void);
     
     /// @brief  Remove an attribute from the node.
     ///
     /// @param  attributeName  The attribute's name to remove.
-    virtual void removeAttribute (std::string attributeName) = 0;
+    virtual void removeAttribute (DOMString attributeName) = 0;
 
     /// @brief  Remove an attribute from the node.
     ///
@@ -188,7 +129,7 @@ class DOMNode
     /// @brief  Get the vector.
     ///
     /// @return  The vector with the child nodes.
-    virtual DOMNodes childNodes (void) = 0;
+    virtual DOMNodeList childNodes (void) = 0;
 
     /// @brief  Get a child node.
     ///
@@ -218,14 +159,14 @@ class DOMNode
     /// @param  tagName  The tag name to use for searching.
     ///
     /// @return  A vector with the pointers to the matched nodes.
-    virtual DOMNodes getElementsByTagName (std::string tagName) = 0;
+    virtual DOMNodeList getElementsByTagName (std::string tagName) = 0;
 
     /// @brief Get every element with the tag name passed starting from the node.
     ///
     /// @param  tagName  The tag name to use for searching.
     ///
     /// @return  A vector with the pointers to the matched nodes.
-    virtual DOMNodes getElementsByTagName (const char* tagName) = 0;
+    virtual DOMNodeList getElementsByTagName (const char* tagName) = 0;
 
     /// @brief  Get the node's parent.
     ///
@@ -273,6 +214,10 @@ class DOMNode
     bool operator != (DOMNodeType type);
 
   protected:
+    DOMString _name;
+
+    DOMString _value;
+
     /// @brief The node's type: document | element | text
     DOMNodeType _type;
 
@@ -284,15 +229,12 @@ class DOMNode
 
     /// @brief  The child's parent.
     DOMNode* _parent;
-
-  private:
-    /// @brief  The unique id to recognize if a node is the same as another.
-    double _uniqueID;
-
 };
 
 /// @brief A vector of pointers to DOMNode.
-typedef std::vector<DOMNode*> DOMNodes;
+typedef std::vector<DOMNode*> DOMNodeList;
+
+};
 
 };
 
