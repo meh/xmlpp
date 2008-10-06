@@ -64,7 +64,7 @@ class Node
 
     Node* parentNode (void);
 
-    virtual NodeList childNodes (void) = 0;
+    virtual Node::List childNodes (void) = 0;
 
     virtual Node* firstChild (void) = 0;
 
@@ -88,11 +88,14 @@ class Node
 
     virtual bool hasChildNodes (void) = 0;
 
-    virtual Node* cloneNode (bool cloneChildren = true) = 0;
+    virtual Node* cloneNode (bool deep = true) = 0;
 
     bool isSameNode (Node* another);
 
     bool isEqualNode (Node* another);
+
+    bool operator == (Node* another);
+    bool operator != (Node* another);
 
   protected:
     Node (Document* ownerDocument, NodeType type);
@@ -108,6 +111,8 @@ class Node
 
     Document* _ownerDocument;
 };
+
+typedef Node::List NodeList;
 
 };
 

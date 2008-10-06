@@ -1,8 +1,6 @@
-/// @file dom/NamedNodeMap.cpp
-
 /****************************************************************************
 * XML++ is a library for working with XML files.                            *
-* Copyright (C) 2008  cHoBi                                                 *
+* Copyleft meh.                                                             *
 *                                                                           *
 * This file is part of XML++                                                *
 *                                                                           *
@@ -22,9 +20,9 @@
 
 #include "NamedNodeMap.h"
 
-NamedNodeMap::NamedNodeMap (NodeType type)
+NamedNodeMap::NamedNodeMap (Node* ownerNode)
 {
-    _ownerType = type;
+    _ownerNode = ownerNode;
 }
 
 Node*
@@ -35,14 +33,14 @@ NamedNodeMap::getNamedItem (DOMString name)
 
 /// @todo  Add the INUSE_ATTRIBUTE_ERR exception.
 Node*
-NamedNodeMap::setNamedItem (Node* node) throw (DOMException)
+NamedNodeMap::setNamedItem (Node* node) throw ()
 {
-    if (this->ownerDocument() != node->ownerDocument()) {
+    if (_ownerNode->ownerDocument() != node->ownerDocument()) {
         throw DOMException (WRONG_DOCUMENT_ERR);
     }
 
     // Check if the node passed can be added to the actual map.
-    switch (_ownerType) {
+    switch (_ownerNode->nodeType()) {
         case Node::ELEMENT_NODE:
         if (node->nodeType() != Node::ATTRIBUTE_NODE) {
             throw DOMException(HIERARCHY_REQUEST_ERR);

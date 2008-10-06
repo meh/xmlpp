@@ -82,6 +82,18 @@ Node::isEqualNode (Node* another)
     return false;
 }
 
+bool
+Node::operator == (Node* another)
+{
+    return this->isSameNode(another);
+}
+
+bool
+Node::operator != (Node* another)
+{
+    return !this->isSameNode(another);
+}
+
 };
 
 };

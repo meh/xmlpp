@@ -1,8 +1,6 @@
-/// @file dom/NamedNodeMap.h
-
 /****************************************************************************
 * XML++ is a library for working with XML files.                            *
-* Copyright (C) 2008  cHoBi                                                 *
+* Copyleft meh.                                                             *
 *                                                                           *
 * This file is part of XML++                                                *
 *                                                                           *
@@ -20,40 +18,40 @@
 * along with this program.  If not, see <http://www.gnu.org/licenses/>.     *
 ****************************************************************************/
 
-#if !defined(XMLPP_DOM_NAMED_NODE_MAP)
-#define XMLPP_DOM_NAMED_NODE_MAP TRUE
+#if !defined(XMLPP_NAMEDNODEMAP_H)
+#define XMLPP_NAMEDNODEMAP_H
 
 #include "../common.h"
 
 namespace xmlpp {
 
-namespace dom {
+namespace DOM {
 
 class NamedNodeMap
 {
   public:
-    NamedNodeMap (NodeType type);
+    NamedNodeMap (Node* ownerNode);
 
     Node* getNamedItem (DOMString name);
 
-    Node* setNamedItem (Node* node) throw (DOMException);
+    Node* setNamedItem (Node* node) throw ();
     
-    Node* removeNamedItem (DOMString name) throw (DOMException);
+    Node* removeNamedItem (DOMString name) throw ();
 
     Node* item (unsigned long index);
 
     unsigned long length (void);
 
-    Node* getNamedItemNS (DOMString namespaceURI, DOMString localName) throw (DOMException);
+    Node* getNamedItemNS (DOMString namespaceURI, DOMString localName) throw ();
 
-    Node* setNamedItemNS (Node* node) throw (DOMException);
+    Node* setNamedItemNS (Node* node) throw ();
 
-    Node* removeNamedItemNS (DOMString namespaceURI, DOMString localName) throw (DOMException);
+    Node* removeNamedItemNS (DOMString namespaceURI, DOMString localName) throw ();
 
   private:
-    std::map<DOMString, Node*> _items;
+    Node* _ownerNode;
 
-    NodeType _ownerType;
+    std::map<DOMString, Node*> _items;
 };
 
 };

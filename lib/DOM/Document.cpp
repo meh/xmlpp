@@ -24,11 +24,130 @@ namespace xmlpp {
 
 namespace DOM {
 
-Document::Document (const char* name)
-
-Document::Document () : Node(Node::DOCUMENT_NODE)
+Document::Document (void) : Node(Node::DOCUMENT_NODE)
 {
-    
+    _documentElement = NULL;
+}
+
+Element*
+Document::documentElement (void)
+{
+    return _documentElement;
+}
+
+// Parent realization
+DOMString
+Document::nodeName (void)
+{
+    return (DOMString) "#document";
+}
+
+DOMString
+Document::nodeValue (void) throw()
+{
+    return DOMString();
+}
+
+void
+Document::nodeValue (const char* value) throw() 
+{
+}
+
+void
+Document::nodeValue (const DOMString& value) throw()
+{
+}
+
+NodeList
+Document::childNodes (void)
+{
+    NodeList list;
+    list.insert(_documentElement);
+
+    return list;
+}
+
+Node*
+Document::firstChild (void)
+{
+    return _documentElement;
+}
+
+Node*
+Document::lastChild (void)
+{
+    return _documentElement;
+}
+
+NamedNodeMap
+Document::attributes (void)
+{
+    NamedNodeMap attrs(this);
+
+    return attrs;
+}
+
+Node*
+Document::insertBefore (Node* childNode, Node* nodeAfter) throw()
+{
+    throw DOMException(DOMException::HIERARCHY_REQUEST_ERR);
+}
+
+Node*
+Document::replaceChild (Node* newChild, Node* oldChild) throw()
+{
+    if (newChild->nodeType() == Node::DOCUMENT_NODE) {
+        throw DOMException(DOMException::HIERARCHY_REQUEST_ERR);
+    }
+
+    if (oldChild != _documentElement) {
+        throw DOMException(DOMException::NOT_FOUND_ERR);
+    }
+
+    _documentElement = newChild;
+
+    return oldChild;
+}
+
+Node*
+Document::removeChild (Node* childNode) throw()
+{
+    if (childNode != _documentElement) {
+        throw DOMException(DOMException::NOT_FOUND_ERR);
+    }
+
+    _documentElement = NULL;
+
+    return childNode;
+}
+
+Node*
+Document::appendChild (Node* childNode)
+{
+    if (_documentElement == NULL) {
+        _documentElement = childNode;
+    }
+    else {
+        throw DOMException(DOMException::HIERARCHY_REQUEST_ERR);
+    }
+}
+
+bool
+Document::hasChildNodes (void)
+{
+    return (_documentElement != NULL);
+}
+
+Node*
+Document::cloneNode (bool deep)
+{
+    Document *document = new Document;
+
+    if (deep) {
+        document->appendChild(this->documentElement()->cloneNode());
+    }
+
+    return document;
 }
 
 };

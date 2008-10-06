@@ -1,9 +1,6 @@
-/// @file   dom/document.h
-/// @brief  This file includes the XML object definitions.
-
 /****************************************************************************
-* XML++ is a library for working with XML files.                                *
-* Copyright (C) 2008  cHoBi                                                 *
+* XML++ is a library for working with XML files.                            *
+* Copyleft meh.                                                             *
 *                                                                           *
 * This file is part of XML++                                                *
 *                                                                           *
@@ -34,7 +31,6 @@ namespace xmlpp {
 
 namespace DOM {
 
-/// @brief DOM document class.
 class Document : public Node
 {
   public:
@@ -42,7 +38,36 @@ class Document : public Node
 
     ~Document (void);
 
+    Element* documentElement (void);
+
   private:
+    Element* _documentElement;
+
+  // Parent realization
+  public:
+    DOMString nodeName (void) { return (DOMString) "#document"; };
+
+    DOMString nodeValue (void) throw() { return DOMString() };
+    void nodeValue (const char* value) throw() {};
+    void nodeValue (const DOMString& value) throw() {};
+
+    NodeList childNodes (void);
+    Node* firstChild (void);
+    Node* lastChild (void);
+
+    NamedNodeMap attributes (void);
+
+    Node* insertBefore (Node* childNode, Node* nodeAfter) throw();
+
+    Node* replaceChild (Node* newChild, Node* oldChild) throw();
+
+    Node* removeChild (Node* childNode) throw();
+
+    Node* appendChild (Node* childNode) throw();
+
+    bool hasChildNodes (void);
+
+    Node* cloneNode (bool deep = true);
 };
 
 };
