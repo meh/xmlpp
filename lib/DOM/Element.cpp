@@ -147,6 +147,165 @@ Element::setIdAttributeNode (Attr* idAttr, bool isId) throw()
     attr->_isId = isId;
 }
 
+// Parent realization.
+DOMString
+Element::nodeName (void)
+{
+    return _tagName;
+}
+
+DOMString
+Element::nodeValue (void) throw()
+{
+    return "";
+}
+
+void
+Element::nodeValue (const DOMString& value) throw()
+{
+}
+
+NodeList
+Element::childNodes (void)
+{
+    return _children;
+}
+
+Node*
+Element::firstChild (void)
+{
+    if (_children.length() == 0) {
+        return NULL;
+    }
+
+    return _children.item(0);
+}
+
+Node*
+Element::lastChild (void)
+{
+    if (_children.length() == 0) {
+        return NULL;
+    }
+
+    return _children.item(_children.length()-1);
+}
+
+NamedNodeMap
+Element::attributes (void)
+{
+    return _attributes;
+}
+
+Node*
+Element::insertBefore (Node* newChild, Node* refChild) throw()
+{
+    NodeType type = newChild->nodeType();
+    if (       type == Node::DOCUMENT_NODE
+            || type == Node::ATTRIBUTE_NODE
+            || type == Node::DOCUMENT_TYPE_NODE
+            || type == Node::NOTATION_NODE
+            || type == Node::ENTITY_REFERENCE_NODE) {
+        throw DOMException(DOMException::NOT_SUPPORTED_ERR);
+    }
+
+    if (newChild->ownerDocument() != this->ownerDocument()) {
+        throw DOMException(DOMException::WRONG_DOCUMENT_ERR);
+    }
+
+    for (unsigned long i = 0; i < _children.length(); i++) {
+        if (_children.item(i) == refChild) {
+            _children.insert(newChild, i);
+            return newChild;
+        }
+    }
+
+    throw DOMException(DOMException::NOT_FOUND_ERR);
+}
+
+Node*
+Element::replaceChild (Node* newChild, Node* oldChild) throw()
+{
+    NodeType type = newChild->nodeType();
+    if (       type == Node::DOCUMENT_NODE
+            || type == Node::ATTRIBUTE_NODE
+            || type == Node::DOCUMENT_TYPE_NODE
+            || type == Node::NOTATION_NODE
+            || type == Node::ENTITY_REFERENCE_NODE) {
+        throw DOMException(DOMException::NOT_SUPPORTED_ERR);
+    }
+
+    if (newChild->ownerDocument() != this->ownerDocument()) {
+        throw DOMException(DOMException::WRONG_DOCUMENT_ERR);
+    }
+
+    for (unsigned long i = 0; i < _children.length(); i++) {
+        if (_children.item(i) == oldChild) {
+            _children.replace(newChild, i);
+            return oldChild;
+        }
+    }
+
+    throw DOMException(DOMException::NOT_FOUND_ERR);
+   
+}
+
+Node*
+Element::removeChild (Node* oldChild) throw()
+{
+     for (unsigned long i = 0; i < _children.length(); i++) {
+        if (_children.item(i) == oldChild) {
+            return _children.remove(i);
+        }
+    }
+
+    throw DOMException(DOMException::NOT_FOUND_ERR);   
+}
+
+Node*
+Element::appendChild (Node* newChild) throw()
+{
+    NodeType type = newChild->nodeType();
+    if (       type == Node::DOCUMENT_NODE
+            || type == Node::ATTRIBUTE_NODE
+            || type == Node::DOCUMENT_TYPE_NODE
+            || type == Node::NOTATION_NODE
+            || type == Node::ENTITY_REFERENCE_NODE) {
+        throw DOMException(DOMException::NOT_SUPPORTED_ERR);
+    }
+
+    if (newChild->ownerDocument() != this->ownerDocument()) {
+        throw DOMException(DOMException::WRONG_DOCUMENT_ERR);
+    }
+
+    _children.insert(newChild);
+}
+
+bool
+Element::hasChildNodes (void)
+{
+    if (_children.empty()) {
+        return false;
+    }
+
+    return true;
+}
+
+Node*
+Element::cloneNode (bool deep)
+{
+    Element* element     = new Element(this->ownerDocument, this->nodeName());
+    element->_attributes = _attributes;
+
+    if (deep) {
+        for (unsigned long i = 0; i < _children.length(); i++) {
+            element->appendChild(_children.item(i)->cloneNode(true));
+        }
+    }
+
+    return element;
+}
+
 };
 
 };
