@@ -35,6 +35,24 @@ Node::Node (Document* ownerDocument, NodeType type)
     _ownerDocument = ownerDocument;
 }
 
+Node::~Node (void)
+{
+    switch (this->nodeType()) {
+        case ELEMENT_NODE                : delete (Element*)               this; break;
+        case ATTRIBUTE_NODE              : delete (Attr*)                  this; break;
+        case TEXT_NODE                   : delete (Text*)                  this; break;
+        case CDATA_SECTION_NODE          : delete (CDATASection*)          this; break;
+        case ENTYTY_REFERENCE_NODE       : delete (EntityReference*)       this; break;
+        case ENTITY_NODE                 : delete (Entity*)                this; break;
+        case PROCESSING_INSTRUCTION_NODE : delete (ProcessingInstruction*) this; break;
+        case COMMENT_NODE                : delete (Comment*)               this; break;
+        case DOCUMENT_NODE               : delete (Document*)              this; break;
+        case DOCUMENT_TYPE_NODE          : delete (DocumentType*)          this; break;
+        case DOCUMENT_FRAGMENT_NODE      : delete (DocumentFragment*)      this; break;
+        case NOTATION_NODE               : delete (Notation*)              this; break;
+    }
+}
+
 NodeType
 Node::nodeType (void)
 {

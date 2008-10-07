@@ -61,7 +61,15 @@ Element::setAttribute (const DOMString& name, const DOMString& value) throw()
     attr->_ownerElement = this;
 }
 
+void
+Element::removeAttribute (const DOMString& name) throw()
+{
+    Node* attr = _attributes.getNamedItem (name);
 
+    if (attr != NULL) {
+        delete _attributes.removeNamedItem(name);
+    }
+}
 
 };
 

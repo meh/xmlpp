@@ -72,6 +72,70 @@ Attr::nodeValue (const DOMString& value) throw()
     this->value(value);
 }
 
+NodeList
+Attr::childNodes (void)
+{
+    return NodeList();
+}
+
+Node*
+Attr::firstChild (void)
+{
+    return NULL;
+}
+
+Node*
+Attr::lastChild (void)
+{
+    return NULL;
+}
+
+NamedNodeMap
+Attr::attributes (void)
+{
+    return NamedNodeMap(this);
+}
+
+Node*
+Attr::insertBefore (Node* newChild, Node* refChild) throw()
+{
+    throw DOMException(DOMException::HIERARCHY_REQUEST_ERR);
+}
+
+Node*
+Attr::replaceChild (Node* newChild, Node* oldChild) throw()
+{
+    throw DOMException(DOMException::HIERARCHY_REQUEST_ERR);
+}
+
+Node*
+Attr::removeChild (Node* oldChild) throw()
+{
+    throw DOMException(DOMException::NOT_SUPPORTED_ERR);
+}
+
+Node*
+Attr::appendChild (Node* newChild) throw()
+{
+    throw DOMException(DOMException::NOT_SUPPORTED_ERR);
+}
+
+bool
+Attr::hasChildNodes (void)
+{
+    return false;
+}
+
+Node*
+Attr::cloneNode (bool deep)
+{
+    Attr* attr = new Attr (this->documentOwner(), this->name())
+    attr->value(this->value());
+    attr->_isId = _isId;
+
+    return attr;
+}
+
 };
 
 };

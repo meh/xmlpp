@@ -57,6 +57,8 @@ class Node
   public:
     #include "NodeList.h"
 
+    ~Node (void);
+
     virtual DOMString nodeName (void) = 0;
 
     virtual DOMString nodeValue (void) throw() = 0;

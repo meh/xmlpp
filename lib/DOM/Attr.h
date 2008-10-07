@@ -35,7 +35,6 @@ class Attr : public Node
     Attr (Document* ownerDocument, const DOMString& name);
 
   public:
-    friend class Document;
     friend class Element;
 
     DOMString name (void);
@@ -60,8 +59,27 @@ class Attr : public Node
     DOMString nodeName (void);
 
     DOMString nodeValue (void) throw();
-    void nodeValue (const char* value) throw();
-    void nodeValue (const DOMString& value) throw(); 
+    void nodeValue (const DOMString& value) throw();
+
+    NodeList childNodes (void);
+
+    Node* firstChild (void)
+
+    Node* lastChild (void)
+
+    NamedNodeMap attributes (void);
+
+    Node* insertBefore (Node* newChild, Node* refChild) throw();
+
+    Node* replaceChild (Node* newChild, Node* oldChild) throw();
+
+    Node* removeChild (Node* oldChild) throw();
+
+    Node* appendChild (Node* newChild) throw();
+
+    bool hasChildNodes (void);
+
+    Node* cloneNode (bool deep = true);
 };
 
 };
