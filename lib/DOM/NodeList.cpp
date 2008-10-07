@@ -13,6 +13,15 @@ Node::List::insert (Node* node, unsigned long index)
 }
 
 Node*
+Node::List::replace (Node* node, unsigned long index)
+{
+    Node* replaced = _nodes.at(index);
+    _nodes[index]  = node;
+
+    return replaced;
+}
+
+Node*
 Node::List::remove (unsigned long index)
 {
     Node* node = _nodes.at(index);

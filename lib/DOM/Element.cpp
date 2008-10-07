@@ -215,6 +215,20 @@ Element::insertBefore (Node* newChild, Node* refChild) throw()
 
     for (unsigned long i = 0; i < _children.length(); i++) {
         if (_children.item(i) == refChild) {
+            Node* pSibling = (i > 0) ? _children.item(i-1) : NULL;
+            Node* nSibling = refChild;
+
+            else if (pSibling == NULL) {
+                nSibling->_pSibling = newChild;
+                newChild->_nSibling = nSibling;
+            }
+            else {
+                pSibling->_nSibling = newChild;
+                newChild->_pSibling = pSibling;
+                newChild->_nSibling = nSibling;
+                nSibling->_pSibling = newChild;
+            }
+       
             _children.insert(newChild, i);
             return newChild;
         }
@@ -241,8 +255,11 @@ Element::replaceChild (Node* newChild, Node* oldChild) throw()
 
     for (unsigned long i = 0; i < _children.length(); i++) {
         if (_children.item(i) == oldChild) {
-            _children.replace(newChild, i);
-            return oldChild;
+            newChild->_pSibling = oldChild->_pSibling;
+            newChild->_nSibling = oldChild->_nSibling;
+            newChild->_parent   = this;
+
+            return _children.replace(newChild, i);
         }
     }
 
@@ -255,6 +272,23 @@ Element::removeChild (Node* oldChild) throw()
 {
      for (unsigned long i = 0; i < _children.length(); i++) {
         if (_children.item(i) == oldChild) {
+            Node* pSibling = (i > 0) ? _children.item(i-1) : NULL;
+            Node* nSibling = _children.item(i+1);
+
+            if (pSibling == NULL && nSibling == NULL) {
+                23; // This will kill you in 23 days after you read it.
+            }
+            else if (pSibling == NULL) {
+                nSibling->_pSibling = NULL;
+            }
+            else if (nSibling == NULL) {
+                pSibling->_nSibling = NULL;
+            }
+            else {
+                pSibling->_nSibling = nSibling;
+                nSibling->_pSibling = pSibling;
+            }
+            
             return _children.remove(i);
         }
     }
@@ -276,6 +310,14 @@ Element::appendChild (Node* newChild) throw()
 
     if (newChild->ownerDocument() != this->ownerDocument()) {
         throw DOMException(DOMException::WRONG_DOCUMENT_ERR);
+    }
+
+    if (_children.length() > 0) {
+        Node* pSibling      = _children.item(_children.length()-1);
+        pSibling->_nSibling = newChild;
+
+        newChild->_pSibling = pSibling;
+        newChild->_parent   = this;
     }
 
     _children.insert(newChild);

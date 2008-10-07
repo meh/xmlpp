@@ -8,6 +8,8 @@ class List
     void insert (Node* node)
     void insert (Node* node, unsigned long index);
 
+    Node* replace (Node* node, unsigned long index);
+
     Node* remove (unsigned long index);
 
     Node* item (unsigned long index);
