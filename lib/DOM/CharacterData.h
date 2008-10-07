@@ -18,50 +18,60 @@
 * along with this program.  If not, see <http://www.gnu.org/licenses/>.     *
 ****************************************************************************/
 
-#if !defined(XMLPP_DOM_ATTRIBUTE)
-#define XMLPP_DOM_ATTRIBUTE TRUE
+#if !defined(XMLPP_DOM_CHARACTERDATA_H)
+#define XMLPP_DOM_CHARACTERDATA_H
 
 #include "../common.h"
-
 #include "Node.h"
 
 namespace xmlpp {
 
 namespace DOM {
 
-class Attr : public Node
+class CharacterData : public Node
 {
   public:
-    Attr (Document* ownerDocument, const DOMString& name);
+    CharacterData (Document* ownerDocument, NodeType type);
 
-    DOMString name (void);
+    DOMString data (void);
+    void data (const DOMString& string);
 
-    DOMString value (void);
+    void appendData (const DOMString& arg) throw();
 
-    void value (const char* value);
-    void value (DOMString value);
+    void insertData (unsigned long offset, const DOMString& arg) throw();
 
-  private:
-    void _init (Element* owner, const DOMString& name, const DOMString& value, bool specified);
+    void replaceData (unsigned long offset, unsigned long count, const DOMString& arg) throw();
 
-  private:
-    Element* _ownerElement;
+    DOMString substringData (unsigned long offset, unsigned long count) throw();
 
-    DOMString _name;
-
-    DOMString _value;
-
-    bool _isId;
-
-    bool _specified;
+  protected:
+    DOMString _data;
 
   // Parent realization.
   public:
-    DOMString nodeName (void);
+    virtual DOMString nodeName (void) = 0;
 
-    DOMString nodeValue (void) throw();
-    void nodeValue (const char* value) throw();
-    void nodeValue (const DOMString& value) throw(); 
+    virtual DOMString nodeValue (void) throw() = 0;
+    virtual void nodeValue (const DOMString& value) throw() = 0;
+
+    NodeList childNodes (void);
+    Node* firstChild (void);
+    Node* lastChild (void);
+
+    NamedNodeMap attributes (void);
+
+    Node* insertBefore (Node* newChild, Node* refChild) throw();
+
+    Node* replaceChild (Node* newChild, Node* oldChild) throw();
+
+    Node* removeChild (Node* oldChild) throw();
+
+    Node* appendChild (Node* newChild) throw();
+
+    bool hasChildNodes (void);
+
+    Node* cloneNode (bool deep = true);
+
 };
 
 };
@@ -69,3 +79,4 @@ class Attr : public Node
 };
 
 #endif
+

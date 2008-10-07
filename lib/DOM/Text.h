@@ -21,104 +21,25 @@
 * along with this program.  If not, see <http://www.gnu.org/licenses/>.     *
 ****************************************************************************/
 
-#if !defined(XMLPP_DOM_TEXT)
-#define XMLPP_DOM_TEXT TRUE
+#if !defined(XMLPP_DOM_TEXT_h)
+#define XMLPP_DOM_TEXT_h
 
 #include "../common.h"
-#include "node.h"
+
+#include "CharacterData.h"
 
 namespace xmlpp {
 
 namespace DOM {
 
-/// @brief DOMText child node.
-class DOMText : public Node
+class Text : public CharacterData
 {
   public:
-    /// @brief  Create the text node with the given value.
-    ///
-    /// @param  text  The node's value.
-    DOMText (std::string value);
 
-    /// @brief  Create the text node with the given value.
-    ///
-    /// @param  text  The node's value.
-    DOMText (const char* value);
 
-    /// @brief  Get plain text of the element.
-    ///
-    /// @return  The plain text version of the element.
-    std::string plain (void);
 
-    /// @brief  Get the node's name.
-    ///
-    /// @return "#text"
-    std::string nodeName (void);
-
-    /// @brief  Get the node's value. 
-    ///
-    /// @return  The node's value.
-    std::string nodeValue (void);
-
-    /// @brief  Set the node value.
-    ///
-    /// @param  value  The text to set.
-    void nodeValue (std::string value);
-
-    /// @brief  Set the node value.
-    ///
-    /// @param  value  The text to set.
-    void nodeValue (const char* value);
-
-    /// @brief  Another name for the nodeValue method.
-    ///
-    /// @return  The text from the node.
-    std::string data (void);
-
-    // Don't use these methods.
-    #ifndef DOXYGEN_SHOULD_SKIP_THIS
-    std::string tagName (void) { return (std::string) ""; };
-    std::string id (void) { return (std::string) "" ; };
-    void id (std::string) {};
-    void id (const char*) {};
-    std::string title (void) { return (std::string) ""; };
-    void title (std::string title) {};
-    void title (const char* title) {};
-
-    void setAttribute (std::string, std::string) {};
-    void setAttribute (const char*, const char*) {};
-    std::string getAttribute (std::string) { return (std::string) ""; };
-    std::string getAttribute (const char*) { return (std::string) ""; };
-    void removeAttribute (std::string) {};
-    void removeAttribute (const char*) {};
-
-    void appendChild (Node*) {};
-    void insertBefore (Node*, Node*) {};
-    void replaceChild (Node*, Node*) {};
-    void removeChild (int) {};
-    void removeChild (Node*) {};
-    Nodes childNodes (void);
-    Node* childNodes (int);
-    Node* firstChild (void);
-    Node* lastChild (void);
-    #endif
-
-    /// @brief Clonde the text node.
-    ///
-    /// @return  The pointer to the cloned DOMText.
-    Node* cloneNode (bool cloneChildren = true);
-
-    // Don't use these methods.
-    #ifndef DOXYGEN_SHOULD_SKIP_THIS
-    Node* __getElementById (std::string id) { return NULL; };
-    Node* __getElementById (const char* id) { return NULL; };
-    Nodes getElementsByTagName (std::string tagName);
-    Nodes getElementsByTagName (const char* tagName);
-    bool hasChildNodes (void);
-    #endif
 
   private:
-    /// @brief  Node's value.
     std::string _value;
 };
 

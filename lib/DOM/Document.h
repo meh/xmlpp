@@ -18,14 +18,18 @@
 * along with this program.  If not, see <http://www.gnu.org/licenses/>.     *
 ****************************************************************************/
 
-#if !defined(XMLPP_DOM_DOCUMENT)
-#define XMLPP_DOM_DOCUMENT
+#if !defined(XMLPP_DOM_DOCUMENT_H)
+#define XMLPP_DOM_DOCUMENT_H
 
 #include "../common.h"
 
 #include "Node.h"
 #include "Element.h"
 #include "Text.h"
+#include "DocumentFragment.h"
+#include "Comment.h"
+#include "CDATASection.h"
+#include "Attr.h"
 
 namespace xmlpp {
 
@@ -40,15 +44,17 @@ class Document : public Node
 
     Element* documentElement (void);
 
-    Element* createElement (DOMString tagName);
+    Element* createElement (const DOMString& tagName);
 
     DocumentFragment* createDocumentFragment (void);
 
-    Text* createTextNode (DOMString data);
+    Text* createTextNode (const DOMString& data);
 
-    Comment* createComment (DOMString data);
+    Comment* createComment (const DOMString& data);
 
-    CDATASection* createCDATASection (DOMString data) throw();
+    CDATASection* createCDATASection (const DOMString& data) throw();
+
+    Attr* createAttribute (const DOMString& name) throw();
 
   private:
     Element* _documentElement;
@@ -58,7 +64,6 @@ class Document : public Node
     DOMString nodeName (void);
 
     DOMString nodeValue (void) throw();
-    void nodeValue (const char* value) throw();
     void nodeValue (const DOMString& value) throw();
 
     NodeList childNodes (void);
@@ -67,13 +72,13 @@ class Document : public Node
 
     NamedNodeMap attributes (void);
 
-    Node* insertBefore (Node* childNode, Node* nodeAfter) throw();
+    Node* insertBefore (Node* newChild, Node* refChild) throw();
 
     Node* replaceChild (Node* newChild, Node* oldChild) throw();
 
-    Node* removeChild (Node* childNode) throw();
+    Node* removeChild (Node* oldChild) throw();
 
-    Node* appendChild (Node* childNode) throw();
+    Node* appendChild (Node* newChild) throw();
 
     bool hasChildNodes (void);
 

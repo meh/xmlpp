@@ -52,6 +52,8 @@ class Node
     static const DOMDocumentPosition  DOCUMENT_POSITION_IMPLEMENTATION_SPECIFIC  = 0x20;
 
   public:
+    Node (Document* ownerDocument, NodeType type);
+
     #include "NodeList.h"
 
     virtual DOMString nodeName (void) = 0;
@@ -77,13 +79,13 @@ class Node
 
     Document* ownerDocument (void);
 
-    virtual Node* insertBefore (Node* childNode, Node* nodeAfter) throw() = 0;
+    virtual Node* insertBefore (Node* newChild, Node* refChild) throw() = 0;
 
     virtual Node* replaceChild (Node* newChild, Node* oldChild) throw() = 0;
 
-    virtual Node* removeChild (Node* childNode) throw() = 0;
+    virtual Node* removeChild (Node* oldChild) throw() = 0;
     
-    virtual Node* appendChild (Node* childNode) throw() = 0;
+    virtual Node* appendChild (Node* newChild) throw() = 0;
 
     virtual bool hasChildNodes (void) = 0;
 

@@ -36,9 +36,33 @@ Document::documentElement (void)
 }
 
 Element*
-Document::createElement (DOMString tagName)
+Document::createElement (const DOMString& tagName)
 {
     return new Element(this, tagName);
+}
+
+Text*
+Document::createTextNode (const DOMString& data)
+{
+    return new Text(this, data);
+}
+
+Comment*
+Document::createComment (const DOMString& data)
+{
+    return new Comment(this, data);
+}
+
+CDATASection*
+Document::createCDATASection (const DOMString& data) throw()
+{
+    return new CDATASection(this, data);
+}
+
+Attr*
+Document::createAttribute (const DOMString& name) throw()
+{
+    return new Attr(this, name);
 }
 
 // Parent realization
@@ -88,13 +112,11 @@ Document::lastChild (void)
 NamedNodeMap
 Document::attributes (void)
 {
-    NamedNodeMap attrs(this);
-
-    return attrs;
+    return NamedNodeMap(this);
 }
 
 Node*
-Document::insertBefore (Node* childNode, Node* nodeAfter) throw()
+Document::insertBefore (Node* newChild, Node* refChild) throw()
 {
     throw DOMException(DOMException::HIERARCHY_REQUEST_ERR);
 }
@@ -116,7 +138,7 @@ Document::replaceChild (Node* newChild, Node* oldChild) throw()
 }
 
 Node*
-Document::removeChild (Node* childNode) throw()
+Document::removeChild (Node* oldChild) throw()
 {
     if (childNode != _documentElement) {
         throw DOMException(DOMException::NOT_FOUND_ERR);
@@ -124,14 +146,14 @@ Document::removeChild (Node* childNode) throw()
 
     _documentElement = NULL;
 
-    return childNode;
+    return oldChild;
 }
 
 Node*
-Document::appendChild (Node* childNode)
+Document::appendChild (Node* newChild)
 {
     if (_documentElement == NULL) {
-        _documentElement = childNode;
+        _documentElement = newChild;
     }
     else {
         throw DOMException(DOMException::HIERARCHY_REQUEST_ERR);
