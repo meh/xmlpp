@@ -24,9 +24,10 @@ namespace xmlpp {
 
 namespace DOM {
 
-Element::Element (Document* ownerDocument, const DOMString& tagName) : Node (ownerDocument, Node::ELEMENT_NODE)
+Element::Element (Node* ownerDocument, const DOMString& tagName) : Node (ownerDocument, Node::ELEMENT_NODE)
 {
     _tagName = tagName;
+    _attributes._ownerNode = this;
 }
 
 DOMString
@@ -51,10 +52,10 @@ Element::getAttribute (const DOMString& name)
 void
 Element::setAttribute (const DOMString& name, const DOMString& value) throw()
 {
-    Node* attr = _attributes.getNamedItem(name);
+    Attr* attr = (Attr*) _attributes.getNamedItem(name);
 
     if (attr == NULL) {
-        attr = new Attribute(this->ownerDocument(), name);
+        attr = new Attr(this->ownerDocument(), name);
     }
 
     attr->value(value);
@@ -74,7 +75,7 @@ Element::removeAttribute (const DOMString& name) throw()
 Attr*
 Element::getAttributeNode (const DOMString& name)
 {
-    return _attributes.getNamedItem (name);
+    return (Attr*) _attributes.getNamedItem (name);
 }
 
 Attr*
@@ -84,7 +85,7 @@ Element::setAttributeNode (Attr* newAttr) throw()
         throw DOMException(DOMException::WRONG_DOCUMENT_ERR);
     }
 
-    return _attributes.setNamedItem(newAttr);
+    return (Attr*) _attributes.setNamedItem(newAttr);
 }
 
 NodeList
@@ -93,20 +94,24 @@ Element::getElementsByTagName (const DOMString& name)
     NodeList elements;
     
     for (size_t i = 0; i < _children.length(); i++) {
-        Node* node = _children.item(i)->tagName();
+        Node* node = _children.item(i);
 
         if (node->nodeType() == Node::ELEMENT_NODE) {
-            if (node->tagName() == Utils::toUpper(name)) {
+            if (((Element*)node)->tagName() == Utils::toUpper(name)) {
                 elements.insert(node);
             }
         }
     }
 
     for (size_t i = 0; i < _children.length(); i++) {
-        NodeList subElements = _children.item(i)->getElementsByTagName(name);
+        Node* node = _children.item(i);
 
-        for (size_t h = 0; h < subElements.length(); h++) {
-            elements.insert(subElements.item(h));
+        if (node->nodeType() == Node::ELEMENT_NODE) {
+            NodeList subElements = ((Element*)node)->getElementsByTagName(name);
+
+            for (size_t h = 0; h < subElements.length(); h++) {
+                elements.insert(subElements.item(h));
+            }
         }
     }
 
@@ -126,7 +131,7 @@ Element::hasAttribute (const DOMString& name)
 void
 Element::setIdAttribute (const DOMString& name, bool isId) throw()
 {
-    Attr* attr = _attributes.getNamedItem(name);
+    Attr* attr = (Attr*) _attributes.getNamedItem(name);
 
     if (attr == NULL) {
         throw DOMException(DOMException::NOT_FOUND_ERR);
@@ -138,7 +143,7 @@ Element::setIdAttribute (const DOMString& name, bool isId) throw()
 void
 Element::setIdAttributeNode (Attr* idAttr, bool isId) throw()
 {
-    Attr* attr = _attributes.getNamedItem(idAttr->nodeName());
+    Attr* attr = (Attr*) _attributes.getNamedItem(idAttr->nodeName());
 
     if (attr == NULL) {
         throw DOMException(DOMException::NOT_FOUND_ERR);
@@ -218,7 +223,7 @@ Element::insertBefore (Node* newChild, Node* refChild) throw()
             Node* pSibling = (i > 0) ? _children.item(i-1) : NULL;
             Node* nSibling = refChild;
 
-            else if (pSibling == NULL) {
+            if (pSibling == NULL) {
                 nSibling->_pSibling = newChild;
                 newChild->_nSibling = nSibling;
             }
@@ -336,7 +341,7 @@ Element::hasChildNodes (void)
 Node*
 Element::cloneNode (bool deep)
 {
-    Element* element     = new Element(this->ownerDocument, this->nodeName());
+    Element* element     = new Element(this->ownerDocument(), this->nodeName());
     element->_attributes = _attributes;
 
     if (deep) {

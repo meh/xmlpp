@@ -20,6 +20,11 @@
 
 #include "NamedNodeMap.h"
 
+NamedNodeMap::NamedNodeMap (void)
+{
+    _ownerNode = NULL;
+}
+
 NamedNodeMap::NamedNodeMap (Node* ownerNode)
 {
     _ownerNode = ownerNode;

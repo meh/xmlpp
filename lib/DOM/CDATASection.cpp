@@ -20,7 +20,7 @@
 
 #include "CDATASection.h"
 
-CDATASection::CDATASection (Document* ownerDocument, const DOMString& data) : CharacterData (ownerDocument, Node::CDATA_SECTION_NODE)
+CDATASection::CDATASection (Node* ownerDocument, const DOMString& data) : CharacterData (ownerDocument, Node::CDATA_SECTION_NODE)
 {
     _data = data;
 }

@@ -30,11 +30,11 @@ namespace DOM {
 
 class Comment : public CharacterData
 {
-  protected:
-    Comment (Document* ownerDocument, const DOMString& data);
-
   public:
     friend class Document;
+
+  protected:
+    Comment (Node* ownerDocument, const DOMString& data);
 
   // Parent realization.
   public:

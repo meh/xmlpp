@@ -1,9 +1,6 @@
-/// @file   xml/parser.h
-/// @brief  This file includes the XML parser definitions.
-
 /****************************************************************************
-* XML++ is a library for working with XML files.                                *
-* Copyright (C) 2008  cHoBi                                                 *
+* XML++ is a library for working with XML files.                            *
+* Copyleft meh.                                                             *
 *                                                                           *
 * This file is part of XML++                                                *
 *                                                                           *
@@ -21,12 +18,12 @@
 * along with this program.  If not, see <http://www.gnu.org/licenses/>.     *
 ****************************************************************************/
 
-#include "../common.h"
-#include "../dom/document.h"
-#include "../dom/element.h"
-#include "../dom/text.h"
+#include "../DOM.h"
 
+/*
 namespace xmlpp {
+
+namespace XML {
 
 struct XMLNode
 {
@@ -145,3 +142,5 @@ class XMLParser
 
 };
 
+};
+*/

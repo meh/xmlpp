@@ -32,22 +32,23 @@ namespace DOM {
 
 class Element : public Node
 {
-  protected:
-    Element (Document* ownerDocument, const DOMString& tagName);
-
   public:
     friend class Document;
 
+  protected:
+    Element (Node* ownerDocument, const DOMString& tagName);
+
+  public:
     DOMString tagName (void);
 
-    DOMString getAttribute (const DOMString& name)
+    DOMString getAttribute (const DOMString& name);
     void setAttribute (const DOMString& name, const DOMString& value) throw();
     void removeAttribute (const DOMString& name) throw();
 
     Attr* getAttributeNode (const DOMString& name);
     Attr* setAttributeNode (Attr* newAttr) throw();
 
-    NodeList getELementsByTagName (const DOMString& name);
+    NodeList getElementsByTagName (const DOMString& name);
 
     bool hasAttribute (const DOMString& name);
 

@@ -26,15 +26,15 @@
 namespace xmlpp {
 
 namespace Utils {
-    static std::string escapeSlashes (std::string& text);
+    std::string escapeSlashes (std::string& text);
 
-    static std::string addSlashes (std::string& text);
+    std::string addSlashes (std::string& text);
 
-    static bool isSpace (const char text);
+    bool isSpace (const char text);
 
-    static std::string toUpper (const std::string& text);
+    std::string toUpper (const std::string& text);
 
-    static std::string strip (const char* chars, std::string string);
+    std::string strip (const char* chars, std::string string);
 };
 
 };

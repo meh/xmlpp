@@ -24,7 +24,7 @@ namespace xmlpp {
 
 namespace DOM {
 
-Node::Node (Document* ownerDocument, NodeType type)
+Node::Node (Node* ownerDocument, NodeType type)
 {
     _type = type;
 
@@ -99,7 +99,7 @@ Node::operator != (Node* another)
 }
 
 DOMString
-CharacterData::_unescapeString (const DOMString& text)
+Node::_unescapeString (const DOMString& text)
 {
     DOMString nText;
     
@@ -122,10 +122,11 @@ CharacterData::_unescapeString (const DOMString& text)
 }
 
 DOMString
-CharacterData::_unescapeChar (const DOMString& text)
+Node::_unescapeChar (const DOMString& text)
 {
     DOMString nText;
-    while (size_t i < text.length() && text[i] != ';') {
+    size_t i = 0;
+    while (i < text.length() && text[i] != ';') {
         nText += text[i];
         i++;
     }
@@ -144,7 +145,7 @@ CharacterData::_unescapeChar (const DOMString& text)
 }
 
 std::map<DOMString, DOMString>
-CharacterData::_specialChars (void)
+Node::_specialChars (void)
 {
     static std::map<DOMString, DOMString> specialChars;
 

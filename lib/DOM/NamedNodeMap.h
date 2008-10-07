@@ -27,6 +27,10 @@
 class NamedNodeMap
 {
   public:
+    friend class Element;
+
+  public:
+    NamedNodeMap (void);
     NamedNodeMap (Node* ownerNode);
 
     Node* getNamedItem (const DOMString& name);

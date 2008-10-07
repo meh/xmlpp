@@ -26,6 +26,7 @@
 #define XMLPP_COMMON TRUE
 
 #include <string>
+#include <cstring>
 #include <vector>
 #include <map>
 #include <cctype>

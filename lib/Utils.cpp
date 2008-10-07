@@ -53,7 +53,7 @@ namespace Utils {
         return slashed;
     }
 
-    std::string toUppercase (std::string& text)
+    std::string toUpper (const std::string& text)
     {
         std::string upper;
 
@@ -73,7 +73,7 @@ namespace Utils {
         for (i = 0; i < string.length(); i++) {
             bool write = true;
             size_t h;
-            for (h = 0; h < strlen(chars); h++) {
+            for (h = 0; h < std::strlen(chars); h++) {
                 if (chars[h] == string.at(i)) {
                     write = false;
                     break;

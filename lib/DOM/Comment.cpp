@@ -20,7 +20,7 @@
 
 #include "Comment.h"
 
-Comment::Comment (Document* ownerDocument, const DOMString& data) : CharacterData (ownerDocument, Node::COMMENT_NODE)
+Comment::Comment (Node* ownerDocument, const DOMString& data) : CharacterData (ownerDocument, Node::COMMENT_NODE)
 {
     _data = data;
 }

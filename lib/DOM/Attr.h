@@ -31,20 +31,24 @@ namespace DOM {
 
 class Attr : public Node
 {
-  protected:
-    Attr (Document* ownerDocument, const DOMString& name);
-
   public:
+    friend class Document;
     friend class Element;
 
+  protected:
+    Attr (Node* ownerDocument, const DOMString& name);
+
+  public:
     DOMString name (void);
 
     DOMString value (void);
 
     void value (const DOMString& value);
 
+    Node* ownerElement (void);
+
   private:
-    Element* _ownerElement;
+    Node* _ownerElement;
 
     DOMString _name;
 
@@ -63,9 +67,9 @@ class Attr : public Node
 
     NodeList childNodes (void);
 
-    Node* firstChild (void)
+    Node* firstChild (void);
 
-    Node* lastChild (void)
+    Node* lastChild (void);
 
     NamedNodeMap attributes (void);
 

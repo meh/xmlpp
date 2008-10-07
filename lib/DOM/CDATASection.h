@@ -18,8 +18,8 @@
 * along with this program.  If not, see <http://www.gnu.org/licenses/>.     *
 ****************************************************************************/
 
-#if !defined(XMLPP_DOM_COMMENT_H)
-#define XMLPP_DOM_COMMENT_H
+#if !defined(XMLPP_DOM_CDATA_SECTION_H)
+#define XMLPP_DOM_CDATA_SECTION_H
 
 #include "../common.h"
 #include "CharacterData.h"
@@ -31,7 +31,7 @@ namespace DOM {
 class CDATASection : public CharacterData
 {
   protected:
-    CDATASection (Document* ownerDocument, const DOMString& data);
+    CDATASection (Node* ownerDocument, const DOMString& data);
 
   public:
     friend class Document;

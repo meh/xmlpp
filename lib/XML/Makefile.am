@@ -1,5 +1,5 @@
-h_sources = parser.h
-cc_sources = parser.cpp
+h_sources = Parser.h
+cc_sources = Parser.cpp
 
 library_includedir=/usr/include/xml++/xml
 library_include_HEADERS = $(h_sources)

@@ -24,7 +24,7 @@ namespace xmlpp {
 
 namespace DOM {
 
-Document::Document (void) : Node(Node::DOCUMENT_NODE)
+Document::Document (void) : Node(this, Node::DOCUMENT_NODE)
 {
     _documentElement = NULL;
 }
@@ -79,11 +79,6 @@ Document::nodeValue (void) throw()
 }
 
 void
-Document::nodeValue (const char* value) throw() 
-{
-}
-
-void
 Document::nodeValue (const DOMString& value) throw()
 {
 }
@@ -132,7 +127,7 @@ Document::replaceChild (Node* newChild, Node* oldChild) throw()
         throw DOMException(DOMException::NOT_FOUND_ERR);
     }
 
-    _documentElement = newChild;
+    _documentElement = (Element*) newChild;
 
     return oldChild;
 }
@@ -140,7 +135,7 @@ Document::replaceChild (Node* newChild, Node* oldChild) throw()
 Node*
 Document::removeChild (Node* oldChild) throw()
 {
-    if (childNode != _documentElement) {
+    if (oldChild != _documentElement) {
         throw DOMException(DOMException::NOT_FOUND_ERR);
     }
 
@@ -150,14 +145,13 @@ Document::removeChild (Node* oldChild) throw()
 }
 
 Node*
-Document::appendChild (Node* newChild)
+Document::appendChild (Node* newChild) throw()
 {
     if (_documentElement == NULL) {
-        _documentElement = newChild;
+        return (_documentElement = (Element*) newChild);
     }
-    else {
-        throw DOMException(DOMException::HIERARCHY_REQUEST_ERR);
-    }
+
+    throw DOMException(DOMException::HIERARCHY_REQUEST_ERR);
 }
 
 bool

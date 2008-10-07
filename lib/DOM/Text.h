@@ -30,12 +30,13 @@ namespace DOM {
 
 class Text : public CharacterData
 {
-  protected:
-    Text (Document* ownerDocument, const DOMString& data);
-
   public:
     friend class Document;
 
+  protected:
+    Text (Node* ownerDocument, const DOMString& data);
+
+  public:
     Text* splitText (unsigned long offset);
 
   // Parent realization.

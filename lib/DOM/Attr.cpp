@@ -24,7 +24,7 @@ namespace xmlpp {
 
 namespace DOM {
 
-Attr::Attr (Document* ownerDocument, const DOMString& name) : Node(ownerDocument, Node::ATTRIBUTE_NODE)
+Attr::Attr (Node* ownerDocument, const DOMString& name) : Node(ownerDocument, Node::ATTRIBUTE_NODE)
 {
     _name = name;
 }
@@ -47,7 +47,7 @@ Attr::value (const DOMString& value)
     _value = value;
 }
 
-Element*
+Node*
 Attr::ownerElement (void)
 {
     return _ownerElement;
@@ -60,7 +60,7 @@ Attr::nodeName (void)
     return this->name();
 }
 
-void
+DOMString
 Attr::nodeValue (void) throw()
 {
     this->value();
@@ -129,7 +129,7 @@ Attr::hasChildNodes (void)
 Node*
 Attr::cloneNode (bool deep)
 {
-    Attr* attr = new Attr (this->documentOwner(), this->name())
+    Attr* attr = new Attr (this->ownerDocument(), this->name());
     attr->value(this->value());
     attr->_isId = _isId;
 

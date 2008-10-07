@@ -21,6 +21,8 @@
 #if !defined (XMLPP_DOMEXCEPTION_H)
 #define XMLPP_DOMEXCEPTION_H 
 
+#include "../common.h"
+
 namespace xmlpp {
 
 namespace DOM {

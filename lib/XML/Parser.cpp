@@ -1,9 +1,6 @@
-/// @file   xml/parser.cpp
-/// @brief  This file includes the XML parser implementations.
-
 /****************************************************************************
-* XML++ is a library for working with XML files.                                *
-* Copyright (C) 2008  cHoBi                                                 *
+* XML++ is a library for working with XML files.                            *
+* Copyleft meh.                                                             *
 *                                                                           *
 * This file is part of XML++                                                *
 *                                                                           *
@@ -21,9 +18,12 @@
 * along with this program.  If not, see <http://www.gnu.org/licenses/>.     *
 ****************************************************************************/
 
-#include "parser.h"
+#include "Parser.h"
 
+/*
 namespace xmlpp {
+
+namespace XML {
 
 DOMDocument* XMLParser::parseFromFile (std::string xmlFile)
 {
@@ -418,3 +418,5 @@ std::string XMLParser::__getVersion (std::string xml)
 
 };
 
+};
+*/

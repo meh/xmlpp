@@ -31,7 +31,7 @@ namespace DOM {
 class CharacterData : public Node
 {
   protected:
-    CharacterData (Document* ownerDocument, NodeType type);
+    CharacterData (Node* ownerDocument, NodeType type);
 
   public:
     virtual ~CharacterData (void);

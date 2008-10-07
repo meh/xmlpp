@@ -54,8 +54,12 @@ class Node
     static const DocumentPosition  DOCUMENT_POSITION_IS_CONTAINED             = 0x10;
     static const DocumentPosition  DOCUMENT_POSITION_IMPLEMENTATION_SPECIFIC  = 0x20;
 
+  public:
+    friend class Document;
+    friend class Element;
+
   protected:
-    Node (Document* ownerDocument, NodeType type);
+    Node (Node* ownerDocument, NodeType type);
 
   public:
     virtual ~Node (void);
@@ -81,7 +85,7 @@ class Node
 
     virtual NamedNodeMap attributes (void) = 0;
 
-    Document* ownerDocument (void);
+    Node* ownerDocument (void);
 
     virtual Node* insertBefore (Node* newChild, Node* refChild) throw() = 0;
 
@@ -121,7 +125,7 @@ class Node
 
     NamedNodeMap _attributes;
 
-    Document* _ownerDocument;
+    Node* _ownerDocument;
 };
 
 typedef Node::NodeList     NodeList;

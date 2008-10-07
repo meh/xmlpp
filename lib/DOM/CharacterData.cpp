@@ -24,7 +24,7 @@ namespace xmlpp {
 
 namespace DOM {
 
-CharacterData::CharacterData (Document* ownerDocument, NodeType type) : Node (ownerDocument, type)
+CharacterData::CharacterData (Node* ownerDocument, NodeType type) : Node (ownerDocument, type)
 {
 }
 

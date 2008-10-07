@@ -1,9 +1,6 @@
-/// @file dom_exception.cpp
-/// @brief This file includes the dom exception implementations.
-
 /****************************************************************************
-* XML++ is a library for working with XML files.                                *
-* Copyright (C) 2008  cHoBi                                                 *
+* XML++ is a library for working with XML files.                            *
+* Copyleft meh.                                                             *
 *                                                                           *
 * This file is part of XML++                                                *
 *                                                                           *
@@ -21,7 +18,7 @@
 * along with this program.  If not, see <http://www.gnu.org/licenses/>.     *
 ****************************************************************************/
 
-#include "dom_exception.h"
+#include "DOMException.h"
 
 namespace xmlpp {
 
@@ -30,7 +27,12 @@ namespace DOM {
 DOMException::DOMException (int code) : std::exception ()
 {
     switch (code) {
-        
+        case INDEX_SIZE_ERR:
+        _description = "Index or size is negative, or greater than the allowed value.";
+        break;
+
+        case DOMSTRING_SIZE_ERR:
+        break;
     }
 }
 

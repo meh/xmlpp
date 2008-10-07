@@ -24,7 +24,7 @@ namespace xmlpp {
 
 namespace DOM {
 
-Text::Text (Document* ownerDocument, const DOMString& data) : CharacterData (ownerDocument, Node::TEXT_NODE)
+Text::Text (Node* ownerDocument, const DOMString& data) : CharacterData (ownerDocument, Node::TEXT_NODE)
 {
     _data = data;
 }
@@ -36,11 +36,10 @@ Text::splitText (unsigned long offset)
         throw DOMException(DOMException::NO_MODIFICATION_ALLOWED_ERR);
     }
 
-    Text* split = new Text(this->ownerDocument());
-    split->data(this->substringData(offset));
+    Text* split = new Text(this->ownerDocument(), this->substringData(offset));
     this->data(this->substringData(0, offset));
 
-    return this->parentNode()->insertBefore(split, this->nextSibling());
+    return (Text*) this->parentNode()->insertBefore(split, this->nextSibling());
 }
 
 // Parent realization.
@@ -51,7 +50,7 @@ Text::nodeName (void)
 }
 
 DOMString
-Text::nodeValue (void)
+Text::nodeValue (void) throw()
 {
     return _unescapeString(this->data());
 }
@@ -65,8 +64,7 @@ Text::nodeValue (const DOMString& value) throw()
 Node*
 Text::cloneNode (bool deep)
 {
-    Text* text = new Text(this->ownerDocument());
-    text->nodeValue(this->data());
+    Text* text = new Text(this->ownerDocument(), this->data());
 
     return text;
 }
