@@ -32,21 +32,21 @@ class NamedNodeMap
   public:
     NamedNodeMap (Node* ownerNode);
 
-    Node* getNamedItem (DOMString name);
+    Node* getNamedItem (const DOMString& name);
 
     Node* setNamedItem (Node* node) throw ();
     
-    Node* removeNamedItem (DOMString name) throw ();
+    Node* removeNamedItem (const DOMString& name) throw ();
 
     Node* item (unsigned long index);
 
     unsigned long length (void);
 
-    Node* getNamedItemNS (DOMString namespaceURI, DOMString localName) throw ();
+    Node* getNamedItemNS (const DOMString& namespaceURI, const DOMString& localName) throw ();
 
     Node* setNamedItemNS (Node* node) throw ();
 
-    Node* removeNamedItemNS (DOMString namespaceURI, DOMString localName) throw ();
+    Node* removeNamedItemNS (const DOMString& namespaceURI, const DOMString& localName) throw ();
 
   private:
     Node* _ownerNode;

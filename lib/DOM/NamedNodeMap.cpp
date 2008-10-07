@@ -26,7 +26,7 @@ NamedNodeMap::NamedNodeMap (Node* ownerNode)
 }
 
 Node*
-NamedNodeMap::getNamedItem (DOMString name)
+NamedNodeMap::getNamedItem (const DOMString& name)
 {
     return _items[name];
 }
@@ -66,7 +66,7 @@ NamedNodeMap::setNamedItem (Node* node) throw ()
 
 
 Node*
-NamedNodeMap::removeNamedItem (DOMString name)
+NamedNodeMap::removeNamedItem (const DOMString& name)
 {
     if (_items.find(name) != _items.end()) {
         Node *removed = _items[name];
@@ -85,7 +85,7 @@ NamedNodeMap::item (unsigned long index)
         return NULL;
     }
 
-    std::map<DOMString, Node*>::iterator item;
+    std::map<const DOMString&, Node*>::iterator item;
     size_t i;
     for (item = _items.begin(), i = 0; item != _items.end(); item++, i++) {
         if (index == i) {
@@ -102,21 +102,21 @@ NamedNodeMap::length (void)
 
 /// @todo  Not implemented yet.
 Node*
-NamedNodeMap::getNamedItemNS (DOMString namespaceURI, DOMString localName) throw (DOMException)
+NamedNodeMap::getNamedItemNS (const DOMString& namespaceURI, const DOMString& localName) throw (DOMException)
 {
     return NULL;
 }
 
 /// @todo  Not implemented yet.
 Node*
-NamedNodeMap::setNamedItemNS (DOMString namespaceURI, DOMString localName) throw (DOMException)
+NamedNodeMap::setNamedItemNS (const DOMString& namespaceURI, const DOMString& localName) throw (DOMException)
 {
     return NULL;
 }
 
 /// @todo  Not implemented yet.
 Node*
-NamedNodeMap::removeNamedItemNS (DOMString namespaceURI, DOMString localName) throw (DOMException)
+NamedNodeMap::removeNamedItemNS (const DOMString& namespaceURI, const DOMString& localName) throw (DOMException)
 {
     return NULL;
 }

@@ -31,6 +31,9 @@ namespace DOM {
 class Node 
 {
   public:
+    #include "NodeList.h"
+
+  public:
     static const NodeType  ELEMENT_NODE                 = 1;
     static const NodeType  ATTRIBUTE_NODE               = 2;
     static const NodeType  TEXT_NODE                    = 3;
@@ -55,8 +58,6 @@ class Node
     Node (Document* ownerDocument, NodeType type);
 
   public:
-    #include "NodeList.h"
-
     ~Node (void);
 
     virtual DOMString nodeName (void) = 0;

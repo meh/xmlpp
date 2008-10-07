@@ -71,6 +71,12 @@ Element::removeAttribute (const DOMString& name) throw()
     }
 }
 
+Attr*
+Element::getAttributeNode (const DOMString& name)
+{
+    return _attributes.getNamedItem (name);
+}
+
 };
 
 };
