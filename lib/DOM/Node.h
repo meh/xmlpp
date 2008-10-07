@@ -22,7 +22,7 @@
 #define XMLPP_DOM_NODE
 
 #include "../common.h"
-#include "DOMNamedNodeMap.h"
+#include "NamedNodeMap.h"
 
 namespace xmlpp {
 

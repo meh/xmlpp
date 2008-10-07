@@ -1,9 +1,6 @@
-/// @file dom_exception.h
-/// @brief This file includes the dom exception definitions.
-
 /****************************************************************************
-* XML++ is a library for working with XML files.                                *
-* Copyright (C) 2008  cHoBi                                                 *
+* XML++ is a library for working with XML files.                            *
+* Copyleft meh.                                                             *
 *                                                                           *
 * This file is part of XML++                                                *
 *                                                                           *
@@ -21,16 +18,12 @@
 * along with this program.  If not, see <http://www.gnu.org/licenses/>.     *
 ****************************************************************************/
 
-#if !defined (XMLPP_DOM_EXCEPTION)
-#define XMLPP_DOM_EXCEPTION TRUE
-
-#include "exception.h"
+#if !defined (XMLPP_DOMEXCEPTION_H)
+#define XMLPP_DOMEXCEPTION_H 
 
 namespace xmlpp {
 
 namespace DOM {
-
-
 
 class DOMException : public std::exception
 {

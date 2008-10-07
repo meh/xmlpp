@@ -37,17 +37,20 @@
 #include <cstdlib>
 #include <cstdio>
 
-#include "exception/exception.h"
-#include "utils.h"
+#include "DOM/DOMException.h"
+#include "Utils.h"
 
 namespace xmlpp {
+
+namespace DOM {
 
 typedef  std::string         DOMString;
 typedef  unsigned long long  DOMTimeStamp;
 typedef  unsigned short      DOMNodeType;
 typedef  unsigned short      DOMDocumentPosition;
 typedef  void*               DOMUserData;
-typedef  void*               DOMObject;
+
+};
 
 };
 
