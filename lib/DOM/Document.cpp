@@ -35,6 +35,12 @@ Document::documentElement (void)
     return _documentElement;
 }
 
+Element*
+Document::createElement (DOMString tagName)
+{
+    return new Element(this, tagName);
+}
+
 // Parent realization
 DOMString
 Document::nodeName (void)

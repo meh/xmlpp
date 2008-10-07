@@ -57,7 +57,6 @@ class Node
     virtual DOMString nodeName (void) = 0;
 
     virtual DOMString nodeValue (void) throw() = 0;
-    virtual void nodeValue (const char* value) throw() = 0;
     virtual void nodeValue (const DOMString& value) throw() = 0;
 
     NodeType nodeType (void);

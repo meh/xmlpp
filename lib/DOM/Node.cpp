@@ -68,7 +68,7 @@ Node::attributes (void)
 bool
 Node::isSameNode (Node* another)
 {
-    if (this == another) {
+    if (((void*) this) == ((void*) another)) {
         return true;
     }
     else {

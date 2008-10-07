@@ -40,16 +40,26 @@ class Document : public Node
 
     Element* documentElement (void);
 
+    Element* createElement (DOMString tagName);
+
+    DocumentFragment* createDocumentFragment (void);
+
+    Text* createTextNode (DOMString data);
+
+    Comment* createComment (DOMString data);
+
+    CDATASection* createCDATASection (DOMString data) throw();
+
   private:
     Element* _documentElement;
 
   // Parent realization
   public:
-    DOMString nodeName (void) { return (DOMString) "#document"; };
+    DOMString nodeName (void);
 
-    DOMString nodeValue (void) throw() { return DOMString() };
-    void nodeValue (const char* value) throw() {};
-    void nodeValue (const DOMString& value) throw() {};
+    DOMString nodeValue (void) throw();
+    void nodeValue (const char* value) throw();
+    void nodeValue (const DOMString& value) throw();
 
     NodeList childNodes (void);
     Node* firstChild (void);
