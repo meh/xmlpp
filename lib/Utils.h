@@ -1,9 +1,6 @@
-/// @file utils.h
-/// @brief This file includes the utils definitions.
-
 /****************************************************************************
-* XML++ is a library for working with XML files.                                *
-* Copyright (C) 2008  cHoBi                                                 *
+* XML++ is a library for working with XML files.                            *
+* Copyleft meh.                                                             *
 *                                                                           *
 * This file is part of XML++                                                *
 *                                                                           *
@@ -21,64 +18,23 @@
 * along with this program.  If not, see <http://www.gnu.org/licenses/>.     *
 ****************************************************************************/
 
-#include "common.h"
+#if !defined XMLPP_UTILS_H
+#define XMLPP_UTILS_H
 
-#if !defined XMLPP_UTILS_HEADER
-#define XMLPP_UTILS_HEADER TRUE
+#include "common.h"
 
 namespace xmlpp {
 
 namespace Utils {
-    /// @brief  Escape all the slashes in a string.
-    ///
-    /// @param  text  The string to add slashes to.
-    ///
-    /// @return  The fully escaped string.
-    std::string escapeSlashes (std::string& text);
+    static std::string escapeSlashes (std::string& text);
 
-    /// @brief  PHP-like addslashes()
-    ///
-    /// @param  text  The text to escape.
-    ///
-    /// @return  The slashed string.
-    std::string addSlashes (std::string& text);
-    
-    std::string unescapeString (std::string& text);
+    static std::string addSlashes (std::string& text);
 
-    /// @brief  Unescapes html special chars.
-    ///
-    /// @param  text  The string with the beginning of the special char.
-    ///
-    /// @return  The unescaped char.
-    std::string unescapeChar (std::string& text);
+    static bool isSpace (const char text);
 
-    /// @brief Check if the char is a 'space' (space, \n, \r, \t).
-    ///
-    /// @param  text  The char to check.
-    ///
-    /// @return  True if it's a space.
-    ///          False if it's not.
-    bool isSpace (const char text);
+    static std::string toUpper (const std::string& text);
 
-    /// @brief  Get the special chars associative array.
-    ///
-    /// @return  The map with all the special chars.
-    std::map<std::string, std::string> getSpecialChars (void);
-
-    /// @brief  Get the uppercase string.
-    ///
-    /// @param  text  The string that will be uppercased.
-    ///
-    /// @return  The uppercase string.
-    std::string toUppercase (std::string& text);
-
-    /// @brief  Strip the passed chars from the string.
-    ///
-    /// @param  chars   The chars to strip.
-    /// @param  string  The string to strip from.
-    ///
-    /// @return  The stripped string.
-    std::string strip (const char* chars, std::string string);
+    static std::string strip (const char* chars, std::string string);
 };
 
 };

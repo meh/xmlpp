@@ -42,11 +42,7 @@ class Attr : public Node
 
     DOMString value (void);
 
-    void value (const char* value);
-    void value (DOMString value);
-
-  private:
-    void _init (Element* owner, const DOMString& name, const DOMString& value, bool specified);
+    void value (const DOMString& value);
 
   private:
     Element* _ownerElement;

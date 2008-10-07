@@ -98,9 +98,12 @@ class Node
 
     bool operator == (Node* another);
     bool operator != (Node* another);
-
+    
   protected:
-    Node (Document* ownerDocument, NodeType type);
+    DOMString _unescapeString (const DOMString& text);
+    DOMString _unescapeChar (const DOMString& text);
+    
+    std::map<DOMString, DOMString> _specialChars (void);
 
   protected:
     NodeType _type;
@@ -110,6 +113,8 @@ class Node
     Node* _nSibling;
 
     Node* _parent;
+
+    NamedNodeMap _attributes;
 
     Document* _ownerDocument;
 };

@@ -48,12 +48,6 @@ class CharacterData : public Node
   protected:
     DOMString _data;
 
-  protected:
-    DOMString _unescapeString (const DOMString& text);
-    DOMString _unescapeChar (const DOMString& text);
-    
-    std::map<DOMString, DOMString> _specialChars (void);
-
   // Parent realization.
   public:
     virtual DOMString nodeName (void) = 0;

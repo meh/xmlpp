@@ -38,7 +38,24 @@ class Element : public Node
   public:
     friend class Document;
 
+    DOMString tagName (void);
 
+    DOMString getAttribute (const DOMString& name)
+    void setAttribute (const DOMString& name, const DOMString& value) throw();
+    void removeAttribute (const DOMString& name) throw();
+
+    Attr* getAttributeNode (const DOMString& name);
+    Attr* setAttributeNode (Attr* newAttr) throw();
+
+    NodeList getELementsByTagName (const DOMString& name);
+
+    bool hasAttribute (const DOMString& name);
+
+    void setIdAttribute (const DOMString& name, bool isId) throw();
+    void setIdAttributNode (Attr* idAttr, bool isId) throw();
+
+  private:
+    DOMString _tagName;
 
   // Parent realization.
   public:

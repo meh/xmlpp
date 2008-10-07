@@ -25,15 +25,10 @@
 #if !defined(XMLPP_COMMON)
 #define XMLPP_COMMON TRUE
 
-#include <string.h>
-#include <fstream>
 #include <string>
 #include <vector>
-#include <stack>
-#include <list>
 #include <map>
 #include <cctype>
-#include <ctime>
 #include <cstdlib>
 #include <cstdio>
 

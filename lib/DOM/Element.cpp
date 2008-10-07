@@ -1,9 +1,6 @@
-/// @file dom/element.cpp
-/// @brief This file includes the DOM element implementations.
-
 /****************************************************************************
-* XML++ is a library for working with XML files.                                *
-* Copyright (C) 2008  cHoBi                                                 *
+* XML++ is a library for working with XML files.                            *
+* Copyleft meh.                                                             *
 *                                                                           *
 * This file is part of XML++                                                *
 *                                                                           *
@@ -27,10 +24,44 @@ namespace xmlpp {
 
 namespace DOM {
 
-Element::Element (Document* ownerDocument, const DOMString& tagName)
+Element::Element (Document* ownerDocument, const DOMString& tagName) : Node (ownerDocument, Node::ELEMENT_NODE)
 {
-
+    _tagName = tagName;
 }
+
+DOMString
+Element::tagName (void)
+{
+    return Utils::toUpper(_tagName);
+}
+
+DOMString
+Element::getAttribute (const DOMString& name)
+{
+    Node* attr = _attributes.getNamedItem(name);
+
+    if (attr == NULL) {
+        return "";
+    }
+    else {
+        return attr->nodeValue();
+    }
+}
+
+void
+Element::setAttribute (const DOMString& name, const DOMString& value) throw()
+{
+    Node* attr = _attributes.getNamedItem(name);
+
+    if (attr == NULL) {
+        attr = new Attribute(this->ownerDocument(), name);
+    }
+
+    attr->value(value);
+    attr->_ownerElement = this;
+}
+
+
 
 };
 

@@ -24,37 +24,10 @@ namespace xmlpp {
 
 namespace DOM {
 
-Attr::Attr (const char* name) : Node(Node::ATTRIBUTE_NODE)
+Attr::Attr (Document* ownerDocument, const DOMString& name) : Node(ownerDocument, Node::ATTRIBUTE_NODE)
 {
-    _init(owner, (DOMString) name, (DOMString) "", false);
+    _name = name;
 }
-
-Attr::Attr (const char* name, const char* value) : Node(Node::ATTRIBUTE_NODE)
-{
-    _init(owner, (DOMString) name, (DOMString) value, true);
-}
-
-Attr::Attr (const DOMString& name) : Node(Node::ATTRIBUTE_NODE)
-{
-    _init(owner, name, (DOMString) "", false);
-}
-
-Attr::Attr (const DOMString& name, const DOMString& value) : Node(Node::ATTRIBUTE_NODE)
-{
-    _init(owner, name, value, true);
-}
-
-void
-Attr::_init (const DOMString& name, const DOMString& value, bool specified)
-{
-    _ownerElement = NULL;
-
-    _name  = name;
-    _value = value;
-
-    _isId      = (name == "id");
-    _specified = specified;
-}   
 
 DOMString
 Attr::name (void)
@@ -65,13 +38,7 @@ Attr::name (void)
 DOMString
 Attr::value (void)
 {
-    return Utils::unescapeString(_value);
-}
-
-void
-Attr::value (const char* value)
-{
-    _value = value;
+    return _unescapeString(_value);
 }
 
 void
@@ -97,12 +64,6 @@ void
 Attr::nodeValue (void) throw()
 {
     this->value();
-}
-
-void
-Attr::nodeValue (const char* value) throw()
-{
-    this->value(value);
 }
 
 void
