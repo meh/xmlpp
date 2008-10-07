@@ -1,11 +1,11 @@
-#if defined(XMLPP_NODE_H)
+#if defined(XMLPP_DOM_NODE_H)
+#if !defined(XMLPP_DOM_NODELIST_H)
+#define XMLPP_DOM_NODELIST_H
 
-class List
+class NodeList
 {
   public:
-    List (void) {};
-
-    void insert (Node* node)
+    void insert (Node* node);
     void insert (Node* node, unsigned long index);
 
     Node* replace (Node* node, unsigned long index);
@@ -22,5 +22,6 @@ class List
     std::vector<Node*> _nodes;
 };
 
+#endif
 #endif
 

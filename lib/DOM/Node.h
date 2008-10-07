@@ -18,11 +18,10 @@
 * along with this program.  If not, see <http://www.gnu.org/licenses/>.     *
 ****************************************************************************/
 
-#if !defined(XMLPP_DOM_NODE)
-#define XMLPP_DOM_NODE
+#if !defined(XMLPP_DOM_NODE_H)
+#define XMLPP_DOM_NODE_H
 
 #include "../common.h"
-#include "NamedNodeMap.h"
 
 namespace xmlpp {
 
@@ -32,6 +31,7 @@ class Node
 {
   public:
     #include "NodeList.h"
+    #include "NamedNodeMap.h"
 
   public:
     static const NodeType  ELEMENT_NODE                 = 1;
@@ -47,12 +47,12 @@ class Node
     static const NodeType  DOCUMENT_FRAGMENT_NODE       = 11;
     static const NodeType  NOTATION_NODE                = 12;
 
-    static const DOMDocumentPosition  DOCUMENT_POSITION_DISCONNECTED             = 0x01;
-    static const DOMDocumentPosition  DOCUMENT_POSITION_PRECEDING                = 0x02;
-    static const DOMDocumentPosition  DOCUMENT_POSITION_FOLLOWING                = 0x04;
-    static const DOMDocumentPosition  DOCUMENT_POSITION_CONTAINS                 = 0x08;
-    static const DOMDocumentPosition  DOCUMENT_POSITION_IS_CONTAINED             = 0x10;
-    static const DOMDocumentPosition  DOCUMENT_POSITION_IMPLEMENTATION_SPECIFIC  = 0x20;
+    static const DocumentPosition  DOCUMENT_POSITION_DISCONNECTED             = 0x01;
+    static const DocumentPosition  DOCUMENT_POSITION_PRECEDING                = 0x02;
+    static const DocumentPosition  DOCUMENT_POSITION_FOLLOWING                = 0x04;
+    static const DocumentPosition  DOCUMENT_POSITION_CONTAINS                 = 0x08;
+    static const DocumentPosition  DOCUMENT_POSITION_IS_CONTAINED             = 0x10;
+    static const DocumentPosition  DOCUMENT_POSITION_IMPLEMENTATION_SPECIFIC  = 0x20;
 
   protected:
     Node (Document* ownerDocument, NodeType type);
@@ -69,7 +69,7 @@ class Node
 
     Node* parentNode (void);
 
-    virtual Node::List childNodes (void) = 0;
+    virtual NodeList childNodes (void) = 0;
 
     virtual Node* firstChild (void) = 0;
 
@@ -124,14 +124,12 @@ class Node
     Document* _ownerDocument;
 };
 
-typedef Node::List NodeList;
+typedef Node::NodeList     NodeList;
+typedef Node::NamedNodeMap NamedNodeMap;
 
 };
 
 };
-
-#include "element.h"
-#include "text.h"
 
 #endif
 

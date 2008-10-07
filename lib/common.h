@@ -40,10 +40,10 @@ namespace xmlpp {
 namespace DOM {
 
 typedef  std::string         DOMString;
-typedef  unsigned long long  DOMTimeStamp;
-typedef  unsigned short      DOMNodeType;
-typedef  unsigned short      DOMDocumentPosition;
-typedef  void*               DOMUserData;
+typedef  unsigned long long  TimeStamp;
+typedef  unsigned short      NodeType;
+typedef  unsigned short      DocumentPosition;
+typedef  void*               UserData;
 
 };
 

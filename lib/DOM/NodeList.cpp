@@ -1,19 +1,19 @@
-#include "NodeList.h"
+#include "NodeNodeList.h"
 
 void
-Node::List::insert (Node* node)
+Node::NodeList::insert (Node* node)
 {
     _nodes.push_back(node);
 }
 
 void
-Node::List::insert (Node* node, unsigned long index)
+Node::NodeList::insert (Node* node, unsigned long index)
 {
     _nodes.insert(_nodes.begin+index, node);
 }
 
 Node*
-Node::List::replace (Node* node, unsigned long index)
+Node::NodeList::replace (Node* node, unsigned long index)
 {
     Node* replaced = _nodes.at(index);
     _nodes[index]  = node;
@@ -22,7 +22,7 @@ Node::List::replace (Node* node, unsigned long index)
 }
 
 Node*
-Node::List::remove (unsigned long index)
+Node::NodeList::remove (unsigned long index)
 {
     Node* node = _nodes.at(index);
     _erase(_nodes.begin()+index);
@@ -31,7 +31,7 @@ Node::List::remove (unsigned long index)
 }
 
 Node*
-Node::List::item (unsigned long index)
+Node::NodeList::item (unsigned long index)
 {
     if (index >= this->length()) {
         return NULL;
@@ -41,13 +41,13 @@ Node::List::item (unsigned long index)
 }
 
 unsigned long
-Node::List::length (void)
+Node::NodeList::length (void)
 {
     return _nodes.size();
 }
 
 bool
-Node::List::empty (void)
+Node::NodeList::empty (void)
 {
     return _nodes.empty();
 }

@@ -18,14 +18,11 @@
 * along with this program.  If not, see <http://www.gnu.org/licenses/>.     *
 ****************************************************************************/
 
+#if defined(XMLPP_DOM_NODE_H)
 #if !defined(XMLPP_NAMEDNODEMAP_H)
 #define XMLPP_NAMEDNODEMAP_H
 
 #include "../common.h"
-
-namespace xmlpp {
-
-namespace DOM {
 
 class NamedNodeMap
 {
@@ -54,9 +51,6 @@ class NamedNodeMap
     std::map<DOMString, Node*> _items;
 };
 
-};
-
-};
-
+#endif
 #endif
 
