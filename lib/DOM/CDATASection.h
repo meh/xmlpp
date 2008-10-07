@@ -18,60 +18,38 @@
 * along with this program.  If not, see <http://www.gnu.org/licenses/>.     *
 ****************************************************************************/
 
-#include "Text.h"
+#if !defined(XMLPP_DOM_COMMENT_H)
+#define XMLPP_DOM_COMMENT_H
+
+#include "../common.h"
+#include "CharacterData.h"
 
 namespace xmlpp {
 
 namespace DOM {
 
-Text::Text (Document* ownerDocument, const DOMString& data) : CharacterData (ownerDocument, Node::TEXT_NODE)
+class CDATASection : public CharacterData
 {
-    _data = data;
-}
+  protected:
+    CDATASection (Document* ownerDocument, const DOMString& data);
 
-Text*
-Text::splitText (unsigned long offset)
-{
-    if (this->parentNode() == NULL) {
-        throw DOMException(DOMException::NO_MODIFICATION_ALLOWED_ERR);
-    }
+  public:
+    friend class Document;
 
-    Text* split = new Text(this->ownerDocument());
-    split->data(this->substringData(offset));
-    this->data(this->substringData(0, offset));
+  // Parent realization.
+  public:
+    DOMString nodeName (void);
 
-    return this->parentNode()->insertBefore(split, this->nextSibling());
-}
+    DOMString nodeValue (void) throw();
+    void nodeValue (const DOMString& value) throw();
 
-// Parent realization.
-DOMString
-Text::nodeName (void)
-{
-    return (DOMString) "#text";
-}
-
-DOMString
-Text::nodeValue (void)
-{
-    return _unescapeString(this->data());
-}
-
-void
-Text::nodeValue (const DOMString& value) throw()
-{
-    this->data(value);
-}
-
-Node*
-Text::cloneNode (bool deep)
-{
-    Text* text = new Text(this->ownerDocument());
-    text->nodeValue(this->data());
-
-    return text;
-}
+    Node* cloneNode (bool deep = true);
 
 };
 
 };
+
+};
+
+#endif
 

@@ -26,7 +26,7 @@
 #include "Node.h"
 #include "Element.h"
 #include "Text.h"
-#include "DocumentFragment.h"
+//#include "DocumentFragment.h"
 #include "Comment.h"
 #include "CDATASection.h"
 #include "Attr.h"
@@ -46,7 +46,7 @@ class Document : public Node
 
     Element* createElement (const DOMString& tagName);
 
-    DocumentFragment* createDocumentFragment (void);
+//    DocumentFragment* createDocumentFragment (void);
 
     Text* createTextNode (const DOMString& data);
 

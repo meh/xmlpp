@@ -18,60 +18,38 @@
 * along with this program.  If not, see <http://www.gnu.org/licenses/>.     *
 ****************************************************************************/
 
-#include "Text.h"
+#include "CDATASection.h"
 
-namespace xmlpp {
-
-namespace DOM {
-
-Text::Text (Document* ownerDocument, const DOMString& data) : CharacterData (ownerDocument, Node::TEXT_NODE)
+CDATASection::CDATASection (Document* ownerDocument, const DOMString& data) : CharacterData (ownerDocument, Node::CDATA_SECTION_NODE)
 {
     _data = data;
 }
 
-Text*
-Text::splitText (unsigned long offset)
-{
-    if (this->parentNode() == NULL) {
-        throw DOMException(DOMException::NO_MODIFICATION_ALLOWED_ERR);
-    }
-
-    Text* split = new Text(this->ownerDocument());
-    split->data(this->substringData(offset));
-    this->data(this->substringData(0, offset));
-
-    return this->parentNode()->insertBefore(split, this->nextSibling());
-}
-
 // Parent realization.
 DOMString
-Text::nodeName (void)
+CDATASection::nodeName (void)
 {
-    return (DOMString) "#text";
+    return (DOMString) "#cdata-section";
 }
 
 DOMString
-Text::nodeValue (void)
+CDATASection::nodeValue (void)
 {
-    return _unescapeString(this->data());
+    return this->data();
 }
 
 void
-Text::nodeValue (const DOMString& value) throw()
+CDATASection::nodeValue (const DOMString& value) throw()
 {
     this->data(value);
 }
 
 Node*
-Text::cloneNode (bool deep)
+CDATASection::cloneNode (bool deep)
 {
-    Text* text = new Text(this->ownerDocument());
-    text->nodeValue(this->data());
+    CDATASection* cdatasection = new CDATASection(this->ownerDocument());
+    cdatasection->nodeValue(this->data());
 
-    return text;
+    return cdatasection;
 }
-
-};
-
-};
 

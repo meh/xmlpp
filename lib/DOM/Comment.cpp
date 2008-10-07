@@ -20,9 +20,9 @@
 
 #include "Comment.h"
 
-Comment::Comment (Document* ownerDocument) : CharacterData (ownerDocument, Node::COMMENT_NODE)
+Comment::Comment (Document* ownerDocument, const DOMString& data) : CharacterData (ownerDocument, Node::COMMENT_NODE)
 {
-
+    _data = data;
 }
 
 // Parent realization.

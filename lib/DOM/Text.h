@@ -31,7 +31,7 @@ namespace DOM {
 class Text : public CharacterData
 {
   protected:
-    Text (Document* ownerDocument);
+    Text (Document* ownerDocument, const DOMString& data);
 
   public:
     friend class Document;
