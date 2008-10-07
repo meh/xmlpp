@@ -28,6 +28,10 @@ CharacterData::CharacterData (Document* ownerDocument, NodeType type) : Node (ow
 {
 }
 
+CharacterData::~CharacterData (void)
+{
+}
+
 DOMString
 CharacterData::data (void)
 {

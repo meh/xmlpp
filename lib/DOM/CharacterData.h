@@ -34,6 +34,8 @@ class CharacterData : public Node
     CharacterData (Document* ownerDocument, NodeType type);
 
   public:
+    virtual ~CharacterData (void);
+
     DOMString data (void);
     void data (const DOMString& string);
 

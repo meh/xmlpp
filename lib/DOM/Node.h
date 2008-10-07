@@ -58,7 +58,7 @@ class Node
     Node (Document* ownerDocument, NodeType type);
 
   public:
-    ~Node (void);
+    virtual ~Node (void);
 
     virtual DOMString nodeName (void) = 0;
 
