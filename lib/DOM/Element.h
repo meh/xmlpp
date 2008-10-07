@@ -52,7 +52,7 @@ class Element : public Node
     bool hasAttribute (const DOMString& name);
 
     void setIdAttribute (const DOMString& name, bool isId) throw();
-    void setIdAttributNode (Attr* idAttr, bool isId) throw();
+    void setIdAttributeNode (Attr* idAttr, bool isId) throw();
 
   private:
     DOMString _tagName;
@@ -81,7 +81,6 @@ class Element : public Node
     bool hasChildNodes (void);
 
     Node* cloneNode (bool deep = true);
-
 };
 
 };

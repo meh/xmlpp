@@ -117,6 +117,8 @@ class Node
 
     Node* _parent;
 
+    NodeList _children;
+
     NamedNodeMap _attributes;
 
     Document* _ownerDocument;

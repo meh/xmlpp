@@ -28,10 +28,14 @@ NamedNodeMap::NamedNodeMap (Node* ownerNode)
 Node*
 NamedNodeMap::getNamedItem (const DOMString& name)
 {
-    return _items[name];
+    if (_items.find(name) != _items.end()) {
+        return _items[name];
+    }
+    else {
+        return NULL;
+    }
 }
 
-/// @todo  Add the INUSE_ATTRIBUTE_ERR exception.
 Node*
 NamedNodeMap::setNamedItem (Node* node) throw ()
 {

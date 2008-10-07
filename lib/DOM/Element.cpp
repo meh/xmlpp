@@ -77,6 +77,76 @@ Element::getAttributeNode (const DOMString& name)
     return _attributes.getNamedItem (name);
 }
 
+Attr*
+Element::setAttributeNode (Attr* newAttr) throw()
+{
+    if (newAttr->ownerDocument() != this->ownerDocument()) {
+        throw DOMException(DOMException::WRONG_DOCUMENT_ERR);
+    }
+
+    return _attributes.setNamedItem(newAttr);
+}
+
+NodeList
+Element::getElementsByTagName (const DOMString& name)
+{
+    NodeList elements;
+    
+    for (size_t i = 0; i < _children.length(); i++) {
+        Node* node = _children.item(i)->tagName();
+
+        if (node->nodeType() == Node::ELEMENT_NODE) {
+            if (node->tagName() == Utils::toUpper(name)) {
+                elements.insert(node);
+            }
+        }
+    }
+
+    for (size_t i = 0; i < _children.length(); i++) {
+        NodeList subElements = _children.item(i)->getElementsByTagName(name);
+
+        for (size_t h = 0; h < subElements.length(); h++) {
+            elements.insert(subElements.item(h));
+        }
+    }
+
+    return elements;
+}
+
+bool
+Element::hasAttribute (const DOMString& name)
+{
+    if (_attributes.getNamedItem(name) == NULL) {
+        return false;
+    }
+
+    return true;
+}
+
+void
+Element::setIdAttribute (const DOMString& name, bool isId) throw()
+{
+    Attr* attr = _attributes.getNamedItem(name);
+
+    if (attr == NULL) {
+        throw DOMException(DOMException::NOT_FOUND_ERR);
+    }
+
+    attr->_isId = isId;
+}
+
+void
+Element::setIdAttributeNode (Attr* idAttr, bool isId) throw()
+{
+    Attr* attr = _attributes.getNamedItem(idAttr->nodeName());
+
+    if (attr == NULL) {
+        throw DOMException(DOMException::NOT_FOUND_ERR);
+    }
+
+    attr->_isId = isId;
+}
+
 };
 
 };
