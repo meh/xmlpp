@@ -1,9 +1,6 @@
-/// @file dom/text.cpp
-/// @brief This file includes the DOM text implementations.
-
 /****************************************************************************
-* XML++ is a library for working with XML files.                                *
-* Copyright (C) 2008  cHoBi                                                 *
+* XML++ is a library for working with XML files.                            *
+* Copyleft meh.                                                             *
 *                                                                           *
 * This file is part of XML++                                                *
 *                                                                           *
@@ -21,94 +18,56 @@
 * along with this program.  If not, see <http://www.gnu.org/licenses/>.     *
 ****************************************************************************/
 
-#include "text.h"
+#include "Text.h"
 
 namespace xmlpp {
 
 namespace DOM {
 
-Text::Text (std::string value) : Node (text)
+Text::Text (Document* ownerDocument) : CharacterData (ownerDocument, Node::TEXT_NODE)
 {
-    this->_value = value;
 }
 
-Text::Text (const char* value) : Node (text)
+Text*
+Text::splitText (unsigned long offset)
 {
-    this->_value = value;
+    if (this->parentNode() == NULL) {
+        throw DOMException(DOMException::NO_MODIFICATION_ALLOWED_ERR);
+    }
+
+    Text* split = new Text(this->ownerDocument());
+    split->data(this->substringData(offset));
+    this->data(this->substringData(0, offset));
+
+    return this->parentNode()->insertBefore(split, this->nextSibling());
 }
 
-std::string Text::plain (void)
+// Parent realization.
+DOMString
+Text::nodeName (void)
 {
-    return this->_value;
+    return (DOMString) "#text";
 }
 
-// Getters.
-std::string Text::nodeName (void)
+DOMString
+Text::nodeValue (void)
 {
-    return "#text";
+    return _unescapeString(this->data());
 }
 
-std::string Text::nodeValue (void)
+void
+Text::nodeValue (const DOMString& value) throw()
 {
-    return this->_value;
+    this->data(value);
 }
 
-void Text::nodeValue (const char* value)
+Node*
+Text::cloneNode (bool deep)
 {
-    this->_value = value;
-}
+    Text* text = new Text(this->ownerDocument());
+    text->nodeValue(this->data());
 
-void Text::nodeValue (std::string value)
-{
-    this->_value = value;
-}
-
-std::string Text::data (void)
-{
-    return this->_value;
-}
-
-Nodes Text::childNodes (void)
-{
-    throw DOMException(EX_NODE_IS_TEXT);
-}
-
-Node* Text::childNodes (int)
-{
-    throw DOMException(EX_NODE_IS_TEXT);
-}
-
-Node* Text::firstChild (void)
-{
-    throw DOMException(EX_NODE_IS_TEXT);
-}
-
-Node* Text::lastChild (void)
-{
-    throw DOMException(EX_NODE_IS_TEXT);
-}
-
-Node* Text::cloneNode (bool cloneChildren)
-{
-    Text* copy = new Text(this->nodeValue());
-    return copy;
-}
-
-std::vector<Node*> Text::getElementsByTagName (std::string tagName)
-{
-    std::vector<Node*> elements;
-
-    return elements;
-}
-
-std::vector<Node*> Text::getElementsByTagName (const char* tagName)
-{
-    return this->getElementsByTagName((std::string) tagName);
-}
-
-bool Text::hasChildNodes (void)
-{
-    return false;
+    return text;
 }
 
 };

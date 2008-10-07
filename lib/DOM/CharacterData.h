@@ -30,9 +30,10 @@ namespace DOM {
 
 class CharacterData : public Node
 {
-  public:
+  protected:
     CharacterData (Document* ownerDocument, NodeType type);
 
+  public:
     DOMString data (void);
     void data (const DOMString& string);
 
@@ -42,10 +43,16 @@ class CharacterData : public Node
 
     void replaceData (unsigned long offset, unsigned long count, const DOMString& arg) throw();
 
-    DOMString substringData (unsigned long offset, unsigned long count) throw();
+    DOMString substringData (unsigned long offset, unsigned long count = -1) throw();
 
   protected:
     DOMString _data;
+
+  protected:
+    DOMString _unescapeString (const DOMString& text);
+    DOMString _unescapeChar (const DOMString& text);
+    
+    std::map<DOMString, DOMString> _specialChars (void);
 
   // Parent realization.
   public:
@@ -70,8 +77,7 @@ class CharacterData : public Node
 
     bool hasChildNodes (void);
 
-    Node* cloneNode (bool deep = true);
-
+    virtual Node* cloneNode (bool deep = true) = 0;
 };
 
 };

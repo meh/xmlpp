@@ -31,8 +31,12 @@ namespace DOM {
 
 class Attr : public Node
 {
-  public:
+  protected:
     Attr (Document* ownerDocument, const DOMString& name);
+
+  public:
+    friend class Document;
+    friend class Element;
 
     DOMString name (void);
 

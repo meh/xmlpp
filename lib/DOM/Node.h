@@ -51,9 +51,10 @@ class Node
     static const DOMDocumentPosition  DOCUMENT_POSITION_IS_CONTAINED             = 0x10;
     static const DOMDocumentPosition  DOCUMENT_POSITION_IMPLEMENTATION_SPECIFIC  = 0x20;
 
-  public:
+  protected:
     Node (Document* ownerDocument, NodeType type);
 
+  public:
     #include "NodeList.h"
 
     virtual DOMString nodeName (void) = 0;

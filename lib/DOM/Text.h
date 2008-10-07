@@ -1,9 +1,6 @@
-/// @file   dom/text.h
-/// @brief  This file includes the DOM text definitions.
-
 /****************************************************************************
-* XML++ is a library for working with XML files.                                *
-* Copyright (C) 2008  cHoBi                                                 *
+* XML++ is a library for working with XML files.                            *
+* Copyleft meh.                                                             *
 *                                                                           *
 * This file is part of XML++                                                *
 *                                                                           *
@@ -25,7 +22,6 @@
 #define XMLPP_DOM_TEXT_h
 
 #include "../common.h"
-
 #include "CharacterData.h"
 
 namespace xmlpp {
@@ -34,13 +30,22 @@ namespace DOM {
 
 class Text : public CharacterData
 {
+  protected:
+    Text (Document* ownerDocument);
+
   public:
+    friend class Document;
 
+    Text* splitText (unsigned long offset);
 
+  // Parent realization.
+  public:
+    DOMString nodeName (void);
 
+    DOMString nodeValue (void) throw();
+    void nodeValue (const DOMString& value) throw();
 
-  private:
-    std::string _value;
+    Node* cloneNode (bool deep = true);
 };
 
 };
