@@ -39,6 +39,8 @@ class Element : public Node
     Element (Node* ownerDocument, const DOMString& tagName);
 
   public:
+    ~Element (void);
+
     DOMString tagName (void);
 
     DOMString getAttribute (const DOMString& name);

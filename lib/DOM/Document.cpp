@@ -29,6 +29,13 @@ Document::Document (void) : Node(this, Node::DOCUMENT_NODE)
     _documentElement = NULL;
 }
 
+Document::~Document (void)
+{
+    if (_documentElement != NULL) {
+        delete _documentElement;
+    }
+}
+
 Element*
 Document::documentElement (void)
 {
