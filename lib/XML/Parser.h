@@ -30,12 +30,6 @@ namespace xmlpp {
 
 namespace XML {
 
-struct XMLNode
-{
-    size_t point;
-    std::string text;
-};
-
 class XMLParser
 {
 
