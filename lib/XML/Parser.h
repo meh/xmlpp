@@ -19,8 +19,13 @@
 ****************************************************************************/
 
 #include "../DOM.h"
+#include "../Utils.h"
 
-/*
+#include <fstream>
+#include <stack>
+
+#include "XMLException.h"
+
 namespace xmlpp {
 
 namespace XML {
@@ -31,116 +36,11 @@ struct XMLNode
     std::string text;
 };
 
-/// @brief  The XMLParser class parses a xml file or string and prepares the XML
-///         object.
 class XMLParser
 {
-  public:
-    /// @brief  Parse an xml file.
-    /// 
-    /// @param  xmlFile  The xml file.
-    ///
-    /// @return  The DOM document.
-    DOMDocument* parseFromFile (std::string xmlFile);
 
-    /// @brief  Parse an xml file.
-    /// 
-    /// @param  xmlFile  The xml file.
-    ///
-    /// @return  The DOM document.
-    DOMDocument* parseFromFile (const char* xmlFile);
-
-    /// @brief  Parses the text passed.
-    ///
-    /// @param  xmlText  The text to parse.
-    ///
-    /// @return  The DOM object.
-    DOMDocument* parseFromString (std::string xmlText);
-
-    /// @brief  Parses the text passed.
-    ///
-    /// @param  xmlText  The text to parse.
-    ///
-    /// @return  The DOM object.
-    DOMDocument* parseFromString (const char* xmlText);
-
-    /// @brief  Gets the last parsed XML document.
-    ///
-    /// @return  The last DOM object.
-    DOMDocument* document (void);
-
-    /// @brief Gets the last parsed plain text.
-    ///
-    /// @return The last plain text document.
-    std::string plain (void);
-
-  private:
-    /// @brief  Line number being parsed.
-    int _line;
-
-  private:
-    /// @brief  Gets the XMLParser file.
-    ///
-    /// @param  xmlString  The filename of the xml file.
-    ///
-    /// @return  The plain text.
-    std::string __fetch (const char* fileName);
-
-    /// @brief  Parses the text passed.
-    ///
-    /// @param  xml  The text to parse.
-    ///
-    /// @return  The DOM object.
-    DOMDocument* __parseDocument (std::string xml);
-
-    /// @brief  Parse the node.
-    ///
-    /// @param  xml  The fetched node.
-    ///
-    /// @return  The child node.
-    DOMNode* __parseNode (std::string xml);
-
-    /// @brief  Fetch the node.
-    ///
-    /// @param  start  The position in the xml file.
-    /// @param  xml    The xml text from the start point.
-    ///
-    /// @return  The fetched node.
-    XMLNode* __fetchNode (size_t start, std::string xml);
-
-    /// @brief  Parse an element and get name and attributes.
-    ///
-    /// @param  xml  The xml element.
-    ///
-    /// @return  The element.
-    DOMElement* __parseElement (std::string xml);
-
-    /// @brief  Clean the element node (remove spaces etc)
-    std::string __cleanElement (std::string element);
-
-    /// @brief  Parse a text node removing spaces and substituting special chars.
-    ///
-    /// @param  text  The xml text node.
-    ///
-    /// @return  The text node.
-    DOMText* __parseText (std::string text);
-
-    /// @brief  Get the name of the tag that's being closed.
-    ///
-    /// @param  tag  The raw tag.
-    ///
-    /// @return  The tag name if it's a valid closing tag or NULL if it's not a tag.
-    std::string __closingTag (std::string tag);
-
-    /// @brief  Get the xml version.
-    ///
-    /// @param  The xml element with the version.
-    ///
-    /// @return  The version string.
-    std::string __getVersion (std::string xml);
 };
 
 };
 
 };
-*/

@@ -1,7 +1,7 @@
-h_sources = Parser.h
-cc_sources = Parser.cpp
+h_sources = Parser.h XMLException.h
+cc_sources = Parser.cpp XMLException.cpp
 
-library_includedir=/usr/include/xml++/xml
+library_includedir=/usr/include/xml++/XML
 library_include_HEADERS = $(h_sources)
 
 noinst_LTLIBRARIES= libxml.la

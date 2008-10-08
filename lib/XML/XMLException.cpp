@@ -1,9 +1,6 @@
-/// @file xml_exception.h
-/// @brief This file includes the xml exception definitions.
-
 /****************************************************************************
-* XML++ is a library for working with XML files.                                *
-* Copyright (C) 2008  cHoBi                                                 *
+* XML++ is a library for working with XML files.                            *
+* Copyleft meh.                                                             *
 *                                                                           *
 * This file is part of XML++                                                *
 *                                                                           *
@@ -21,32 +18,40 @@
 * along with this program.  If not, see <http://www.gnu.org/licenses/>.     *
 ****************************************************************************/
 
-#if !defined(XMLPP_XML_EXCEPTION)
-#define XMLPP_XML_EXCEPTION TRUE
-
-#include "exception.h"
+#include "XMLException.h"
 
 namespace xmlpp {
 
-/// @brief  Exception raised if there's an error in read the xml file.
-const int EX_PARSER_FILE_READ_ERROR = 1;
+namespace XML {
 
-/// @brief  Exception raised if the XML file has some errors.
-const int EX_XML_NOT_STANDARD = 2;
-
-/// @brief  Exception raised if there's an error in a node.
-const int EX_XML_BAD_NODE = 3;
-
-/// @brief  Exception raised if a tag isn't closed.
-const int EX_XML_TAG_NOT_CLOSED = 4;
-
-class XMLException : public Exception
+XMLException::XMLException (int code) : std::exception ()
 {
-  public:
-    XMLException (int code);
-};
+    switch (code) {
+        case PARSER_FILE_READ_ERROR:
+        _description = "Error while reading the text file, maybe it doesn't exist.";
+        break;
+
+        case NOT_STANDARD:
+        _description = "There are some errors in the XML file.";
+        break;
+
+        case BAD_NODE:
+        _description = "A node is bad written.";
+        break;
+
+        case TAG_NOT_CLOSED:
+        _description = "A tag is not closed.";
+        break;
+    }
+}
+
+const char*
+XMLException::what (void) const throw()
+{
+    return _description.c_str();
+}
 
 };
 
-#endif
+};
 

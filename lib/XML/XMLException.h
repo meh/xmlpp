@@ -1,9 +1,6 @@
-/// @file xml_exception.cpp
-/// @brief This file includes the xml exception implementations.
-
 /****************************************************************************
-* XML++ is a library for working with XML files.                                *
-* Copyright (C) 2008  cHoBi                                                 *
+* XML++ is a library for working with XML files.                            *
+* Copyleft meh.                                                             *
 *                                                                           *
 * This file is part of XML++                                                *
 *                                                                           *
@@ -21,30 +18,43 @@
 * along with this program.  If not, see <http://www.gnu.org/licenses/>.     *
 ****************************************************************************/
 
-#include "xml_exception.h"
+#if !defined(XMLPP_XML_EXCEPTION_H)
+#define XMLPP_XML_EXCEPTION_H
+
+#include <string>
 
 namespace xmlpp {
 
-XMLException::XMLException (int code) : Exception ()
+namespace XML {
+
+class XMLException : public std::exception
 {
-    switch (code) {
-        case EX_PARSER_FILE_READ_ERROR:
-        this->description = "Error while reading the text file, maybe it doesn't exist.";
-        break;
+  public:
+    /// @brief  Exception raised if there's an error in read the xml file.
+    static const int PARSER_FILE_READ_ERROR = 1;
 
-        case EX_XML_NOT_STANDARD:
-        this->description = "There are some errors in the XML file.";
-        break;
+    /// @brief  Exception raised if the XML file has some errors.
+    static const int NOT_STANDARD = 2;
 
-        case EX_XML_BAD_NODE:
-        this->description = "A node is bad written.";
-        break;
+    /// @brief  Exception raised if there's an error in a node.
+    static const int BAD_NODE = 3;
 
-        case EX_XML_TAG_NOT_CLOSED:
-        this->description = "A tag is not closed.";
-        break;
-    }
-}
+    /// @brief  Exception raised if a tag isn't closed.
+    static const int TAG_NOT_CLOSED = 4;    
+
+  public:
+    XMLException (int code);
+    ~XMLException (void) throw();
+    
+    virtual const char* what() const throw();
+    
+  private:
+    std::string _description;
+};
 
 };
+
+}
+
+#endif
 
