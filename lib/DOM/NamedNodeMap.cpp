@@ -18,20 +18,24 @@
 * along with this program.  If not, see <http://www.gnu.org/licenses/>.     *
 ****************************************************************************/
 
-#include "NamedNodeMap.h"
+#include "Node.h"
 
-NamedNodeMap::NamedNodeMap (void)
+namespace xmlpp {
+
+namespace DOM {
+
+Node::NamedNodeMap::NamedNodeMap (void)
 {
     _ownerNode = NULL;
 }
 
-NamedNodeMap::NamedNodeMap (Node* ownerNode)
+Node::NamedNodeMap::NamedNodeMap (Node* ownerNode)
 {
     _ownerNode = ownerNode;
 }
 
 Node*
-NamedNodeMap::getNamedItem (const DOMString& name)
+Node::NamedNodeMap::getNamedItem (const DOMString& name)
 {
     if (_items.find(name) != _items.end()) {
         return _items[name];
@@ -42,23 +46,23 @@ NamedNodeMap::getNamedItem (const DOMString& name)
 }
 
 Node*
-NamedNodeMap::setNamedItem (Node* node) throw ()
+Node::NamedNodeMap::setNamedItem (Node* node) throw ()
 {
     if (_ownerNode->ownerDocument() != node->ownerDocument()) {
-        throw DOMException (WRONG_DOCUMENT_ERR);
+        throw DOMException(DOMException::WRONG_DOCUMENT_ERR);
     }
 
     // Check if the node passed can be added to the actual map.
     switch (_ownerNode->nodeType()) {
         case Node::ELEMENT_NODE:
         if (node->nodeType() != Node::ATTRIBUTE_NODE) {
-            throw DOMException(HIERARCHY_REQUEST_ERR);
+            throw DOMException(DOMException::HIERARCHY_REQUEST_ERR);
         }
         break;
 
         case Node::DOCUMENT_TYPE_NODE:
         if (node->nodeType() != Node::ENTITY_NODE) {
-            throw DOMException(HIERARCHY_REQUEST_ERR);
+            throw DOMException(DOMException::HIERARCHY_REQUEST_ERR);
         }
         break;
     }
@@ -75,58 +79,61 @@ NamedNodeMap::setNamedItem (Node* node) throw ()
 
 
 Node*
-NamedNodeMap::removeNamedItem (const DOMString& name)
+Node::NamedNodeMap::removeNamedItem (const DOMString& name) throw()
 {
     if (_items.find(name) != _items.end()) {
         Node *removed = _items[name];
         _items.erase(name);
         return removed;
     }
-    else {
-        throw DOMException(NOT_FOUND_ERR);
-    }
+        
+    throw DOMException(DOMException::NOT_FOUND_ERR);
 }
 
 Node*
-NamedNodeMap::item (unsigned long index)
+Node::NamedNodeMap::item (unsigned long index)
 {
     if (index > this->length()) {
         return NULL;
     }
 
-    std::map<const DOMString&, Node*>::iterator item;
+    std::map<DOMString, Node*>::iterator item;
     size_t i;
     for (item = _items.begin(), i = 0; item != _items.end(); item++, i++) {
         if (index == i) {
-            return *item;
+            return item->second;
         }
     }
 }
 
 unsigned long
-NamedNodeMap::length (void)
+Node::NamedNodeMap::length (void)
 {
     return (unsigned long) _items.size();
 }
 
 /// @todo  Not implemented yet.
 Node*
-NamedNodeMap::getNamedItemNS (const DOMString& namespaceURI, const DOMString& localName) throw (DOMException)
+Node::NamedNodeMap::getNamedItemNS (const DOMString& namespaceURI, const DOMString& localName) throw ()
 {
     return NULL;
 }
 
 /// @todo  Not implemented yet.
 Node*
-NamedNodeMap::setNamedItemNS (const DOMString& namespaceURI, const DOMString& localName) throw (DOMException)
+Node::NamedNodeMap::setNamedItemNS (Node* arg) throw ()
 {
     return NULL;
 }
 
 /// @todo  Not implemented yet.
 Node*
-NamedNodeMap::removeNamedItemNS (const DOMString& namespaceURI, const DOMString& localName) throw (DOMException)
+Node::NamedNodeMap::removeNamedItemNS (const DOMString& namespaceURI, const DOMString& localName) throw ()
 {
     return NULL;
 }
+
+};
+
+};
 

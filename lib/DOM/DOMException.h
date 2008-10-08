@@ -89,7 +89,7 @@ class DOMException : public std::exception
 
   public:
     DOMException (int code);
-    ~DOMException (void) throw();
+    ~DOMException (void) throw() {};
     
     virtual const char* what() const throw();
     

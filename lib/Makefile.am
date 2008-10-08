@@ -9,4 +9,4 @@ INCLUDES = -I$(top_srcdir)
 
 lib_LTLIBRARIES= libxmlpp.la
 libxmlpp_la_SOURCES= $(h_sources) $(cc_sources)
-libxmlpp_la_LIBADD= dom/libdom.la xml/libxml.la
+libxmlpp_la_LIBADD= DOM/libdom.la XML/libxml.la

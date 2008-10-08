@@ -83,7 +83,7 @@ class Node
 
     Node* previousSibling (void);
 
-    virtual NamedNodeMap attributes (void) = 0;
+    NamedNodeMap attributes (void);
 
     Node* ownerDocument (void);
 

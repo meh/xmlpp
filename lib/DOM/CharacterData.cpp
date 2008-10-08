@@ -57,7 +57,7 @@ CharacterData::insertData (unsigned long offset, const DOMString& arg) throw()
 }
 
 void
-CharachterData::replaceData (unsigned long offset, unsigned long count, const DOMString& arg) throw()
+CharacterData::replaceData (unsigned long offset, unsigned long count, const DOMString& arg) throw()
 {
     _data.replace(offset, count, arg);
 }
@@ -92,8 +92,8 @@ CharacterData::lastChild (void)
     return NULL;
 }
 
-Node*
-CharacterData::attributes (void)
+NamedNodeMap
+CharacterData::attributes (void) 
 {
     return NamedNodeMap(this);
 }

@@ -20,6 +20,10 @@
 
 #include "CDATASection.h"
 
+namespace xmlpp {
+
+namespace DOM {
+
 CDATASection::CDATASection (Node* ownerDocument, const DOMString& data) : CharacterData (ownerDocument, Node::CDATA_SECTION_NODE)
 {
     _data = data;
@@ -33,7 +37,7 @@ CDATASection::nodeName (void)
 }
 
 DOMString
-CDATASection::nodeValue (void)
+CDATASection::nodeValue (void) throw()
 {
     return this->data();
 }
@@ -47,9 +51,10 @@ CDATASection::nodeValue (const DOMString& value) throw()
 Node*
 CDATASection::cloneNode (bool deep)
 {
-    CDATASection* cdatasection = new CDATASection(this->ownerDocument());
-    cdatasection->nodeValue(this->data());
-
-    return cdatasection;
+    return new CDATASection(this->ownerDocument(), this->data());
 }
+
+};
+
+};
 

@@ -20,6 +20,10 @@
 
 #include "Comment.h"
 
+namespace xmlpp {
+
+namespace DOM {
+
 Comment::Comment (Node* ownerDocument, const DOMString& data) : CharacterData (ownerDocument, Node::COMMENT_NODE)
 {
     _data = data;
@@ -33,7 +37,7 @@ Comment::nodeName (void)
 }
 
 DOMString
-Comment::nodeValue (void)
+Comment::nodeValue (void) throw()
 {
     return this->data();
 }
@@ -47,9 +51,10 @@ Comment::nodeValue (const DOMString& value) throw()
 Node*
 Comment::cloneNode (bool deep)
 {
-    Comment* comment = new Comment(this->ownerDocument());
-    comment->nodeValue(this->data());
-
-    return comment;
+    return new Comment(this->ownerDocument(), this->data());
 }
+
+};
+
+};
 

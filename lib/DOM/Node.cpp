@@ -69,6 +69,12 @@ Node::attributes (void)
     return _attributes;
 }
 
+Node*
+Node::ownerDocument (void)
+{
+    return _ownerDocument;
+}
+
 bool
 Node::isSameNode (Node* another)
 {

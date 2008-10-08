@@ -64,9 +64,7 @@ Text::nodeValue (const DOMString& value) throw()
 Node*
 Text::cloneNode (bool deep)
 {
-    Text* text = new Text(this->ownerDocument(), this->data());
-
-    return text;
+    return new Text(this->ownerDocument(), this->data());
 }
 
 };

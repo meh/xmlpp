@@ -22,8 +22,6 @@
 #if !defined(XMLPP_NAMEDNODEMAP_H)
 #define XMLPP_NAMEDNODEMAP_H
 
-#include "../common.h"
-
 class NamedNodeMap
 {
   public:
@@ -35,7 +33,7 @@ class NamedNodeMap
 
     Node* getNamedItem (const DOMString& name);
 
-    Node* setNamedItem (Node* node) throw ();
+    Node* setNamedItem (Node* arg) throw ();
     
     Node* removeNamedItem (const DOMString& name) throw ();
 
@@ -45,7 +43,7 @@ class NamedNodeMap
 
     Node* getNamedItemNS (const DOMString& namespaceURI, const DOMString& localName) throw ();
 
-    Node* setNamedItemNS (Node* node) throw ();
+    Node* setNamedItemNS (Node* arg) throw ();
 
     Node* removeNamedItemNS (const DOMString& namespaceURI, const DOMString& localName) throw ();
 
