@@ -37,6 +37,8 @@ class Text : public CharacterData
     Text (Node* ownerDocument, const DOMString& data);
 
   public:
+    virtual ~Text (void);
+
     Text* splitText (unsigned long offset);
 
   // Parent realization.

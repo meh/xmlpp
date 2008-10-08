@@ -39,7 +39,7 @@ class Element : public Node
     Element (Node* ownerDocument, const DOMString& tagName);
 
   public:
-    ~Element (void);
+    virtual ~Element (void);
 
     DOMString tagName (void);
 

@@ -30,11 +30,14 @@ namespace DOM {
 
 class CDATASection : public CharacterData
 {
+  public:
+    friend class Document;
+
   protected:
     CDATASection (Node* ownerDocument, const DOMString& data);
 
   public:
-    friend class Document;
+    virtual ~CDATASection (void);
 
   // Parent realization.
   public:

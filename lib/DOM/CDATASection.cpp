@@ -29,6 +29,10 @@ CDATASection::CDATASection (Node* ownerDocument, const DOMString& data) : Charac
     _data = data;
 }
 
+CDATASection::~CDATASection (void)
+{
+}
+
 // Parent realization.
 DOMString
 CDATASection::nodeName (void)

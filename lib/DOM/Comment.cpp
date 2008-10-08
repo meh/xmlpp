@@ -29,6 +29,10 @@ Comment::Comment (Node* ownerDocument, const DOMString& data) : CharacterData (o
     _data = data;
 }
 
+Comment::~Comment (void)
+{
+}
+
 // Parent realization.
 DOMString
 Comment::nodeName (void)

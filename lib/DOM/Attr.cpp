@@ -29,6 +29,10 @@ Attr::Attr (Node* ownerDocument, const DOMString& name) : Node(ownerDocument, No
     _name = name;
 }
 
+Attr::~Attr (void)
+{
+}
+
 DOMString
 Attr::name (void)
 {

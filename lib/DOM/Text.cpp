@@ -29,6 +29,10 @@ Text::Text (Node* ownerDocument, const DOMString& data) : CharacterData (ownerDo
     _data = data;
 }
 
+Text::~Text (void)
+{
+}
+
 Text*
 Text::splitText (unsigned long offset)
 {

@@ -39,7 +39,8 @@ class Document : public Node
 {
   public:
     Document (void);
-    ~Document (void);
+
+    virtual ~Document (void);
 
     Element* documentElement (void);
 

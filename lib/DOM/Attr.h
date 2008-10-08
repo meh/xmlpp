@@ -39,6 +39,8 @@ class Attr : public Node
     Attr (Node* ownerDocument, const DOMString& name);
 
   public:
+    virtual ~Attr (void);
+
     DOMString name (void);
 
     DOMString value (void);

@@ -36,6 +36,9 @@ class Comment : public CharacterData
   protected:
     Comment (Node* ownerDocument, const DOMString& data);
 
+  public:
+    virtual ~Comment (void);
+
   // Parent realization.
   public:
     DOMString nodeName (void);
