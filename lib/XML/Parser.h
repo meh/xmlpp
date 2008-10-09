@@ -18,20 +18,45 @@
 * along with this program.  If not, see <http://www.gnu.org/licenses/>.     *
 ****************************************************************************/
 
-#include "../DOM.h"
-#include "../Utils.h"
-
-#include <fstream>
-#include <stack>
-
+#include "../Parser.h"
 #include "XMLException.h"
 
 namespace xmlpp {
 
 namespace XML {
 
-class XMLParser
+class Parser : public xmlpp::Parser
 {
+  public:
+    Parser (void);
+
+    DOM::Document* Load (const std::string& text);
+
+    std::string Save (DOM::Document* document);
+
+  private:
+    typedef struct {
+        DOM::NodeType type;
+        size_t offset;
+        std::string node;
+    } Node;
+
+  private:
+    DOM::Document* _parseDocument (const std::string& text);
+
+    DOM::Element* _parseRoot (const std::string& text);
+    DOM::Element* _parseElement (const std::string& text);
+
+    Node* _fetchNode (const std::string& text, size_t start);
+
+    Node* _fetchElement (const std::string& text, size_t start);
+    Node* _fetchElementTag (const std::string& text, size_t start);
+
+    Node* _fetchCDATASection (const std::string& text, size_t start);
+    Node* _fetchComment (const std::string& text, size_t start);
+    
+    DOM::NodeType _recognizeNode (const std::string& text);
+
 
 };
 

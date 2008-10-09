@@ -30,17 +30,16 @@ namespace XML {
 class XMLException : public std::exception
 {
   public:
-    /// @brief  Exception raised if there's an error in read the xml file.
-    static const int PARSER_FILE_READ_ERROR = 1;
-
     /// @brief  Exception raised if the XML file has some errors.
-    static const int NOT_STANDARD = 2;
+    static const int NOT_STANDARD = 1;
 
     /// @brief  Exception raised if there's an error in a node.
-    static const int BAD_NODE = 3;
+    static const int BAD_NODE = 2;
 
     /// @brief  Exception raised if a tag isn't closed.
-    static const int TAG_NOT_CLOSED = 4;    
+    static const int TAG_NOT_CLOSED = 3;
+
+    static const int WRONG_ROOT_NODE = 4;
 
   public:
     XMLException (int code);

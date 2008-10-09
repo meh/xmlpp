@@ -1,7 +1,7 @@
 SUBDIRS = DOM XML
 
-h_sources = xml++.h common.h DOM.h XML.h Utils.h
-cc_sources = Utils.cpp
+h_sources = xml++.h common.h DOM.h XML.h Utils.h Parser.h
+cc_sources = Utils.cpp Parser.cpp
 library_includedir=/usr/include/xml++
 library_include_HEADERS = $(h_sources)
 
