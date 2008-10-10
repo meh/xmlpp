@@ -82,37 +82,39 @@ Parser::_parseElement (const std::string& text)
     }
 }
 
-Node*
+Parser::Node*
 Parser::_fetchNode (const std::string& text, size_t start)
 {
-    Node* fNode;
+    Parser::Node* fNode;
     
-    Node* recon = _recognizeNode(text);
+    Parser::Node* recon = _recognizeNode(text);
     switch (recon.type) {
         case DOM::Node::ELEMENT_NODE:
         fNode = _fetchElement(text, start);
+        delete recon;
         break;
 
         case DOM::Node::CDATA_SECTION_NODE:
-        fNode = _fetchCDATASection(text, start);
+        fNode = recon;
+        fNode->offset += start;
         break;
 
         case DOM::Node::COMMENT_NODE:
-        fNode = _fetchComment(text, start);
+        fNode = recon;
+        fNode->offset += start;
         break;
     }
-    delete recon;
 
     return fNode;
 }
 
-Node*
+Parser::Node*
 Parser::_fetchElement (const std::string& text, size_t start)
 {
-    Node* fNode = new Node;
+    Parser::Node* fNode = new Node;
 
-    Node* element = _fetchElementTag(text, 0);
-    DOMElement* node = _parseElement(element.text);
+    Parser::Node* element = _fetchElementTag(text, 0);
+    DOM::Element* node = _parseElement(element->text);
     if (node == NULL) {
         throw XMLException(XMLException::BAD_NODE);
     }
@@ -122,10 +124,10 @@ Parser::_fetchElement (const std::string& text, size_t start)
     std::stack<char> tags;
     tags.push(0);
 
-    size_t i = element.offset;
+    size_t i = element->offset;
     while (i < text.length() && !tags.empty()) {
         if (text.at(i) == '<') {
-            Node* recon = _recognizeNode(text.substr(i), 0);
+            Parser::Node* recon = _recognizeNode(text.substr(i), 0);
             if (recon.type == DOM::Node::ELEMENT_NODE) {
                 std::string closed = this->_closingTag(recon.text);
 
@@ -154,13 +156,58 @@ Parser::_fetchElement (const std::string& text, size_t start)
         throw XMLException(XMLException::TAG_NOT_CLOSED);
     }
 
-    fNode.type   = DOM::Node::ELEMENT_NODE;
-    fNode.offset = i + start;
-    fNode.text   = text.substr(0, i-1);
+    fNode->type   = DOM::Node::ELEMENT_NODE;
+    fNode->offset = i + start;
+    fNode->text   = text.substr(0, i-1);
 
     return fNode;
 }
 
+Parser::Node*
+Parser::_recognizeNode (const std::string& text)
+{
+    Parser::Node* recon = new Node;
+    std::string nText;
+    size_t i;
+
+    if (text.substr(0, 4) == "<!--") {
+        recon->type = DOM::Node::COMMENT_NODE;
+
+        i = 4;
+        while (i < text.length() && text.substr(i, 3) != "-->") {
+            nText += text.at(i);
+            i++;
+        }
+        i += 3;
+    }
+    else if (text.substr(0, 9) == "<![CDATA[") {
+        recon->type = DOM::Node::CDATA_SECTION_NODE;
+
+        i = 9;
+        while (i < text.length() && text.substr(i, 3) != "]]>") {
+            nText += text.at(i);
+            i++;
+        }
+        i += 3;
+    }
+    else {
+        recon->type = DOM::Node::ELEMENT_NODE;
+
+        i = 1;
+        while (i < text.length() && text.at(i) != '>') {
+            nText += text.at(i);
+            i++;
+        }
+        i++;
+    }
+
+    recon->offset = i;
+    recon->text   = nText;
+
+    return recon;
+}
+
+};
 
 };
 

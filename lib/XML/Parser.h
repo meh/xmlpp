@@ -47,13 +47,13 @@ class Parser : public xmlpp::Parser
     DOM::Element* _parseRoot (const std::string& text);
     DOM::Element* _parseElement (const std::string& text);
 
-    Node* _fetchNode (const std::string& text, size_t start);
+    Parser::Node* _fetchNode (const std::string& text, size_t start);
 
-    Node* _fetchElement (const std::string& text, size_t start);
-    Node* _fetchElementTag (const std::string& text, size_t start);
+    Parser::Node* _fetchElement (const std::string& text, size_t start);
+    Parser::Node* _fetchElementTag (const std::string& text, size_t start);
 
-    Node* _fetchCDATASection (const std::string& text, size_t start);
-    Node* _fetchComment (const std::string& text, size_t start);
+    Parser::Node* _fetchCDATASection (const std::string& text, size_t start);
+    Parser::Node* _fetchComment (const std::string& text, size_t start);
     
     DOM::NodeType _recognizeNode (const std::string& text);
 
