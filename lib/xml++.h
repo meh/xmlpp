@@ -1,9 +1,6 @@
-/// @file   xml++.h
-/// @brief  This file includes the whole XML++ library.
-
 /****************************************************************************
-* XML++ is a library for working with XML files.                                *
-* Copyright (C) 2008  cHoBi                                                 *
+* XML++ is a library for working with XML files.                            *
+* Copyleft meh.                                                             *
 *                                                                           *
 * This file is part of XML++                                                *
 *                                                                           *
@@ -21,10 +18,8 @@
 * along with this program.  If not, see <http://www.gnu.org/licenses/>.     *
 ****************************************************************************/
 
-#include "common.h"
-
 #if !defined(XMLPP)
-#include "xml/parser.h"
-#define XMLPP TRUE
+#include "XML/Parser.h"
+#define XMLPP
 #endif
 

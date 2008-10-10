@@ -38,7 +38,7 @@ class Parser : public xmlpp::Parser
     typedef struct {
         DOM::NodeType type;
         size_t offset;
-        std::string node;
+        std::string text;
     } Node;
 
   private:
@@ -49,11 +49,13 @@ class Parser : public xmlpp::Parser
     Parser::Node* _fetchNode (const std::string& text);
     DOM::Node* _parseNode (const std::string& text);
 
-    Parser::Element* _fetchElement (const std::string& text);
+    Parser::Node* _fetchElement (const std::string& text);
+    std::string _closingTag (const std::string& text);
+
     DOM::Element* _parseElementTag (const std::string& text);
     DOM::Element* _parseElement (const std::string& text);
 
-    Parser::Node _recognizeNode (const std::string& text);
+    Parser::Node* _recognizeNode (const std::string& text);
 };
 
 };

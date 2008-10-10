@@ -53,6 +53,11 @@ namespace Utils {
         return slashed;
     }
 
+    bool isSpace (char text)
+    {
+        return std::isspace(text);
+    }
+
     std::string toUpper (const std::string& text)
     {
         std::string upper;

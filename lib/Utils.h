@@ -30,7 +30,7 @@ namespace Utils {
 
     std::string addSlashes (std::string& text);
 
-    bool isSpace (const char text);
+    bool isSpace (char text);
 
     std::string toUpper (const std::string& text);
 

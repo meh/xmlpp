@@ -27,10 +27,6 @@ namespace XML {
 XMLException::XMLException (int code) : std::exception ()
 {
     switch (code) {
-        case PARSER_FILE_READ_ERROR:
-        _description = "Error while reading the text file, maybe it doesn't exist.";
-        break;
-
         case NOT_STANDARD:
         _description = "There are some errors in the XML file.";
         break;
@@ -43,6 +39,10 @@ XMLException::XMLException (int code) : std::exception ()
         _description = "A tag is not closed.";
         break;
     }
+}
+
+XMLException::~XMLException (void) throw()
+{
 }
 
 const char*

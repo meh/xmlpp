@@ -20,6 +20,9 @@
 
 #include "Parser.h"
 
+#include <iostream>
+using namespace std;
+
 namespace xmlpp {
 
 namespace XML {
@@ -34,14 +37,20 @@ Parser::Load (const std::string& text)
     return _parseDocument(text);
 };
 
+std::string
+Parser::Save (DOM::Document* document)
+{
+    return "";
+}
+
 DOM::Document*
 Parser::_parseDocument (const std::string& text)
 {
     _document = new DOM::Document;
 
+    size_t i = 0;
     if (text.substr(0, 2) == "<?") {
         std::string verNode;
-        size_t i = 0;
         while (i < text.length() && text.at(i) != '>') {
             verNode += text.at(i);
             i++;
@@ -53,7 +62,7 @@ Parser::_parseDocument (const std::string& text)
         // @todo Add them.
     }
 
-    _document.appendChild(_parseRoot(text.substr(i)));
+    _document->appendChild(_parseRoot(text.substr(i)));
 
     return _document;
 }
@@ -65,7 +74,7 @@ Parser::_parseRoot (const std::string& text)
         throw XMLException(XMLException::WRONG_ROOT_NODE);
     }
 
-    return _parseNode(_fetchNode(text, 0));
+    return (DOM::Element*) _parseNode(_fetchNode(text)->text);
 }
 
 Parser::Node*
@@ -121,7 +130,7 @@ Parser::_fetchElement (const std::string& text)
 {
     Parser::Node* fNode = new Node;
 
-    Parser::Node* element = _fetchElementTag(text);
+    Parser::Node* element = _recognizeNode(text);
     DOM::Element* node = _parseElement(element->text);
     if (node == NULL) {
         throw XMLException(XMLException::BAD_NODE);
@@ -136,7 +145,7 @@ Parser::_fetchElement (const std::string& text)
     while (i < text.length() && !tags.empty()) {
         if (text.at(i) == '<') {
             Parser::Node* recon = _recognizeNode(text.substr(i));
-            if (recon.type == DOM::Node::ELEMENT_NODE) {
+            if (recon->type == DOM::Node::ELEMENT_NODE) {
                 std::string closed = this->_closingTag(recon->text);
 
                 if (!closed.empty()) {
@@ -145,7 +154,7 @@ Parser::_fetchElement (const std::string& text)
                     }
                 }
                 else {
-                    DOM::Element* node = _parseElement(recon.text);
+                    DOM::Element* node = _parseElement(recon->text);
                     if (node->nodeName() == nodeName) {
                         tags.push(0);
                     }
@@ -169,6 +178,44 @@ Parser::_fetchElement (const std::string& text)
     fNode->text   = text.substr(0, i-1);
 
     return fNode;
+}
+
+std::string
+Parser::_closingTag (const std::string& text)
+{
+    std::string element;
+    std::string tagName;
+
+    size_t word  = 0;
+    size_t i     = 0;
+    bool   space = false;
+    while (i < text.length() && word < 2) {
+        if (!Utils::isSpace(text.at(i))) {
+            element += text.at(i);
+
+            if (i > 1 && text.at(i) != '>') {
+                tagName += text.at(i);
+            }
+
+            if (space) {
+                space = false;
+                word++;
+            }
+        }
+        else {
+            word++;
+            space = true;
+        }
+
+        i++;
+    }
+
+    if (element.at(1) == '/' && word < 2 && !tagName.empty()) {
+        return tagName;
+    }
+    else {
+        return "";
+    }
 }
 
 DOM::Element*
@@ -200,7 +247,7 @@ Parser::_parseElementTag (const std::string& text)
                 i++;
             }
             i++;
-            element-= _document->createElement(elementName);
+            element = _document->createElement(elementName);
             break;
         }
     }
@@ -226,12 +273,10 @@ Parser::_parseElementTag (const std::string& text)
             }
         }
         else {
-            if (text.substr(i, 2) == std::string('\\'+stringType)) {
-                tag += "\\"+stringType;
+            if (text.substr(i, 2) == std::string("\\" + stringType)) {
                 i++;
             }
             else if (text.at(i) == stringType) {
-                tag += stringType;
                 inString = false;
 
                 element->setAttribute(attrName, attrValue);
@@ -251,7 +296,7 @@ Parser::_parseElementTag (const std::string& text)
 DOM::Element*
 Parser::_parseElement (const std::string& text)
 {
-    DOMElement* mainNode = _parseElementTag(text);
+    DOM::Element* mainNode = _parseElementTag(text);
 
     // Removing the closing tag of the main node.
     std::string innerNode = text.substr(_recognizeNode(text)->offset);
@@ -273,7 +318,7 @@ Parser::_parseElement (const std::string& text)
             }
             i--;
 
-            mainNode->append(_document->createTextNode(text));
+            mainNode->appendChild(_document->createTextNode(text));
         }
     }
 

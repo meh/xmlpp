@@ -1,13 +1,13 @@
 #include <iostream>
-#include <xml++/DOM.h>
+#include <xml++/xml++.h>
 
 using namespace std;
+using namespace xmlpp;
 using namespace xmlpp::DOM;
 
 int main(int argc, char *argv[]) {
-    Document *doc = new Document;
-
-    doc->appendChild(doc->createElement("lulz"));
+    Parser parser(new XML::Parser);
+    Document *doc = parser.load("lol.xml");
 
     cout << doc->documentElement()->nodeName() << endl;
 
