@@ -10,7 +10,7 @@ int main(int argc, char *argv[]) {
     Document *doc = parser.load("lol.xml");
     doc->normalizeDocument();
 
-    cerr << doc->firstChild()->firstChild()->nodeName() << endl;
+    cerr << doc->getElementById("win")->nodeName() << endl;
 
     return 0;
 }

@@ -56,6 +56,10 @@ class Document : public Node
 
     Attr* createAttribute (const DOMString& name) throw();
 
+    NodeList getElementsByTagName (const DOMString& name);
+
+    Element* getElementById (const DOMString& id);
+
     void normalizeDocument (void);
 
   private:

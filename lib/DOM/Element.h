@@ -86,7 +86,8 @@ class Element : public Node
     Node* cloneNode (bool deep = true);
 
   protected:
-    void _normalize (void);
+    virtual Node* _getElementById (const DOMString& id);
+    virtual void _normalize (void);
 };
 
 };

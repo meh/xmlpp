@@ -72,6 +72,44 @@ Document::createAttribute (const DOMString& name) throw()
     return new Attr(this, name);
 }
 
+NodeList
+Document::getElementsByTagName (const DOMString& name)
+{
+    NodeList elements;
+    if (_documentElement->nodeName() == name) {
+        elements.insert(_documentElement);
+    }
+
+    NodeList subElements = _documentElement->getElementsByTagName(name);
+    for (size_t i = 0; i < subElements.length(); i++) {
+        elements.insert(subElements.item(i));
+    }
+
+    return elements;
+}
+
+Element*
+Document::getElementById (const DOMString& id)
+{
+    if (_documentElement) {
+        NamedNodeMap attrs = _documentElement->attributes();
+
+        for (size_t i = 0; i < attrs.length(); i++) {
+            Attr* attr = (Attr*) attrs.item(i);
+
+            if (attr->_isId) {
+                if (attr->value() == id) {
+                    return _documentElement;
+                }
+            }
+        }
+
+        return (Element*) _documentElement->_getElementById(id);
+    }
+
+    return NULL;
+}
+
 void
 Document::normalizeDocument (void)
 {
@@ -82,7 +120,7 @@ Document::normalizeDocument (void)
 DOMString
 Document::nodeName (void)
 {
-    return (DOMString) "#document";
+    return "#document";
 }
 
 DOMString

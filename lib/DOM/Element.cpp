@@ -363,6 +363,34 @@ Element::cloneNode (bool deep)
     return element;
 }
 
+Node*
+Element::_getElementById (const DOMString& id)
+{
+    for (size_t i = 0; i < _children.length(); i++) {
+        NamedNodeMap attrs = _children.item(i)->attributes();
+
+        for (size_t h = 0; h < attrs.length(); h++) {
+            Attr* attr = (Attr*) attrs.item(h);
+
+            if (attr->_isId) {
+                if (attr->value() == id) {
+                    return _children.item(i);
+                }
+            }
+        }
+    }
+
+    for (size_t i = 0; i < _children.length(); i++) {
+        Node* element = _children.item(i)->_getElementById(id);
+
+        if (element) {
+            return element;
+        }
+    }
+
+    return NULL;
+}
+
 void
 Element::_normalize (void)
 {

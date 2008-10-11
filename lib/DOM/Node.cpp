@@ -345,6 +345,12 @@ Node::_specialChars (void)
     return specialChars;
 }
 
+Node*
+Node::_getElementById (const DOMString& id)
+{
+    return NULL;
+}
+
 void
 Node::_normalize (void)
 {
