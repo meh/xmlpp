@@ -283,6 +283,10 @@ Parser::_parseElementTag (const std::string& text)
                 stringType = '\0';
 
                 element->setAttribute(attrName, attrValue);
+                if (attrName == "id") {
+                    element->setIdAttribute(attrName, true);
+                }
+
                 attrName  = "";
                 attrValue = "";
             }

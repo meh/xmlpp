@@ -128,6 +128,11 @@ CharacterData::hasChildNodes (void)
     return false;
 }
 
+void
+CharacterData::_normalize (void)
+{
+}
+
 };
 
 };

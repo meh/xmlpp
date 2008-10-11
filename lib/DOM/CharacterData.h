@@ -74,6 +74,9 @@ class CharacterData : public Node
     bool hasChildNodes (void);
 
     virtual Node* cloneNode (bool deep = true) = 0;
+
+  protected:
+    virtual void _normalize (void);
 };
 
 };

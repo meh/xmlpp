@@ -86,6 +86,9 @@ class Attr : public Node
     bool hasChildNodes (void);
 
     Node* cloneNode (bool deep = true);
+
+  protected:
+    void _normalize (void);
 };
 
 };

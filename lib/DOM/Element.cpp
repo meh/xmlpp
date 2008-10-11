@@ -242,6 +242,7 @@ Element::insertBefore (Node* newChild, Node* refChild) throw()
                 nSibling->_pSibling = newChild;
             }
        
+            newChild->_parent = this;
             _children.insert(newChild, i);
             return newChild;
         }
@@ -302,6 +303,7 @@ Element::removeChild (Node* oldChild) throw()
                 nSibling->_pSibling = pSibling;
             }
             
+            oldChild->_parent = NULL;
             return _children.remove(i);
         }
     }
@@ -330,8 +332,8 @@ Element::appendChild (Node* newChild) throw()
         pSibling->_nSibling = newChild;
 
         newChild->_pSibling = pSibling;
-        newChild->_parent   = this;
     }
+    newChild->_parent = this;
 
     _children.insert(newChild);
 }
@@ -359,6 +361,18 @@ Element::cloneNode (bool deep)
     }
 
     return element;
+}
+
+void
+Element::_normalize (void)
+{
+    for (size_t i = 0; i < _attributes.length(); i++) {
+        _attributes.item(i)->_normalize();
+    }
+
+    for (size_t i = 0; i < _children.length(); i++) {
+        _children.item(i)->_normalize();
+    }
 }
 
 };

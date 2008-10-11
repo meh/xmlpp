@@ -56,6 +56,8 @@ class Document : public Node
 
     Attr* createAttribute (const DOMString& name) throw();
 
+    void normalizeDocument (void);
+
   private:
     Element* _documentElement;
 

@@ -71,6 +71,31 @@ Text::cloneNode (bool deep)
     return new Text(this->ownerDocument(), this->data());
 }
 
+void
+Text::_normalize (void)
+{
+    std::string data;
+    bool firstSpace = true;
+
+    for (size_t i = 0; i < _data.length(); i++) {
+        if (Utils::isSpace(_data.at(i))) {
+            if (firstSpace) {
+                firstSpace = false;
+                data += " ";
+            }
+        }
+        else {
+            firstSpace = true;
+            data += _data.at(i);
+        }
+    }
+    _data = data;
+
+    if (_data.length() == 1 && _data == " ") {
+        delete this->parentNode()->removeChild(this);
+    }
+}
+
 };
 
 };

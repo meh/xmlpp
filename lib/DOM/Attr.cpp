@@ -67,7 +67,7 @@ Attr::nodeName (void)
 DOMString
 Attr::nodeValue (void) throw()
 {
-    this->value();
+    return this->value();
 }
 
 void
@@ -138,6 +138,28 @@ Attr::cloneNode (bool deep)
     attr->_isId = _isId;
 
     return attr;
+}
+
+void
+Attr::_normalize (void)
+{
+    std::string value;
+
+    bool firstSpace = true;
+    for (size_t i = 0; i < _value.length(); i++) {
+        if (Utils::isSpace(_value.at(i))) {
+            if (firstSpace) {
+                value += " ";
+                firstSpace = false;
+            }
+        }
+        else {
+            firstSpace = true;
+            value += _value.at(i);
+        }
+    }
+
+    _value = value;
 }
 
 };

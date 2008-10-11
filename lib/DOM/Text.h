@@ -49,6 +49,9 @@ class Text : public CharacterData
     void nodeValue (const DOMString& value) throw();
 
     Node* cloneNode (bool deep = true);
+
+  protected:
+    void _normalize (void);
 };
 
 };

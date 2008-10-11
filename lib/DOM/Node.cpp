@@ -345,6 +345,11 @@ Node::_specialChars (void)
     return specialChars;
 }
 
+void
+Node::_normalize (void)
+{
+}
+
 };
 
 };

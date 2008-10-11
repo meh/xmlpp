@@ -112,6 +112,8 @@ class Node
     
     std::map<DOMString, DOMString> _specialChars (void);
 
+    virtual void _normalize (void);
+
   protected:
     NodeType _type;
 

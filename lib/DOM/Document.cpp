@@ -72,6 +72,12 @@ Document::createAttribute (const DOMString& name) throw()
     return new Attr(this, name);
 }
 
+void
+Document::normalizeDocument (void)
+{
+    _documentElement->_normalize();
+}
+
 // Parent realization
 DOMString
 Document::nodeName (void)
