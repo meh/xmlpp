@@ -7,10 +7,11 @@ using namespace xmlpp::DOM;
 
 int main(int argc, char *argv[]) {
     Parser parser(new XML::Parser);
-    Document *doc = parser.load("lol.xml");
+
+    Document* doc = parser.load("lol.xml");
     doc->normalizeDocument();
 
-    cerr << doc->getElementById("win")->nodeName() << endl;
+    cout << doc->getElementsByTagName("omg").item(0)->firstChild()->nodeValue() << std::endl;
 
     return 0;
 }

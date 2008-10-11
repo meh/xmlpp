@@ -32,8 +32,12 @@ Element::Element (Node* ownerDocument, const DOMString& tagName) : Node (ownerDo
 
 Element::~Element (void)
 {
+    for (unsigned long i = 0; i < _attributes.length(); i++) {
+        delete _attributes.remove(i);
+    }
+
     for (unsigned long i = 0; i < _children.length(); i++) {
-        delete _children.item(i);
+        delete _children.remove(i);
     }
 }
 

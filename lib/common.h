@@ -30,8 +30,6 @@
 #include <cstdlib>
 #include <cstdio>
 
-#include <iostream>
-
 #include "DOM/DOMException.h"
 #include "Utils.h"
 

@@ -106,6 +106,16 @@ Node::NamedNodeMap::item (unsigned long index)
     }
 }
 
+Node*
+Node::NamedNodeMap::remove (unsigned long index)
+{
+    if (index > this->length()) {
+        return NULL;
+    }
+
+    return this->removeNamedItem(this->item(index)->nodeName());
+}
+
 unsigned long
 Node::NamedNodeMap::length (void)
 {

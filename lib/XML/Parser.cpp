@@ -71,19 +71,18 @@ Parser::_parseRoot (const std::string& text)
         throw XMLException(XMLException::WRONG_ROOT_NODE);
     }
 
-    return (DOM::Element*) _parseNode(_fetchNode(text)->text);
+    return (DOM::Element*) _parseNode(_fetchNode(text).text);
 }
 
-Parser::Node*
+Parser::Node
 Parser::_fetchNode (const std::string& text)
 {
-    Parser::Node* fNode;
+    Parser::Node fNode;
     
-    Parser::Node* recon = _recognizeNode(text);
-    switch (recon->type) {
+    Parser::Node recon = _recognizeNode(text);
+    switch (recon.type) {
         case DOM::Node::ELEMENT_NODE:
         fNode = _fetchElement(text);
-        delete recon;
         break;
 
         case DOM::Node::CDATA_SECTION_NODE:
@@ -103,32 +102,31 @@ Parser::_parseNode (const std::string& text)
 {
     DOM::Node* node;
 
-    Parser::Node* recon = _recognizeNode(text);
-    switch (recon->type) {
+    Parser::Node recon = _recognizeNode(text);
+    switch (recon.type) {
         case DOM::Node::ELEMENT_NODE:
         node = _parseElement(text);
         break;
 
         case DOM::Node::CDATA_SECTION_NODE:
-        node = _document->createCDATASection(recon->text);
+        node = _document->createCDATASection(recon.text);
         break;
 
         case DOM::Node::COMMENT_NODE:
-        node = _document->createComment(recon->text);
+        node = _document->createComment(recon.text);
         break;
     }
-    delete recon;
 
     return node;
 }
 
-Parser::Node*
+Parser::Node
 Parser::_fetchElement (const std::string& text)
 {
-    Parser::Node* fNode = new Node;
+    Parser::Node fNode;
 
-    Parser::Node* element = _recognizeNode(text);
-    DOM::Element* node = _parseElementTag(element->text);
+    Parser::Node element = _recognizeNode(text);
+    DOM::Element* node = _parseElementTag(element.text);
     if (node == NULL) {
         throw XMLException(XMLException::BAD_NODE);
     }
@@ -138,12 +136,12 @@ Parser::_fetchElement (const std::string& text)
     std::stack<char> tags;
     tags.push(0);
 
-    size_t i = element->offset;
+    size_t i = element.offset;
     while (i < text.length() && !tags.empty()) {
         if (text.at(i) == '<') {
-            Parser::Node* recon = _recognizeNode(text.substr(i));
-            if (recon->type == DOM::Node::ELEMENT_NODE) {
-                std::string closed = this->_closingTag(recon->text);
+            Parser::Node recon = _recognizeNode(text.substr(i));
+            if (recon.type == DOM::Node::ELEMENT_NODE) {
+                std::string closed = _closingTag(recon.text);
 
                 if (!closed.empty()) {
                     if (closed == nodeName) {
@@ -151,7 +149,7 @@ Parser::_fetchElement (const std::string& text)
                     }
                 }
                 else {
-                    DOM::Element* node = _parseElementTag(recon->text);
+                    DOM::Element* node = _parseElementTag(recon.text);
                     if (node->nodeName() == nodeName) {
                         tags.push(0);
                     }
@@ -159,22 +157,19 @@ Parser::_fetchElement (const std::string& text)
                 }
             }
 
-
-            i += recon->offset;
-            delete recon;
+            i += recon.offset;
         }
 
         i++;
     }
-    delete element;
 
     if (!tags.empty()) {
         throw XMLException(XMLException::TAG_NOT_CLOSED);
     }
 
-    fNode->type   = DOM::Node::ELEMENT_NODE;
-    fNode->offset = i;
-    fNode->text   = text.substr(0, i-1);
+    fNode.type   = DOM::Node::ELEMENT_NODE;
+    fNode.offset = i;
+    fNode.text   = text.substr(0, i-1);
 
     return fNode;
 }
@@ -226,9 +221,6 @@ Parser::_parseElementTag (const std::string& text)
     char stringType = '\0';
     bool firstSpace = true;
 
-    std::string attrName;
-    std::string attrValue;
-
     size_t i = 0;
     while (i < text.length() && text.at(i) != '<') {
         i++;
@@ -254,6 +246,8 @@ Parser::_parseElementTag (const std::string& text)
         i++;
     }
 
+    std::string attrName;
+    std::string attrValue;
     while (i < text.length() && text.at(i) != '>') {
         if (!inString) {
             if (Utils::isSpace(text.at(i))) {
@@ -306,15 +300,15 @@ Parser::_parseElement (const std::string& text)
     DOM::Element* mainNode = _parseElementTag(text);
 
     // Removing the closing tag of the main node.
-    std::string innerNode = text.substr(_recognizeNode(text)->offset);
+    std::string innerNode = text.substr(_recognizeNode(text).offset);
     innerNode.resize(innerNode.find_last_of('<'));
 
     for (size_t i = 0; i < innerNode.length(); i++) {
         if (innerNode.at(i) == '<') {
-            Parser::Node* node = _fetchNode(innerNode.substr(i));
-            mainNode->appendChild(_parseNode(node->text));
+            Parser::Node node = _fetchNode(innerNode.substr(i));
+            mainNode->appendChild(_parseNode(node.text));
 
-            i += node->offset;
+            i += node.offset;
         }
         else {
             std::string text;
@@ -326,21 +320,21 @@ Parser::_parseElement (const std::string& text)
             i--;
 
             mainNode->appendChild(_document->createTextNode(text));
+        }
     }
-}
 
     return mainNode;
 }
 
-Parser::Node*
+Parser::Node
 Parser::_recognizeNode (const std::string& text)
 {
-    Parser::Node* recon = new Node;
+    Parser::Node recon;
     std::string nText;
     size_t i;
 
     if (text.substr(0, 4) == "<!--") {
-        recon->type = DOM::Node::COMMENT_NODE;
+        recon.type = DOM::Node::COMMENT_NODE;
 
         i = 4;
         while (i < text.length() && text.substr(i, 3) != "-->") {
@@ -350,7 +344,7 @@ Parser::_recognizeNode (const std::string& text)
         i += 3;
     }
     else if (text.substr(0, 9) == "<![CDATA[") {
-        recon->type = DOM::Node::CDATA_SECTION_NODE;
+        recon.type = DOM::Node::CDATA_SECTION_NODE;
 
         i = 9;
         while (i < text.length() && text.substr(i, 3) != "]]>") {
@@ -360,7 +354,7 @@ Parser::_recognizeNode (const std::string& text)
         i += 3;
     }
     else {
-        recon->type = DOM::Node::ELEMENT_NODE;
+        recon.type = DOM::Node::ELEMENT_NODE;
 
         i = 0;
         while (i < text.length() && text.at(i) != '>') {
@@ -371,8 +365,8 @@ Parser::_recognizeNode (const std::string& text)
         i++;
     }
 
-    recon->offset = i;
-    recon->text   = nText;
+    recon.offset = i;
+    recon.text   = nText;
 
     return recon;
 }

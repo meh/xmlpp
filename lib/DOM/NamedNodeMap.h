@@ -38,6 +38,7 @@ class NamedNodeMap
     Node* removeNamedItem (const DOMString& name) throw ();
 
     Node* item (unsigned long index);
+    Node* remove (unsigned long index);
 
     unsigned long length (void);
 
