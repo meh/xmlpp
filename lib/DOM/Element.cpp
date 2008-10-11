@@ -46,13 +46,13 @@ Element::tagName (void)
 DOMString
 Element::getAttribute (const DOMString& name)
 {
-    Node* attr = _attributes.getNamedItem(name);
+    Attr* attr = (Attr*) _attributes.getNamedItem(name);
 
     if (attr == NULL) {
         return "";
     }
     else {
-        return attr->nodeValue();
+        return attr->value();
     }
 }
 
@@ -63,6 +63,7 @@ Element::setAttribute (const DOMString& name, const DOMString& value) throw()
 
     if (attr == NULL) {
         attr = new Attr(this->ownerDocument(), name);
+        this->setAttributeNode(attr);
     }
 
     attr->value(value);

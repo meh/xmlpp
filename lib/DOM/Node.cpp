@@ -110,7 +110,7 @@ Node::_unescapeString (const DOMString& text)
     DOMString nText;
     
     for (size_t i = 0; i < text.length(); i++) {
-        if (nText.at(i) == '&') {
+        if (text.at(i) == '&') {
             DOMString unescaped = _unescapeChar(nText.substr(i));
 
             if (!unescaped.empty()) {
@@ -121,7 +121,9 @@ Node::_unescapeString (const DOMString& text)
                 }
             }
         }
-
+        else {
+            nText += text.at(i);
+        }
     }
 
     return nText;
@@ -132,8 +134,8 @@ Node::_unescapeChar (const DOMString& text)
 {
     DOMString nText;
     size_t i = 0;
-    while (i < text.length() && text[i] != ';') {
-        nText += text[i];
+    while (i < text.length() && text.at(i) != ';') {
+        nText += text.at(i);
         i++;
     }
     nText += ";";
@@ -147,7 +149,7 @@ Node::_unescapeChar (const DOMString& text)
         }
     }
 
-    return DOMString();
+    return "";
 }
 
 std::map<DOMString, DOMString>

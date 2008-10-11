@@ -20,9 +20,6 @@
 
 #include "Parser.h"
 
-#include <iostream>
-using namespace std;
-
 namespace xmlpp {
 
 namespace XML {
@@ -224,21 +221,23 @@ Parser::_parseElementTag (const std::string& text)
     DOM::Element* element;
 
     bool inString   = false;
-    char stringType;
+    char stringType = '\0';
     bool firstSpace = true;
 
     std::string attrName;
     std::string attrValue;
 
     size_t i = 0;
-    while (i < text.length()) {
+    while (i < text.length() && text.at(i) != '<') {
         i++;
+    }
+    i++;
 
+    while (i < text.length()) {
         if (Utils::isSpace(text.at(i)) && firstSpace) {
             while (Utils::isSpace(text.at(i))) {
                 i++;
             }
-            i -= 2;
         }
         else {
             std::string elementName;
@@ -250,6 +249,7 @@ Parser::_parseElementTag (const std::string& text)
             element = _document->createElement(elementName);
             break;
         }
+        i++;
     }
 
     while (i < text.length() && text.at(i) != '>') {
@@ -278,6 +278,7 @@ Parser::_parseElementTag (const std::string& text)
             }
             else if (text.at(i) == stringType) {
                 inString = false;
+                stringType = '\0';
 
                 element->setAttribute(attrName, attrValue);
                 attrName  = "";
@@ -319,8 +320,8 @@ Parser::_parseElement (const std::string& text)
             i--;
 
             mainNode->appendChild(_document->createTextNode(text));
-        }
     }
+}
 
     return mainNode;
 }

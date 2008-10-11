@@ -1,9 +1,6 @@
-/// @file common.h
-/// @brief This file includes the common constants and includes.
-
 /****************************************************************************
-* XML++ is a library for working with XML files.                                *
-* Copyright (C) 2008  cHoBi                                                 *
+* XML++ is a library for working with XML files.                            *
+* Copyleft meh.                                                             *
 *                                                                           *
 * This file is part of XML++                                                *
 *                                                                           *
@@ -32,6 +29,8 @@
 #include <cctype>
 #include <cstdlib>
 #include <cstdio>
+
+#include <iostream>
 
 #include "DOM/DOMException.h"
 #include "Utils.h"
