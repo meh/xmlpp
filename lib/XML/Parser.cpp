@@ -128,7 +128,7 @@ Parser::_fetchElement (const std::string& text)
     Parser::Node* fNode = new Node;
 
     Parser::Node* element = _recognizeNode(text);
-    DOM::Element* node = _parseElement(element->text);
+    DOM::Element* node = _parseElementTag(element->text);
     if (node == NULL) {
         throw XMLException(XMLException::BAD_NODE);
     }
@@ -151,13 +151,15 @@ Parser::_fetchElement (const std::string& text)
                     }
                 }
                 else {
-                    DOM::Element* node = _parseElement(recon->text);
+                    DOM::Element* node = _parseElementTag(recon->text);
                     if (node->nodeName() == nodeName) {
                         tags.push(0);
                     }
                     delete node;
                 }
             }
+
+
             i += recon->offset;
             delete recon;
         }
@@ -241,7 +243,7 @@ Parser::_parseElementTag (const std::string& text)
         }
         else {
             std::string elementName;
-            while (!Utils::isSpace(text.at(i))) {
+            while (i < text.length() && !Utils::isSpace(text.at(i)) && text.at(i) != '>' && text.at(i) != '/') {
                 elementName += text.at(i);
                 i++;
             }

@@ -9,7 +9,7 @@ int main(int argc, char *argv[]) {
     Parser parser(new XML::Parser);
     Document *doc = parser.load("lol.xml");
 
-    cout << doc->documentElement()->nodeName() << endl;
+    cout << doc->firstChild()->nodeName() << endl;
 
     return 0;
 }
