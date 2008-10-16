@@ -8,10 +8,13 @@ using namespace xmlpp::DOM;
 int main(int argc, char *argv[]) {
     Parser parser(new XML::Parser);
 
-    Document* doc = parser.load("lol.xml");
+    Document* doc = parser.load("easy.xml");
     doc->normalizeDocument();
 
-    cout << doc->getElementsByTagName("omg").item(0)->firstChild()->nodeValue() << std::endl;
+    std::cout << doc->firstChild()->firstChild()->nodeValue() << std::endl;
+
+    doc = parser.load("hard.xml");
+    std::cout << ((Element*)doc->getElementsByTagName("directories").item(0))->getElementsByTagName("document").item(0)->firstChild()->nodeValue() << std::endl;
 
     return 0;
 }

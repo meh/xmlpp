@@ -71,7 +71,7 @@ Parser::_parseRoot (const std::string& text)
         throw XMLException(XMLException::WRONG_ROOT_NODE);
     }
 
-    return (DOM::Element*) _parseNode(_fetchNode(text).text);
+    return (DOM::Element*) _parseNode(_fetchNode(text));
 }
 
 Parser::Node
@@ -98,14 +98,13 @@ Parser::_fetchNode (const std::string& text)
 }
 
 DOM::Node*
-Parser::_parseNode (const std::string& text)
+Parser::_parseNode (Parser::Node recon)
 {
     DOM::Node* node;
 
-    Parser::Node recon = _recognizeNode(text);
     switch (recon.type) {
         case DOM::Node::ELEMENT_NODE:
-        node = _parseElement(text);
+        node = _parseElement(recon.text);
         break;
 
         case DOM::Node::CDATA_SECTION_NODE:
@@ -306,7 +305,7 @@ Parser::_parseElement (const std::string& text)
     for (size_t i = 0; i < innerNode.length(); i++) {
         if (innerNode.at(i) == '<') {
             Parser::Node node = _fetchNode(innerNode.substr(i));
-            mainNode->appendChild(_parseNode(node.text));
+            mainNode->appendChild(_parseNode(node));
 
             i += node.offset;
         }
@@ -337,21 +336,27 @@ Parser::_recognizeNode (const std::string& text)
         recon.type = DOM::Node::COMMENT_NODE;
 
         i = 4;
-        while (i < text.length() && text.substr(i, 3) != "-->") {
+        while (i < text.length()-3 && text.substr(i, 3) != "-->") {
             nText += text.at(i);
             i++;
         }
-        i += 3;
+
+        if (i < text.length()-3) {
+            i += 3;
+        }
     }
     else if (text.substr(0, 9) == "<![CDATA[") {
         recon.type = DOM::Node::CDATA_SECTION_NODE;
 
         i = 9;
-        while (i < text.length() && text.substr(i, 3) != "]]>") {
+        while (i < text.length()-3 && text.substr(i, 3) != "]]>") {
             nText += text.at(i);
             i++;
         }
-        i += 3;
+
+        if (i < text.length()-3) {
+            i += 3;
+        }
     }
     else {
         recon.type = DOM::Node::ELEMENT_NODE;

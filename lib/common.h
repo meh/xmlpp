@@ -19,8 +19,10 @@
 ****************************************************************************/
 
 
-#if !defined(XMLPP_COMMON)
-#define XMLPP_COMMON TRUE
+#if !defined(XMLPP_COMMON_H)
+#define XMLPP_COMMON_H
+
+#include <iostream>
 
 #include <string>
 #include <cstring>
