@@ -27,19 +27,6 @@ Parser::Parser (void)
     _document = NULL;
 }
 
-Parser::Parser (Parser* specializedParser)
-{
-    _document = NULL;
-    _parser   = specializedParser;
-}
-
-Parser::~Parser (void)
-{
-    if (_parser) {
-        delete _parser;
-    }
-}
-
 DOM::Document*
 Parser::load (const std::string& fileName)
 {
@@ -56,7 +43,7 @@ Parser::load (const std::string& fileName)
         file.close();
         text.resize(text.length()-2);
 
-        return _parser->Load(text);
+        return this->Load(text);
     }
     else {
         throw std::exception();
@@ -67,7 +54,7 @@ void
 Parser::save (DOM::Document* document, const std::string& fileName)
 {
     std::ofstream file(fileName.c_str());
-    file << _parser->Save(document);
+    file << this->Save(document);
 }
 
 };

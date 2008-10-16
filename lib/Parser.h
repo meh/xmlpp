@@ -29,21 +29,17 @@ namespace xmlpp {
 
 class Parser
 {
-  protected:
+  public:
     Parser (void);
 
   public:
-    Parser (Parser* specializedParser);
-    virtual ~Parser (void);
-
     DOM::Document* load (const std::string& fileName);
     void save (DOM::Document* document, const std::string& fileName);
 
-    virtual DOM::Document* Load (const std::string& text) {};
-    virtual std::string Save (DOM::Document* document) {};
+    virtual DOM::Document* Load (const std::string& text) = 0;
+    virtual std::string Save (DOM::Document* document) = 0;
 
   protected:
-    Parser* _parser;
     DOM::Document* _document;
 };
 
