@@ -131,39 +131,45 @@ Parser::_fetchElement (const std::string& text)
     }
     std::string nodeName = node->nodeName();
     delete node;
-    
-    std::stack<char> tags;
-    tags.push(0);
 
     size_t i = element.offset;
-    while (i < text.length() && !tags.empty()) {
-        if (text.at(i) == '<') {
-            Parser::Node recon = _recognizeNode(text.substr(i));
-            if (recon.type == DOM::Node::ELEMENT_NODE) {
-                std::string closed = _closingTag(recon.text);
-
-                if (!closed.empty()) {
-                    if (closed == nodeName) {
-                        tags.pop();
+    
+    if (element.text.at(element.text.length()-2) != '/') {
+        std::stack<char> tags;
+        tags.push(0);
+    
+        while (i < text.length() && !tags.empty()) {
+            if (text.at(i) == '<') {
+                Parser::Node recon = _recognizeNode(text.substr(i));
+                if (recon.type == DOM::Node::ELEMENT_NODE) {
+                    std::string closed = _closingTag(recon.text);
+    
+                    if (!closed.empty()) {
+                        if (closed == nodeName) {
+                            tags.pop();
+                        }
+                    }
+                    else {
+                        DOM::Element* node = _parseElementTag(recon.text);
+                        if (node->nodeName() == nodeName) {
+                            tags.push(0);
+                        }
+                        delete node;
                     }
                 }
-                else {
-                    DOM::Element* node = _parseElementTag(recon.text);
-                    if (node->nodeName() == nodeName) {
-                        tags.push(0);
-                    }
-                    delete node;
-                }
+    
+                i += recon.offset;
             }
-
-            i += recon.offset;
+    
+            i++;
         }
 
-        i++;
+        if (!tags.empty()) {
+            throw XMLException(XMLException::TAG_NOT_CLOSED);
+        }
     }
-
-    if (!tags.empty()) {
-        throw XMLException(XMLException::TAG_NOT_CLOSED);
+    else {
+        i++;
     }
 
     fNode.type   = DOM::Node::ELEMENT_NODE;
@@ -298,27 +304,29 @@ Parser::_parseElement (const std::string& text)
 {
     DOM::Element* mainNode = _parseElementTag(text);
 
-    // Removing the closing tag of the main node.
-    std::string innerNode = text.substr(_recognizeNode(text).offset);
-    innerNode.resize(innerNode.find_last_of('<'));
-
-    for (size_t i = 0; i < innerNode.length(); i++) {
-        if (innerNode.at(i) == '<') {
-            Parser::Node node = _fetchNode(innerNode.substr(i));
-            mainNode->appendChild(_parseNode(node));
-
-            i += node.offset;
-        }
-        else {
-            std::string text;
-
-            while (i < innerNode.length() && innerNode.at(i) != '<') {
-                text += innerNode.at(i);
-                i++;
+    if (text.at(text.length()-2) != '/') {
+        // Removing the closing tag of the main node.
+        std::string innerNode = text.substr(_recognizeNode(text).offset);
+        innerNode.resize(innerNode.find_last_of('<'));
+    
+        for (size_t i = 0; i < innerNode.length(); i++) {
+            if (innerNode.at(i) == '<') {
+                Parser::Node node = _fetchNode(innerNode.substr(i));
+                mainNode->appendChild(_parseNode(node));
+    
+                i += node.offset;
             }
-            i--;
-
-            mainNode->appendChild(_document->createTextNode(text));
+            else {
+                std::string text;
+    
+                while (i < innerNode.length() && innerNode.at(i) != '<') {
+                    text += innerNode.at(i);
+                    i++;
+                }
+                i--;
+    
+                mainNode->appendChild(_document->createTextNode(text));
+            }
         }
     }
 
