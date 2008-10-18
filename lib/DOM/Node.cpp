@@ -345,6 +345,20 @@ Node::_specialChars (void)
     return specialChars;
 }
 
+void
+Node::_setOwnerDocument (Node* node, Node* document)
+{
+    _ownerDocument = document;
+
+    switch (this->nodeType()) {
+        case ELEMENT_NODE:
+        for (unsigned long i = 0; i < node->childNodes().length(); i++) {
+            _setOwnerDocument(node->childNodes().item(i), document);
+        }
+        break;
+    }
+}
+
 Node*
 Node::_getElementById (const DOMString& id)
 {

@@ -226,7 +226,10 @@ Element::insertBefore (Node* newChild, Node* refChild) throw()
         throw DOMException(DOMException::NOT_SUPPORTED_ERR);
     }
 
-    if (newChild->ownerDocument() != this->ownerDocument()) {
+    if (newChild->ownerDocument() == NULL) {
+        newChild->_ownerDocument = this->ownerDocument();
+    }
+    else if (newChild->ownerDocument() != this->ownerDocument()) {
         throw DOMException(DOMException::WRONG_DOCUMENT_ERR);
     }
 
@@ -267,7 +270,10 @@ Element::replaceChild (Node* newChild, Node* oldChild) throw()
         throw DOMException(DOMException::NOT_SUPPORTED_ERR);
     }
 
-    if (newChild->ownerDocument() != this->ownerDocument()) {
+    if (newChild->ownerDocument() == NULL) {
+        newChild->_ownerDocument = this->ownerDocument();
+    }
+    else if (newChild->ownerDocument() != this->ownerDocument()) {
         throw DOMException(DOMException::WRONG_DOCUMENT_ERR);
     }
 
@@ -327,7 +333,10 @@ Element::appendChild (Node* newChild) throw()
         throw DOMException(DOMException::NOT_SUPPORTED_ERR);
     }
 
-    if (newChild->ownerDocument() != this->ownerDocument()) {
+    if (newChild->ownerDocument() == NULL) {
+        _setOwnerDocument(newChild, this->ownerDocument());
+    }
+    else if (newChild->ownerDocument() != this->ownerDocument()) {
         throw DOMException(DOMException::WRONG_DOCUMENT_ERR);
     }
 
@@ -355,8 +364,12 @@ Element::hasChildNodes (void)
 Node*
 Element::cloneNode (bool deep)
 {
-    Element* element     = new Element(this->ownerDocument(), this->nodeName());
-    element->_attributes = _attributes;
+    Element* element = new Element(NULL, this->nodeName());
+
+    for (unsigned long i = 0; i < _attributes.length(); i++) {
+        Attr* attr = (Attr*) _attributes.item(i);
+        element->setAttribute(attr->name(), attr->value());
+    }
 
     if (deep) {
         for (unsigned long i = 0; i < _children.length(); i++) {

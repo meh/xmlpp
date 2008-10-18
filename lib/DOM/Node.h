@@ -112,6 +112,7 @@ class Node
     
     std::map<DOMString, DOMString> _specialChars (void);
 
+    void _setOwnerDocument (Node* node, Node* document);
     virtual Node* _getElementById (const DOMString& id);
     virtual void _normalize (void);
 

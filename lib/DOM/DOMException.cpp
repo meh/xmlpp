@@ -32,6 +32,15 @@ DOMException::DOMException (int code) : std::exception ()
         break;
 
         case DOMSTRING_SIZE_ERR:
+        _description = "The range does not fit into a DOMString.";
+        break;
+
+        case HIERARCHY_REQUEST_ERR:
+        _description = "You're trying to insert a node in a wrong place.";
+        break;
+
+        case WRONG_DOCUMENT_ERR:
+        _description = "The document is different from the creator.";
         break;
     }
 }

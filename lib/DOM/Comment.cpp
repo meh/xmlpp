@@ -55,7 +55,7 @@ Comment::nodeValue (const DOMString& value) throw()
 Node*
 Comment::cloneNode (bool deep)
 {
-    return new Comment(this->ownerDocument(), this->data());
+    return new Comment(NULL, this->data());
 }
 
 };
